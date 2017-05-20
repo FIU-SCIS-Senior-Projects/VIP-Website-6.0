@@ -35,27 +35,34 @@ module.exports = function(app, express) {
             active: false
         }
     ];
+    var findActiveTerm = function () {
+        Term.find({active: true}, function(err, term){
+            if(err)
+            {
+                throw "Failed to find the active term."
+            }
+            currentTerm = term;
+        });
+	}
+
     Term.count(function (err, count) {
-    	//todo: what if count returns an error
-        if (!err && count === 0) {
+    	if (err) {
+    		throw "Couldn't get terms count from database to setup seeded term data."
+		}else if (count === 0) {
             Term.create(termsSeed, function(err){
-                ////console.log("Error found ", err);//todo: what if this errors out
+				if (err) {
+					throw "Failed to insert seed data records in the terms mongo collection."
+				}
+				findActiveTerm()//note find active term has to be called here to avoid a possible race condition where we would attempt to get the active term before mongo has actually written the seed data to the collection
             });
-        }
+        } else {
+            findActiveTerm()
+		}
     });
+
     /*
     *Temporal Seed for the terms Ends here
     */
-
-    //Getting the current term
-    Term.find({active: true}, function(err, term){
-        if(err)
-        {//todo: should this really continue if this returns an error?
-            ////console.log("Error getting the term");
-            ////console.log(err);
-        }
-        currentTerm = term;
-    });
 	apiRouter.route('/terms')
 		.post(function(req,res){
 			Term.create(req.body, function(err) {

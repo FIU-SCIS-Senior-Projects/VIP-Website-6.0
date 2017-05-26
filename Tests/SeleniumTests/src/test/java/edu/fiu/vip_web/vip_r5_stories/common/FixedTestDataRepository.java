@@ -6,19 +6,19 @@ package edu.fiu.vip_web.vip_r5_stories.common;
 public class FixedTestDataRepository implements TestDataRepository {
 
     public String getAdminUsername() {
-        return "sadjadi@cs.fiu.edu";
+        return "";
     }
 
     public String getAdminPassword() {
-        return "Research123!";
+        return "";
     }
 
     public String getStudentUsername() {
-        return "jponc021@fiu.edu";
+        return "";
     }
 
     public String getStudentPassword() {
-        return "66A29f149191";
+        return "";
     }
 
     public String getBaseUrl() {

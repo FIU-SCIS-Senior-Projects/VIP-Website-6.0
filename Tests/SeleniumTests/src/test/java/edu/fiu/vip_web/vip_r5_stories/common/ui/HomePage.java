@@ -8,4 +8,5 @@ import org.openqa.selenium.By;
 public class HomePage {
     public static final By LOGIN_BUTTON = By.xpath("//button[@type='button' and text()='Log In']");
     public static final By LOGOFF_BUTTON = By.xpath("//button[@type='button' and text()='Log Out']");
+    public static final By APPLY_FOR_PROJECT = By.cssSelector("div.panel.panel-default > button.btn.btn-primary");
 }

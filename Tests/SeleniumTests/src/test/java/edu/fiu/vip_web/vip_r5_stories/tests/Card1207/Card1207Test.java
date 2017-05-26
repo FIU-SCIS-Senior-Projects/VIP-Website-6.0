@@ -20,12 +20,11 @@ public class Card1207Test extends SeleniumTestBase {
 
     @Test
     public void card1207Test() throws Exception {
-        List<SeleniumTestStep> testSteps = Arrays.asList(
+        executeSteps(Arrays.asList(
                 new AdminLoginStep(getDriver()),
                 new Card1207Step(getDriver()),
                 new LogoffStep(getDriver())
-        );
-        executeSteps(testSteps);
+        ));
     }
 
     @After

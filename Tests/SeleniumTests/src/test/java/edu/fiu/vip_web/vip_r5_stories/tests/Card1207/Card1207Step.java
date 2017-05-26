@@ -14,7 +14,7 @@ public class Card1207Step extends SeleniumTestStep {
 
   @Override
   public void execute() throws Exception {
-    waitForElement(By.linkText(TopMenu.TEXT_PROSPECTIVE_STUDENTS));
+    waitForElement(TopMenu.TEXT_PROSPECTIVE_STUDENTS);
     TopMenu.ProspectiveStudents.goToReviewFacultyRegistrations(getDriver());
     waitForElement(By.xpath(ReviewFacultyRegistrationsPage.XPATH_APPROVE_REGISTRATION_BUTTON_FIRST));
     assertDateFound();

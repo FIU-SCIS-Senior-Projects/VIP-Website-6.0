@@ -5,6 +5,7 @@ import edu.fiu.vip_web.vip_r5_stories.common.TestDataRepository;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.Assert.fail;
@@ -50,6 +51,20 @@ public abstract class SeleniumTestStep {
             Thread.sleep(1000);
         }
         Thread.sleep(1000);
+    }
+
+    /**
+     *
+     * @param selectBox
+     * @param optionToSelect
+     * @return The text of the object selected
+     */
+    protected String select(By selectBox, By optionToSelect) throws InterruptedException {
+        waitForElement(optionToSelect);
+        String selected = driver.findElement(optionToSelect).getText();
+        new Select(driver.findElement(selectBox))
+                .selectByVisibleText(selected);
+        return selected;
     }
 
     protected TestDataRepository getTestData() { return testData; }

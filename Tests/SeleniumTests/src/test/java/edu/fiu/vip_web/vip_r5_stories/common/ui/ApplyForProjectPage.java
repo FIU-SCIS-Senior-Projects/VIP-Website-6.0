@@ -21,7 +21,7 @@ public class ApplyForProjectPage {
     public static final By GENDER_SELECT_SECOND_OPTION = By.xpath("//form/div/table/tbody/tr[6]/td[2]/div/select/option[1]");
 
     public static final By REASON_SELECT = By.xpath("//form/div/table/tbody/tr[7]/td/select");
-    public static final By REASON_SELECT_SECOND_OPTION = By.xpath("//form/div/table/tbody/tr[7]/td/select/option[2]");
+    public static final By REASON_SELECT_THIRD_OPTION = By.xpath("//form/div/table/tbody/tr[7]/td/select/option[3]");
 
     public static final By COLLEGE_SELECT = By.xpath("//form/div/table/tbody/tr[8]/td/select");
     public static final By COLLEGE_SELECT_SECOND_OPTION = By.xpath("//form/div/table/tbody/tr[8]/td/select/option[2]");
@@ -29,7 +29,7 @@ public class ApplyForProjectPage {
     public static final By DEPARTMENT_SELECT = By.xpath("//form/div/table/tbody/tr[9]/td/select");
     public static final By DEPARTMENT_SELECT_SECOND_OPTION = By.xpath("//form/div/table/tbody/tr[9]/td/select/option[2]");
 
-    public static final By EXPERIENCE_TEXTBOX = By.xpath("//form/div/table/tbody/tr[9]/td/div/input");
+    public static final By EXPERIENCE_TEXTBOX = By.xpath("//form/div/table/tbody/tr[10]/td/div/input");
 
     public static final By SUBMIT_BUTTON = By.xpath("//form/div/div[1]/input");
 

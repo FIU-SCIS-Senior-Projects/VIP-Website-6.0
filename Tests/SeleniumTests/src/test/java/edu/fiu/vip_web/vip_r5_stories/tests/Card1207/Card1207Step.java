@@ -14,7 +14,7 @@ public class Card1207Step extends SeleniumTestStep {
 
   @Override
   public void execute() throws Exception {
-    waitForElement(TopMenu.TEXT_PROSPECTIVE_STUDENTS);
+    waitForElement(TopMenu.PROSPECTIVE_STUDENTS_MENU);
     TopMenu.ProspectiveStudents.goToReviewFacultyRegistrations(getDriver());
     waitForElement(By.xpath(ReviewFacultyRegistrationsPage.XPATH_APPROVE_REGISTRATION_BUTTON_FIRST));
     assertDateFound();
@@ -25,7 +25,7 @@ public class Card1207Step extends SeleniumTestStep {
         int i = 2;
         By criteria = null;
         do {
-            criteria = By.xpath(String.format(ReviewFacultyRegistrationsPage.XPATH_REVIEW_FACULTY_REGIISTRATIONS_DATE_FORMAT, i++));
+            criteria = By.xpath(String.format(ReviewFacultyRegistrationsPage.XPATH_REVIEW_FACULTY_REGISTRATIONS_DATE_FORMAT, i++));
             if(isElementPresent(criteria)) {
                 String value = getDriver().findElement(criteria).getAttribute("value");
                 if (value != null && !value.trim().equals("")) {

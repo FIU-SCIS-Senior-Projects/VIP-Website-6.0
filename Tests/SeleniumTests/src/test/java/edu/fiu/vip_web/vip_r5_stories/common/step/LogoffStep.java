@@ -12,8 +12,7 @@ public class LogoffStep extends SeleniumTestStep {
 
     @Override
     public void execute() throws Exception {
-        waitForElement(HomePage.LOGOFF_BUTTON);
-        getDriver().findElement(HomePage.LOGOFF_BUTTON).click();
-        Assert.assertTrue(isElementPresent(HomePage.LOGIN_BUTTON));
+        click(HomePage.LOGOFF_BUTTON);
+        waitForElement(HomePage.LOGIN_BUTTON);
     }
 }

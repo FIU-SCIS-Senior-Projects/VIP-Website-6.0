@@ -30,10 +30,11 @@ public class ApplyForProjectStep extends SeleniumTestStep {
     getDriver().findElement(ApplyForProjectPage.PID_TEXTBOX).sendKeys("5325585");
 
     String gender = select(ApplyForProjectPage.GENDER_SELECT, ApplyForProjectPage.GENDER_SELECT_SECOND_OPTION);
-    String reason = select(ApplyForProjectPage.REASON_SELECT, ApplyForProjectPage.REASON_SELECT_SECOND_OPTION);
+    String reason = select(ApplyForProjectPage.REASON_SELECT, ApplyForProjectPage.REASON_SELECT_THIRD_OPTION);
     String college = select(ApplyForProjectPage.COLLEGE_SELECT, ApplyForProjectPage.COLLEGE_SELECT_SECOND_OPTION);
     String department = select(ApplyForProjectPage.DEPARTMENT_SELECT, ApplyForProjectPage.DEPARTMENT_SELECT_SECOND_OPTION);
 
+    waitForElement(ApplyForProjectPage.EXPERIENCE_TEXTBOX);
     getDriver().findElement(ApplyForProjectPage.EXPERIENCE_TEXTBOX).clear();
     getDriver().findElement(ApplyForProjectPage.EXPERIENCE_TEXTBOX).sendKeys("absolutely none");
 

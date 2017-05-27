@@ -2,6 +2,7 @@ package edu.fiu.vip_web.vip_r5_stories.common.step;
 
 import edu.fiu.vip_web.vip_r5_stories.common.FixedTestDataRepository;
 import edu.fiu.vip_web.vip_r5_stories.common.TestDataRepository;
+import edu.fiu.vip_web.vip_r5_stories.common.ui.ApplyForProjectPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -53,6 +54,35 @@ public abstract class SeleniumTestStep {
         Thread.sleep(1000);
     }
 
+    protected void waitForElementGone(By element) throws InterruptedException {
+        waitForElementGone(element, 60);
+    }
+    protected void waitForElementGone(By element, int seconds) throws InterruptedException {
+        for (int second = 0;; second++) {
+            if (second >= seconds) fail("timeout");
+            try {
+                if (!isElementPresent(element))
+                    break;
+            } catch (Exception e) {}
+            Thread.sleep(1000);
+        }
+        Thread.sleep(1000);
+    }
+    protected void waitForUrlToBe(String url) throws InterruptedException {
+        waitForUrlToBe(url, 30);
+    }
+    protected void waitForUrlToBe(String url, int seconds) throws InterruptedException {
+        for (int second = 0;; second++) {
+            if (second >= seconds) fail("timeout");
+            try {
+                if (driver.getCurrentUrl().equals(url))
+                    break;
+            } catch (Exception e) {}
+            Thread.sleep(1000);
+        }
+        Thread.sleep(1000);
+    }
+
     /**
      *
      * @param selectBox
@@ -65,6 +95,17 @@ public abstract class SeleniumTestStep {
         new Select(driver.findElement(selectBox))
                 .selectByVisibleText(selected);
         return selected;
+    }
+
+    protected void click(By element) throws InterruptedException {
+        waitForElement(element);
+        driver.findElement(element).click();
+    }
+
+    protected void type(By textBox, String text) throws InterruptedException {
+        waitForElement(textBox);
+        driver.findElement(textBox).clear();
+        driver.findElement(textBox).sendKeys(text);
     }
 
     protected TestDataRepository getTestData() { return testData; }

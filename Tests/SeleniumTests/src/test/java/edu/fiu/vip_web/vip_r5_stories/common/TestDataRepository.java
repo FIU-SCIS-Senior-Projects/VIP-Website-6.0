@@ -9,4 +9,5 @@ public interface TestDataRepository {
     String getStudentUsername();
     String getStudentPassword();
     String getBaseUrl();
+    String getDownloadFolder();
 }

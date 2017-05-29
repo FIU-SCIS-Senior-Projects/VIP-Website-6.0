@@ -29,7 +29,7 @@ public class Card1214Test extends SeleniumTestBase {
     }
 
     @After
-    public void teardown() {
+    public void teardown() throws Exception {
         super.teardown();
     }
 }

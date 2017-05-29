@@ -6,8 +6,12 @@ import edu.fiu.vip_web.vip_r5_stories.common.ui.ApplyForProjectPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.fail;
 
@@ -18,6 +22,8 @@ public abstract class SeleniumTestStep {
     private WebDriver driver;
     private WebDriverWait wait;
     private TestDataRepository testData;
+
+    protected static final String DATE_FORMAT = "MM/dd/yyyy HH:mm:ss a";
 
     public SeleniumTestStep(WebDriver driver) {
         if (driver == null) {
@@ -43,6 +49,7 @@ public abstract class SeleniumTestStep {
         waitForElement(by, 60);
     }
     protected  void waitForElement(By by, int seconds) throws InterruptedException {
+        wait.withTimeout(seconds, TimeUnit.SECONDS).until(ExpectedConditions.elementToBeClickable(by));
         for (int second = 0;; second++) {
             if (second >= seconds) fail("timeout");
             try {

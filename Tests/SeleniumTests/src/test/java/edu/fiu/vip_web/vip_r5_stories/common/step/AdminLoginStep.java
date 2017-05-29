@@ -13,8 +13,7 @@ public class AdminLoginStep extends SeleniumTestStep {
 
     @Override
     public void execute() throws Exception {
-        waitForElement(HomePage.LOGIN_BUTTON);
-        getDriver().findElement(HomePage.LOGIN_BUTTON).click();
+        click(HomePage.LOGIN_BUTTON);
 
         waitForElement(LoginPage.EMAIL_TEXTBOX);
         getDriver().findElement(LoginPage.EMAIL_TEXTBOX).clear();

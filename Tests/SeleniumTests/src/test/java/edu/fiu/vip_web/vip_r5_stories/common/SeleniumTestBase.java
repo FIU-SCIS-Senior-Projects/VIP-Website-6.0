@@ -42,7 +42,7 @@ public class SeleniumTestBase {
 
     public WebDriver getDriver() { return driver; }
 
-    public void teardown() {
+    public void teardown() throws Exception {
         driver.manage().deleteAllCookies();
         driver.quit();
     }

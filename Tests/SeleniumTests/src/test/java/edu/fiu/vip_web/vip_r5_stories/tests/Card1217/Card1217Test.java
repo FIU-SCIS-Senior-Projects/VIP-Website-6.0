@@ -26,13 +26,16 @@ public class Card1217Test extends SeleniumTestBase {
                 new StudentLoginStep(getDriver()),
                 new LogoffStep(getDriver()),
                 new AdminLoginStep(getDriver()),
-                new Card1217Step(getDriver()),
-                new LogoffStep(getDriver())
+                new Card1217Step(getDriver())
         ));
     }
 
     @After
     public void teardown() throws Exception {
-        super.teardown();
+        try {
+            new LogoffStep(getDriver()).execute();
+        } finally {
+            super.teardown();
+        }
     }
 }

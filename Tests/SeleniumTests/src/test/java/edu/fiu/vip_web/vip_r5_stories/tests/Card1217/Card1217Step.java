@@ -23,6 +23,7 @@ public class Card1217Step extends SeleniumTestStep {
         waitForElementGone(By.xpath(String.format(AdminPanelPage.XPATH_FIRST_NAME_FIELD_FORMAT, 2)));//wait for all other users to be filtered out
         Assert.assertTrue(getDriver().findElement(AdminPanelPage.FIRST_LOGIN_DATE_LABEL).getText()
                 .toLowerCase().contains("First Login_Date".toLowerCase()));//check this is definitely the first login date column
-        Assert.assertTrue(!getDriver().findElement(AdminPanelPage.FIRST_LOGIN_DATE_FIELD_FIRST).getText().trim().equals(""));//check that it's not empty
+        Assert.assertTrue("First login date doesn't seem to be populated. This feature may not be implemented.",
+                !getDriver().findElement(AdminPanelPage.FIRST_LOGIN_DATE_FIELD_FIRST).getText().trim().equals(""));//check that it's not empty
     }
 }

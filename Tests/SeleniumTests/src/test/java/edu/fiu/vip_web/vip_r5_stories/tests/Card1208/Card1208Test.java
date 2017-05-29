@@ -25,14 +25,19 @@ public class Card1208Test extends SeleniumTestBase {
                 new ApplyForProjectStep(getDriver()),
                 new LogoffStep(getDriver()),
                 new AdminLoginStep(getDriver()),
-                new Card1208Step(getDriver()),
-                new RejectStudentApplicationStep(getDriver()),
-                new LogoffStep(getDriver())
+                new Card1208Step(getDriver())
         ));
     }
 
     @After
     public void teardown() throws Exception {
-        super.teardown();
+        try {
+            executeSteps(Arrays.asList(
+                    new RejectStudentApplicationStep(getDriver()),
+                    new LogoffStep(getDriver())
+            ));
+        } finally {
+            super.teardown();
+        }
     }
 }

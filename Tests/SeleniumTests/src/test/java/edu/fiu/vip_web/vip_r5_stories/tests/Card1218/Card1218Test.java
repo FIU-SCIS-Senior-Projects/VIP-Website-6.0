@@ -24,14 +24,19 @@ public class Card1218Test extends SeleniumTestBase {
     public void card1218Test() throws Exception {
         executeSteps(Arrays.asList(
                 new AdminLoginStep(getDriver()),
-                new Card1218Step(getDriver()),
-                new RejectProjectProposalStep(getDriver()),
-                new LogoffStep(getDriver())
+                new Card1218Step(getDriver())//this submits a proposal but the proposeProjectStep can't be used
         ));
     }
 
     @After
     public void teardown() throws Exception {
-        super.teardown();
+        try {
+            executeSteps(Arrays.asList(
+                    new RejectProjectProposalStep(getDriver()),
+                    new LogoffStep(getDriver())
+            ));
+        } finally {
+            super.teardown();
+        }
     }
 }

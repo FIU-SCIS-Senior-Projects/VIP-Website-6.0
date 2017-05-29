@@ -14,13 +14,9 @@ public class AdminLoginStep extends SeleniumTestStep {
     @Override
     public void execute() throws Exception {
         click(HomePage.LOGIN_BUTTON);
-
-        waitForElement(LoginPage.EMAIL_TEXTBOX);
-        getDriver().findElement(LoginPage.EMAIL_TEXTBOX).clear();
-        getDriver().findElement(LoginPage.EMAIL_TEXTBOX).sendKeys(getTestData().getAdminUsername());
-        getDriver().findElement(LoginPage.PASSWORD_TEXTBOX).clear();
-        getDriver().findElement(LoginPage.PASSWORD_TEXTBOX).sendKeys(getTestData().getAdminPassword());
-        getDriver().findElement(LoginPage.LOGIN_BUTTON).click();
+        type(LoginPage.EMAIL_TEXTBOX, getTestData().getAdminUsername());
+        type(LoginPage.PASSWORD_TEXTBOX, getTestData().getAdminPassword());
+        click(LoginPage.LOGIN_BUTTON);
         waitForElement(HomePage.LOGOFF_BUTTON);
     }
 }

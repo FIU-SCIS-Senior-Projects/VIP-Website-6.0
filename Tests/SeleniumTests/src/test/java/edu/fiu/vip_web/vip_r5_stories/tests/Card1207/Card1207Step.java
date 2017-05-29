@@ -17,22 +17,8 @@ public class Card1207Step extends SeleniumTestStep {
     waitForElement(TopMenu.PROSPECTIVE_STUDENTS_MENU);
     TopMenu.ProspectiveStudents.goToReviewFacultyRegistrations(getDriver());
     waitForElement(By.xpath(ReviewFacultyRegistrationsPage.XPATH_APPROVE_REGISTRATION_BUTTON_FIRST));
-    assertDateFound();
+    boolean dateFound = checkDateFound(ReviewFacultyRegistrationsPage.XPATH_REVIEW_FACULTY_REGISTRATIONS_DATE_FORMAT, 2,
+            element -> element.getAttribute("value"));
+    Assert.assertTrue(dateFound);
   }
-
-  private void assertDateFound() {
-        boolean dateFound = false;
-        int i = 2;
-        By criteria = null;
-        do {
-            criteria = By.xpath(String.format(ReviewFacultyRegistrationsPage.XPATH_REVIEW_FACULTY_REGISTRATIONS_DATE_FORMAT, i++));
-            if(isElementPresent(criteria)) {
-                String value = getDriver().findElement(criteria).getAttribute("value");
-                if (value != null && !value.trim().equals("")) {
-                    dateFound = true;
-                }
-            }
-        } while(isElementPresent(criteria) && !dateFound);
-        Assert.assertTrue(dateFound);
-    }
 }

@@ -25,13 +25,16 @@ public class Card1210Test extends SeleniumTestBase {
         executeSteps(Arrays.asList(
                 new AdminLoginStep(getDriver()),
                 new DownloadExcelUsersDataStep(getDriver()),
-                new Card1210Step(getDriver()),
-                new LogoffStep(getDriver())
+                new Card1210Step(getDriver())
         ));
     }
 
     @After
     public void teardown() throws Exception {
-        super.teardown();
+        try {
+            new LogoffStep(getDriver()).execute();
+        } finally {
+            super.teardown();
+        }
     }
 }

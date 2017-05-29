@@ -26,14 +26,19 @@ public class Card1209Test extends SeleniumTestBase {
         executeSteps(Arrays.asList(
                 new AdminLoginStep(getDriver()),
                 new ProposeProjectStep(getDriver()),
-                new Card1209Step(getDriver()),
-                new RejectProjectProposalStep(getDriver()),
-                new LogoffStep(getDriver())
+                new Card1209Step(getDriver())
         ));
     }
 
     @After
     public void teardown() throws Exception {
-        super.teardown();
+        try {
+            executeSteps(Arrays.asList(
+                    new RejectProjectProposalStep(getDriver()),
+                    new LogoffStep(getDriver())
+            ));
+        } finally {
+            super.teardown();
+        }
     }
 }

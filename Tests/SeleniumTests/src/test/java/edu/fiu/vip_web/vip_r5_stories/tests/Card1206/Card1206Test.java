@@ -32,9 +32,12 @@ public class Card1206Test extends SeleniumTestBase {
     }
     @After
     public void teardown() throws Exception {
-        new RejectProjectProposalStep(getDriver()).execute();
-        new RejectStudentApplicationStep(getDriver()).execute();
-        new LogoffStep(getDriver()).execute();
-        super.teardown();
+        try {
+            new RejectProjectProposalStep(getDriver()).execute();
+            new RejectStudentApplicationStep(getDriver()).execute();
+            new LogoffStep(getDriver()).execute();
+        } finally {
+            super.teardown();
+        }
     }
 }

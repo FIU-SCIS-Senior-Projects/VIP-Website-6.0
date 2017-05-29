@@ -21,8 +21,9 @@ public class Card1211Step extends SeleniumTestStep {
         click(HomePage.ADMIN_PANEL_BUTTON);
         waitForElement(AdminPanelPage.DOWNLOAD_EXCEL_BUTTON);
         int users = countUsers();
-        type(AdminPanelPage.GENDER_FILTER_TEXTBOX, "female");
-        Assert.assertTrue(users > countUsers());
+        Assert.assertTrue(users > 1);
+        type(AdminPanelPage.EMAIL_FILTER_TEXTBOX, getTestData().getStudentUsername());
+        Assert.assertTrue(countUsers() == 1);
     }
 
     private int countUsers() {

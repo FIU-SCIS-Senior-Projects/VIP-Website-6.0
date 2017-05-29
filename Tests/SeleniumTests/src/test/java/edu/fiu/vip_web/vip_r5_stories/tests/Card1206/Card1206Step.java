@@ -7,6 +7,7 @@ import edu.fiu.vip_web.vip_r5_stories.common.ui.HomePage;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * Created by josep on 5/29/17.
@@ -40,38 +42,19 @@ public class Card1206Step extends SeleniumTestStep {
         Assert.assertTrue(getDriver().findElement(AdminPanelPage.FIRST_LOGIN_DATE_LABEL)
                 .getText().toLowerCase().contains("First Login_Date".toLowerCase()));
 
+        Function<WebElement, String> getValue = element -> element.getText();
 
-        if (!assertDateFound(AdminPanelPage.XPATH_PROJECT_APPLICATION_DATE_FIELD_FORMAT)) {
+        if (!checkDateFound(AdminPanelPage.XPATH_PROJECT_APPLICATION_DATE_FIELD_FORMAT, 1, getValue)) {
             Assert.fail("Project application date doesn't seem to be recorded/shown");
         }
-        if (!assertDateFound(AdminPanelPage.XPATH_USER_REGISTRATION_DATE_FIELD_FORMAT)) {
+        if (!checkDateFound(AdminPanelPage.XPATH_USER_REGISTRATION_DATE_FIELD_FORMAT, 1, getValue)) {
             Assert.fail("User registration date doesn't seem to be recorded/shown");
         }
-        if (!assertDateFound(AdminPanelPage.XPATH_FIRST_LOGIN_DATE_FIELD_FORMAT)) {
+        if (!checkDateFound(AdminPanelPage.XPATH_FIRST_LOGIN_DATE_FIELD_FORMAT, 1, getValue)) {
             Assert.fail("First login date doesn't seem to be recorded/shown");
         }
 
         verifyExcelFile();
-    }
-
-    private boolean assertDateFound(String format) {
-        DateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
-        boolean dateFound = false;
-        int i = 1;
-        By criteria = null;
-        do {
-            criteria = By.xpath(String.format(format, i++));
-            if(isElementPresent(criteria)) {
-                String text = getDriver().findElement(criteria).getText();
-                try {
-                    if (text != null) {
-                        formatter.parse(text);
-                        dateFound = true;
-                    }
-                } catch(ParseException e) { }
-            }
-        } while(isElementPresent(criteria) && !dateFound);
-        return dateFound;
     }
 
     private void verifyExcelFile() {

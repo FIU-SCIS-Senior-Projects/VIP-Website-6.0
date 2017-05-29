@@ -32,6 +32,4 @@ public class ApplyForProjectPage {
     public static final By EXPERIENCE_TEXTBOX = By.xpath("//form/div/table/tbody/tr[10]/td/div/input");
 
     public static final By SUBMIT_BUTTON = By.xpath("//form/div/div[1]/input");
-
-    public static final By SUBMIT_CONFIRM_BUTTON = By.cssSelector("button.confirm");
 }

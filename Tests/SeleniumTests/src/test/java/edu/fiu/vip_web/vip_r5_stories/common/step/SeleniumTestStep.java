@@ -3,15 +3,23 @@ package edu.fiu.vip_web.vip_r5_stories.common.step;
 import edu.fiu.vip_web.vip_r5_stories.common.FixedTestDataRepository;
 import edu.fiu.vip_web.vip_r5_stories.common.TestDataRepository;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.ApplyForProjectPage;
+import edu.fiu.vip_web.vip_r5_stories.common.ui.ReviewProjectProposalPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import static org.junit.Assert.fail;
 
@@ -46,48 +54,26 @@ public abstract class SeleniumTestStep {
     }
 
     protected  void waitForElement(By by) throws InterruptedException {
-        waitForElement(by, 60);
+        waitForElement(by, 5);
     }
     protected  void waitForElement(By by, int seconds) throws InterruptedException {
         wait.withTimeout(seconds, TimeUnit.SECONDS).until(ExpectedConditions.elementToBeClickable(by));
-        for (int second = 0;; second++) {
-            if (second >= seconds) fail("timeout");
-            try {
-                if (isElementPresent(by))
-                    break;
-            } catch (Exception e) {}
-            Thread.sleep(1000);
-        }
-        Thread.sleep(1000);
+        Thread.sleep(500);
     }
 
     protected void waitForElementGone(By element) throws InterruptedException {
-        waitForElementGone(element, 60);
+        waitForElementGone(element, 5);
     }
     protected void waitForElementGone(By element, int seconds) throws InterruptedException {
-        for (int second = 0;; second++) {
-            if (second >= seconds) fail("timeout");
-            try {
-                if (!isElementPresent(element))
-                    break;
-            } catch (Exception e) {}
-            Thread.sleep(1000);
-        }
-        Thread.sleep(1000);
+        wait.withTimeout(seconds, TimeUnit.SECONDS).until(ExpectedConditions.invisibilityOfElementLocated(element));
+        Thread.sleep(500);
     }
     protected void waitForUrlToBe(String url) throws InterruptedException {
-        waitForUrlToBe(url, 30);
+        waitForUrlToBe(url, 10);
     }
     protected void waitForUrlToBe(String url, int seconds) throws InterruptedException {
-        for (int second = 0;; second++) {
-            if (second >= seconds) fail("timeout");
-            try {
-                if (driver.getCurrentUrl().equals(url))
-                    break;
-            } catch (Exception e) {}
-            Thread.sleep(1000);
-        }
-        Thread.sleep(1000);
+        wait.withTimeout(seconds, TimeUnit.SECONDS).until(ExpectedConditions.urlToBe(url));
+        Thread.sleep(500);
     }
 
     /**
@@ -113,6 +99,48 @@ public abstract class SeleniumTestStep {
         waitForElement(textBox);
         driver.findElement(textBox).clear();
         driver.findElement(textBox).sendKeys(text);
+    }
+
+    protected boolean checkDateFound(String format, int startingIndex, Function<WebElement, String> getDateValue) {
+        DateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
+        boolean dateFound = false;
+        int i = startingIndex;
+        By criteria = null;
+        do {
+            criteria = By.xpath(String.format(format, i++));
+            if(isElementPresent(criteria)) {
+                String text = getDateValue.apply(getDriver().findElement(criteria));
+                try {
+                    if (text != null) {
+                        formatter.parse(text);
+                        dateFound = true;
+                    }
+                } catch(ParseException e) { }
+            }
+        } while(isElementPresent(criteria) && !dateFound);
+        return dateFound;
+    }
+
+    protected int findTodaysIndexByFormat(String xpathFormat, int startingIndex) {
+        boolean dateFound = false;
+        int i = startingIndex;
+        Calendar date = GregorianCalendar.getInstance();
+        By criteria = null;
+        do {
+            criteria = By.xpath(String.format(xpathFormat, i));
+            if(isElementPresent(criteria)) {
+                String value = getDriver().findElement(criteria).getAttribute("value");
+                if (value != null &&
+                        value.trim().startsWith(String.format("%02d/%02d/%d",
+                                date.get(Calendar.MONTH) + 1, date.get(Calendar.DAY_OF_MONTH), date.get(Calendar.YEAR)))) {
+                    dateFound = true;
+                    break;
+                } else {
+                    i++;
+                }
+            }
+        } while(isElementPresent(criteria) && !dateFound);
+        return dateFound ? i : -1;
     }
 
     protected TestDataRepository getTestData() { return testData; }

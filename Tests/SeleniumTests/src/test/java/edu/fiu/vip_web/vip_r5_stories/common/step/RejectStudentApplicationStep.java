@@ -2,6 +2,7 @@ package edu.fiu.vip_web.vip_r5_stories.common.step;
 
 import edu.fiu.vip_web.vip_r5_stories.common.ui.Dialog;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.ReviewUserPage;
+import edu.fiu.vip_web.vip_r5_stories.common.ui.TopMenu;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 
@@ -16,7 +17,9 @@ public class RejectStudentApplicationStep extends SeleniumTestStep {
 
     @Override
     public void execute() throws Exception {
-        Assert.assertTrue(getDriver().getCurrentUrl().contains("reviewuser"));
+        waitForElement(TopMenu.PROSPECTIVE_STUDENTS_MENU);
+        TopMenu.ProspectiveStudents.goToReviewStudentApplications(getDriver());
+        waitForUrlToBe(getTestData().getBaseUrl() + "reviewuser");
         click(ReviewUserPage.REJECT_FIRST_USER_BUTTON);
         click(Dialog.CONFIRM_BUTTON);
     }

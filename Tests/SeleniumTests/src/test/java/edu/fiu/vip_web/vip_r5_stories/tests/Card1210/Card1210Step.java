@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 
 import java.io.File;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**

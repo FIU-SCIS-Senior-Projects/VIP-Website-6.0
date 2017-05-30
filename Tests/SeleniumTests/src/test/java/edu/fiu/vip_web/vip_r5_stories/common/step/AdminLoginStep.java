@@ -2,7 +2,6 @@ package edu.fiu.vip_web.vip_r5_stories.common.step;
 
 import edu.fiu.vip_web.vip_r5_stories.common.ui.HomePage;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.LoginPage;
-import org.junit.Assert;
 import org.openqa.selenium.*;
 
 public class AdminLoginStep extends SeleniumTestStep {

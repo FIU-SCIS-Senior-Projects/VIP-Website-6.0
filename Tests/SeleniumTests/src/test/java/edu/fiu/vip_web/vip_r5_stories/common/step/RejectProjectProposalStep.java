@@ -1,7 +1,6 @@
 package edu.fiu.vip_web.vip_r5_stories.common.step;
 
 import edu.fiu.vip_web.vip_r5_stories.common.ui.Dialog;
-import edu.fiu.vip_web.vip_r5_stories.common.ui.ReviewFacultyRegistrationsPage;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.ReviewProjectProposalPage;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.TopMenu;
 import org.junit.Assert;

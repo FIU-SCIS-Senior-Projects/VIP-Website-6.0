@@ -5,7 +5,6 @@ import edu.fiu.vip_web.vip_r5_stories.common.step.SeleniumTestStep;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.AdminPanelPage;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.HomePage;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 

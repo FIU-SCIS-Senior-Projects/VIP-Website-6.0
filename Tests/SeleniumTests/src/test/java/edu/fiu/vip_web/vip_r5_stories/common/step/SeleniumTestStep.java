@@ -2,13 +2,10 @@ package edu.fiu.vip_web.vip_r5_stories.common.step;
 
 import edu.fiu.vip_web.vip_r5_stories.common.FixedTestDataRepository;
 import edu.fiu.vip_web.vip_r5_stories.common.TestDataRepository;
-import edu.fiu.vip_web.vip_r5_stories.common.ui.ApplyForProjectPage;
-import edu.fiu.vip_web.vip_r5_stories.common.ui.ReviewProjectProposalPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -20,8 +17,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
-
-import static org.junit.Assert.fail;
 
 /**
  * Created by josep on 5/26/17.

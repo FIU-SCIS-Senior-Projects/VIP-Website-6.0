@@ -2,7 +2,6 @@ package edu.fiu.vip_web.vip_r5_stories.common;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
@@ -34,7 +33,7 @@ public class ExcelDocument {
 
     public List<String> getRow(int page, int rowNum) {
         XSSFRow row = doc.getSheetAt(page).getRow(rowNum);
-        List<String> values = new ArrayList<String>();
+        List<String> values = new ArrayList<>();
         for (int i = 0; i < getColCount(page, rowNum); i++) {
             values.add(getAt(page, rowNum, i));
         }

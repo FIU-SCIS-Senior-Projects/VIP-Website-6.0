@@ -1,20 +1,11 @@
 package edu.fiu.vip_web.vip_r5_stories.common.step;
 
-import java.util.regex.Pattern;
-import java.util.concurrent.TimeUnit;
-
 import edu.fiu.vip_web.vip_r5_stories.common.ui.ApplyForProjectPage;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.Dialog;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.HomePage;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.TopMenu;
-import org.junit.*;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class ApplyForProjectStep extends SeleniumTestStep {
 

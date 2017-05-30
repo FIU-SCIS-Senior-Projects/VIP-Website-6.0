@@ -2,7 +2,6 @@ package edu.fiu.vip_web.vip_r5_stories.tests.Card1215;
 
 import edu.fiu.vip_web.vip_r5_stories.common.step.SeleniumTestStep;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.FooterSection;
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 
 /**

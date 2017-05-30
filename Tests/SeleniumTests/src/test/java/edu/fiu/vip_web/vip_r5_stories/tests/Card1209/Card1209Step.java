@@ -1,11 +1,9 @@
 package edu.fiu.vip_web.vip_r5_stories.tests.Card1209;
 
 import edu.fiu.vip_web.vip_r5_stories.common.step.SeleniumTestStep;
-import edu.fiu.vip_web.vip_r5_stories.common.ui.ReviewFacultyRegistrationsPage;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.ReviewProjectProposalPage;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.TopMenu;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 /**

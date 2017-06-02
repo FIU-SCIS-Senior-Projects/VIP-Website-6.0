@@ -17,8 +17,8 @@ var app			= express();
 app.set("host", "localhost");
 
 //connect to mongodb
-mongoose.connect(config.database);
-mongoose.connection.on('error', function(err){
+mongoose.connect(config.database, { server: { poolSize: 30 } });
+mongoose.connection.on('error', function(err) {
 	//console.log('Error: could not connect to MongoDB.');
 });
 
@@ -31,9 +31,6 @@ app.use(function(req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
 	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
-    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
-    res.header("Pragma", "no-cache");
-    res.header("Expires", 0);
 	next();
 });
 
@@ -44,7 +41,7 @@ app.use(flash());
 
 // set static files location
 // used for requests that our frontend will make
-app.use(express.static(__dirname + '/webapp'));
+app.use(express.static(__dirname + '/webapp', { maxage: '1d' }));
 app.set('root',__dirname + '/webapp');
 
 var userRoutes = require('./api/routes/userRoutes')(app, express);

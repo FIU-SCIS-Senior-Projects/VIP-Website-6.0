@@ -1,5 +1,5 @@
 module.exports = {
 'port':3000,
-'database':'mongodb://teamcity-agent-senior.ignorelist.com:65532/admin', //this is blank, because I havent setup mongo yet.
+'database':'mongodb://localhost:27017/admin', //this is blank, because I havent setup mongo yet.
 'secret':'whateveryouwant'
 };

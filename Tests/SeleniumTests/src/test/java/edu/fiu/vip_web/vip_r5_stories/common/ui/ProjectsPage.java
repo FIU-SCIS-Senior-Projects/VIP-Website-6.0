@@ -7,4 +7,8 @@ import org.openqa.selenium.By;
  */
 public class ProjectsPage {
     public static final By FIRST_PROJECT_LINK = By.xpath("//div[3]/div/h3[2]/a");
+    
+    public static final By SEARCH_BOX = By.cssSelector("input.form-control"); 
+    
+    public static final By PROJECT_TITLES = By.cssSelector("a.ng-binding"); 
 }

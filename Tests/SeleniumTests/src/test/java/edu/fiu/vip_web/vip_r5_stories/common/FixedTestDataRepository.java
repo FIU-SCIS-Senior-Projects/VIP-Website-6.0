@@ -6,6 +6,7 @@ package edu.fiu.vip_web.vip_r5_stories.common;
 public class FixedTestDataRepository implements TestDataRepository {
 
     public String getAdminUsername() {
+        
         return System.getenv("VIP_ADMIN_USERNAME");
     }
 
@@ -30,6 +31,15 @@ public class FixedTestDataRepository implements TestDataRepository {
     }
 
     public String getDownloadFolder() {
-        return "/home/josep";
+        
+        if (getOS().contains("mac")) 
+            return "/Users/Dafna/Downloads/"; 
+        else 
+            return "/home/josep";
+    }
+    
+    public String getOS() 
+    {
+        return System.getProperty("os.name").toLowerCase();
     }
 }

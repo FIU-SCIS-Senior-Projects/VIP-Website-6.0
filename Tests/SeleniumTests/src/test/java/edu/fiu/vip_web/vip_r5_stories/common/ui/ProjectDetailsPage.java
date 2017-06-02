@@ -7,4 +7,12 @@ import org.openqa.selenium.By;
  */
 public class ProjectDetailsPage {
     public static final By PROJECT_NAME_HEADER = By.xpath("//h2[@class='proj-title-teams']/strong");
+    
+    // ADDED BY DAFNA 
+    public static final By JOIN_BUTTON = By.xpath("//div/div/div/div[3]/div[2]/div[3]"); 
+    public static final By EDIT_BUTTON = By.xpath("//div/div/div/div[3]/div[2]/div[4]"); 
+    public static final By DELETE_BUTTON = By.xpath("//div/div/div/div[3]/div[2]/div[4]"); 
+    
+    public static final By SKILLS_DESCRIPTION = By.xpath("//div/div/div/div[2]/div/p[1]"); 
 }
+

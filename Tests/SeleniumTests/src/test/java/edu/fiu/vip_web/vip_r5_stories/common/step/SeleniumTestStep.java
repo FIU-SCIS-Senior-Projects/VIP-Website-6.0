@@ -77,6 +77,14 @@ public abstract class SeleniumTestStep {
      * @param optionToSelect
      * @return The text of the object selected
      */
+    
+    protected String sleect(By selectBox, String stringToMatch) throws InterruptedException
+    {
+     
+        // NEED TO DO IMPLIMENTATION 
+        String selected = "";
+        return selected; 
+    }
     protected String select(By selectBox, By optionToSelect) throws InterruptedException {
         waitForElement(optionToSelect);
         String selected = driver.findElement(optionToSelect).getText();

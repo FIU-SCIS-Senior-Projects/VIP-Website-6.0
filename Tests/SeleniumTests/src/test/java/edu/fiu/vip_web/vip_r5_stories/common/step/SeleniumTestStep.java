@@ -126,7 +126,7 @@ public abstract class SeleniumTestStep {
             if(isElementPresent(criteria)) {
                 String value = getDriver().findElement(criteria).getAttribute("value");
                 if (value != null &&
-                        value.trim().startsWith(String.format("%02d/%02d/%d",
+                        value.trim().startsWith(String.format("%d/%d/%d",
                                 date.get(Calendar.MONTH) + 1, date.get(Calendar.DAY_OF_MONTH), date.get(Calendar.YEAR)))) {
                     dateFound = true;
                     break;

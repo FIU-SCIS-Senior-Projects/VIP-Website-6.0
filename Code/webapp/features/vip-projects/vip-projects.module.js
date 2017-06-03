@@ -1,6 +1,5 @@
 (function() {
     'use strict';
 
-    angular.module('vip-projects', []);	
-
+    angular.module('vip-projects', []);
 })();

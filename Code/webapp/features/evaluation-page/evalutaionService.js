@@ -1,7 +1,9 @@
-angular
-    .module('evaluationController')
-    .factory('evaluationService', contactService);
+(function() {
+    angular
+        .module('evaluationController')
+        .factory('evaluationService', contactService);
 
-function contactService() {
-}
+    function contactService() {
+    }
+}());
 

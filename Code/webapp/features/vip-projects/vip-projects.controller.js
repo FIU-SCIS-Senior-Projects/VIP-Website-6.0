@@ -204,7 +204,7 @@
                     projects.push(proj);
                 });    
                 vm.temProj.clear();
-            })
+            });
             
             vm.projects = [];
             angular.copy(projects, vm.projects);
@@ -213,4 +213,3 @@
         }
     }
 })();
-

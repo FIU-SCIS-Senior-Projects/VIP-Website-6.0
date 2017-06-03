@@ -12,6 +12,7 @@ var path		= require('path');
 var config		= require('./api/config/config');
 var app			= express();
 
+require('./deployment/gulpfile')('./webapp/');//this will take care to generate the distrib js and css files.
 
 //Set HOST 
 app.set("host", "localhost");

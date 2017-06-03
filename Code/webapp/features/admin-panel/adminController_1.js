@@ -740,46 +740,5 @@ vm.alldata.forEach(function (obj)
 				changeclear_msg();
 			}
 		};
-		
-		
 	}
 })();
-
-
-
-
-
-
-/* OLD CODE THAT WAS IN ADMIN.HTML
-
-
-<div class="col-md-3">
-				<div class="panel panel-default">
-					<table class="table">
-					<tr>
-						<th>
-							<b>Select User:</b><select class="form-control"></select>
-						</th>
-					</tr>
-					<tr>
-						<th>
-							<p><b>Name:</b></p>	
-							<p><b>Gender:</b></p>
-							<p><b>UserType:</b></p>
-							<p><b>UserRank:</b></p>
-							<p><b>Email:</b></p>	
-							<p><b>Department:</b></p>	
-							<p><b>College:</b></p>	
-							<p><b>Project:</b></p>		
-						</th>
-					</tr>
-					<tr>
-					<th>
-					<button style= "width: 80px;" class="btn btn-info btn-block">Message</button>
-					</th>
-					</tr>
-					</table>
-				</div>
-				</div>
-*/
-

@@ -14,9 +14,14 @@ public class ProposeProjectStep extends SeleniumTestStep {
         super(driver);
     }
 
-    public void proposeProjectNoSubmit() throws InterruptedException {
+    public void proposeProjectNoSubmit() throws InterruptedException 
+    {
+        proposeProjectNoSubmit("The invincibles"); 
+    }
+    
+    public void proposeProjectNoSubmit(String projectName) throws InterruptedException {
         click(HomePage.PROPOSE_PROJECT);
-        type(ProposeProjectPage.TEAM_TITLE_TEXTBOX, "The invincibles");
+        type(ProposeProjectPage.TEAM_TITLE_TEXTBOX, projectName);
         select(ProposeProjectPage.SEMESTER_SELECT, ProposeProjectPage.SEMESTER_THIRD_OPTION);
         click(ProposeProjectPage.TEAM_DESCRIPTION_BULLET_BUTTON);
         type(ProposeProjectPage.SKILLS_TEXTBOX, "absolutely none");
@@ -24,8 +29,16 @@ public class ProposeProjectStep extends SeleniumTestStep {
 
     @Override
     public void execute() throws Exception {
-        proposeProjectNoSubmit();
+        proposeProjectNoSubmit("The invincibles");
 
+        click(ProposeProjectPage.SUBMIT_BUTTON);
+        click(Dialog.CONFIRM_BUTTON);
+        waitForElementGone(Dialog.CONFIRM_BUTTON);
+    }
+    
+    public void execute(String projectName) throws Exception 
+    {
+        proposeProjectNoSubmit(projectName);
         click(ProposeProjectPage.SUBMIT_BUTTON);
         click(Dialog.CONFIRM_BUTTON);
         waitForElementGone(Dialog.CONFIRM_BUTTON);

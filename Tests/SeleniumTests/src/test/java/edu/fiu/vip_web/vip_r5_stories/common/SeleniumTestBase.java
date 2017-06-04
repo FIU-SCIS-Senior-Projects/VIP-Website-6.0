@@ -43,9 +43,14 @@ public class SeleniumTestBase {
             step.execute();
         }
     }
-
+    
+    protected void toBaseURL()
+    {
+         driver.get(testData.getBaseUrl());
+    }
+    
     public WebDriver getDriver() { return driver; }
-
+    
     public void teardown() throws Exception {
         driver.manage().deleteAllCookies();
         driver.quit();

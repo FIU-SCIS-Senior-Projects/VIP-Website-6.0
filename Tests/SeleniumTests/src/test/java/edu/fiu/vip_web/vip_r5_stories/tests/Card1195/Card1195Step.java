@@ -1,0 +1,30 @@
+// #####################################################################
+// #1195 Add a search Box in VIP projects page
+//
+// Description:
+// As a user I would like to have a Search box which would let me search for
+// the projects easily.
+//
+// Acceptance Criteria:
+// When any word is entered the respective project should be displayed.
+// #####################################################################
+
+package edu.fiu.vip_web.vip_r5_stories.tests.Card1195;
+
+import edu.fiu.vip_web.vip_r5_stories.common.step.SeleniumTestStep;
+import org.openqa.selenium.WebDriver;
+
+public class Card1195Step extends SeleniumTestStep {
+
+    
+     public Card1195Step(WebDriver driver) {
+        super(driver);
+    }
+
+    @Override
+    public void execute() throws Exception {
+      
+    }
+    
+}
+

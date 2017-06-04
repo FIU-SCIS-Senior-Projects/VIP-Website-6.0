@@ -30,12 +30,13 @@ public class AcceptProjectProposalStep extends SeleniumTestStep {
     }
 
     private void findAndAccept() throws InterruptedException {
+        
         int index = findTodaysIndexByFormat(ReviewProjectProposalPage.XPATH_REVIEW_PROJECT_PROPOSAL_DATE_FORMAT, 2);
         Assert.assertTrue("Proposal not found", index != -1);
         
         
         // NEED TO CHANGE TO ACCEPT 
-        click(By.xpath(String.format(ReviewProjectProposalPage.XPATH_REJECT_PROPOSAL_BUTTON_FORMAT, index)));
+        click(By.xpath(String.format(ReviewProjectProposalPage.XPATH_ACCEPT_PROPOSAL_BUTTON_FORMAT, index)));
         
         
         click(Dialog.CONFIRM_BUTTON);

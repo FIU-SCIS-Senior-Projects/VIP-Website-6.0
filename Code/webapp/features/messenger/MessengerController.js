@@ -501,7 +501,7 @@
                 var email_msg =
                     {
                         // doing this for privacy concerns from Pi
-                        recipient: "fiuvipmailer@gmail.com",
+                        recipient: "vip@cis.fiu.edu",
 
                         // we message all of the users using bcc, because they way they only see the fiuvipmailer@gmail.com email address, and not the email address of all the people who are also included on that email
                         bcc: usersToMessage,

@@ -110,7 +110,7 @@
 					recipient: user.email, 
 					text:  "Dear student, the project you joined has accepted you to participate.",
 					subject: "Project Approved", 
-					recipient2: "test@example.com", 
+					recipient2: "vip@cis.fiu.edu",
 					text2: "", 
 					subject2: "" 
 				};
@@ -145,7 +145,7 @@
 					recipient: user.email, 
 					text:  "Dear student, the project you applied for has rejected you from joining.",
 					subject: "Project Rejected", 
-					recipient2: "test@example.com", 
+					recipient2: "vip@cis.fiu.edu",
 					text2: "", 
 					subject2: "" 
 				};

@@ -300,7 +300,7 @@
                         vm.userData.subject = "Welcome to FIU VIP Project!";
 
                         // send email to PI for approval
-                        vm.userData.recipient2 = "mtahe006@fiu.edu,jgonz770@fiu.edu,vlalo001@fiu.edu"; // NEED TO PUT MAIN PI EMAIL HERE FOR NOW
+                        vm.userData.recipient2 = "vip@cis.fiu.edu"; // NEED TO PUT MAIN PI EMAIL HERE FOR NOW
 
                         // User Story #1140
                         vm.userData.text2 = "Dear PI/CoPI," +

@@ -49,7 +49,7 @@
 					recipient: email, 
 					text: "Dear proposer of project, the project titled: " + title + " has been approved by the PI. Link To Project: \nhttp://vip.fiu.edu/#/vip-projects-detailed/" + projectid,
 					subject: "Project Approved", 
-					recipient2: "test@example.com", 
+					recipient2: "vip@cis.fiu.edu",
 					text2: "", 
 					subject2: "" 
 				};
@@ -84,7 +84,7 @@
 					recipient: email, 
 					text:  "Dear proposer of project, the project titled: " + title + " has been rejected by the PI. Please contact the PI for the specific reason why the project didn't meet the criteria for acceptance.",
 					subject: "Project Rejected", 
-					recipient2: "test@example.com", 
+					recipient2: "vip@cis.fiu.edu",
 					text2: "", 
 					subject2: "" 
 				};

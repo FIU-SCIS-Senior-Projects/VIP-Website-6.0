@@ -34,7 +34,9 @@ public class SeleniumTestBase {
             throw new IllegalArgumentException("Every selenium tests has to have at least one step.");
         }
 
-        driver.get(testData.getBaseUrl());
+        if (!driver.getCurrentUrl().equals(testData.getBaseUrl())) {
+            driver.get(testData.getBaseUrl());
+        }
         for (SeleniumTestStep step : testSteps) {
             step.execute();
         }

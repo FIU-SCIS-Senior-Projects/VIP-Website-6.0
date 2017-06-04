@@ -35,6 +35,6 @@ public class StudentLoginStep extends SeleniumTestStep {
         getDriver().findElement(GoogleLogin.ID_PASSWORD_NETX_BUTTON).click();
 
         while (!getDriver().getCurrentUrl().startsWith(getTestData().getBaseUrl())) ;
-        Assert.assertTrue(isElementPresent(HomePage.LOGOFF_BUTTON));
+        waitForElement(HomePage.LOGOFF_BUTTON);
     }
 }

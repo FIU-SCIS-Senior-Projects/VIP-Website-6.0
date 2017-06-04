@@ -17,7 +17,7 @@ public class CreateFacultyAccountStep extends SeleniumTestStep {
         click(LoginPage.CREATE_ACCOUNT_BUTTON);
         type(FacultyRegistrationPage.FIRST_NAME_TEXTBOX, "firstName");
         type(FacultyRegistrationPage.LAST_NAME_TEXTBOX, "lastName");
-        type(FacultyRegistrationPage.EMAIL_TEXTBOX, "testemail51@fiu.edu");
+        type(FacultyRegistrationPage.EMAIL_TEXTBOX, "testemail511@fiu.edu");
         type(FacultyRegistrationPage.PASSWORD_TEXTBOX, "Password01!");
         type(FacultyRegistrationPage.CONFIRM_PASSWORD_TEXTBOX, "Password01!");
         select(FacultyRegistrationPage.USER_TYPE_SELECT, FacultyRegistrationPage.USER_TYPE_SELECT_SECOND_OPTION);

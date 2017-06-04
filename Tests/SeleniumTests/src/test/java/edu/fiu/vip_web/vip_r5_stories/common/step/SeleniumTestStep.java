@@ -25,7 +25,7 @@ public abstract class SeleniumTestStep {
     private WebDriver driver;
     private WebDriverWait wait;
     private TestDataRepository testData;
-    private static int TIMEOUT = 30;
+    private static int TIMEOUT = 15;
 
     protected static final String DATE_FORMAT = "MM/dd/yyyy HH:mm:ss a";
 
@@ -115,6 +115,26 @@ public abstract class SeleniumTestStep {
             }
         } while(isElementPresent(criteria) && !dateFound);
         return dateFound;
+    }
+
+    protected int findIndexByFormatAndValue(String format, int startingIndex, Function<WebElement, String> getValue, String searchValue) {
+        boolean found = false;
+        int i = startingIndex;
+        Calendar date = GregorianCalendar.getInstance();
+        By criteria = null;
+        do {
+            criteria = By.xpath(String.format(format, i));
+            if(isElementPresent(criteria)) {
+                String value = getValue.apply(getDriver().findElement(criteria));
+                if (value != null && value.trim().contains(searchValue.trim())) {
+                    found = true;
+                    break;
+                } else {
+                    i++;
+                }
+            }
+        } while(isElementPresent(criteria) && !found);
+        return found ? i : -1;
     }
 
     protected int findTodaysIndexByFormat(String xpathFormat, int startingIndex) {

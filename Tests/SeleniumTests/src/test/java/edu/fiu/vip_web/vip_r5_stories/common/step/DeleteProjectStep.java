@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package edu.fiu.vip_web.vip_r5_stories.common.step;
 
 import edu.fiu.vip_web.vip_r5_stories.common.ui.Dialog;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.ProjectDetailsPage;
-import edu.fiu.vip_web.vip_r5_stories.common.ui.ReviewProjectProposalPage;
-import edu.fiu.vip_web.vip_r5_stories.common.ui.TopMenu;
-import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 /**

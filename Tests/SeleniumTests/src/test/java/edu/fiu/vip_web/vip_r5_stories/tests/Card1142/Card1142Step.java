@@ -14,12 +14,15 @@ package edu.fiu.vip_web.vip_r5_stories.tests.Card1142;
 
 import edu.fiu.vip_web.vip_r5_stories.common.step.SeleniumTestStep;
 import edu.fiu.vip_web.vip_r5_stories.common.step.*;
-import edu.fiu.vip_web.vip_r5_stories.common.ui.AdminPanelPage;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.ProjectDetailsPage;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.ProposeProjectPage;
 import org.junit.Assert;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+
+/**
+ *
+ * @author Dafna
+ */
 
 public class Card1142Step extends SeleniumTestStep {
 

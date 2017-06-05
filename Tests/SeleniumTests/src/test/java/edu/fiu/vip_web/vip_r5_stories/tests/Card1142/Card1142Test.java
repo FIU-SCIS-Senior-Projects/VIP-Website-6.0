@@ -19,6 +19,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ *
+ * @author Dafna
+ */
+
 public class Card1142Test extends SeleniumTestBase{
     
     private final String PROJECT_NAME = "Test_1142"; 

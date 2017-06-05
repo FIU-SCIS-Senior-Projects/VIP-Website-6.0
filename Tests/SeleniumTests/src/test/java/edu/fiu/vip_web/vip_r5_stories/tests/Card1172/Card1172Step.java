@@ -26,6 +26,11 @@ import edu.fiu.vip_web.vip_r5_stories.common.step.SeleniumTestStep;
 import edu.fiu.vip_web.vip_r5_stories.common.step.StudentLoginStep;
 import org.openqa.selenium.WebDriver;
 
+/**
+ *
+ * @author Dafna
+ */
+
 public class Card1172Step extends SeleniumTestStep {
 
     

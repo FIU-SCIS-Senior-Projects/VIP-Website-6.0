@@ -21,12 +21,15 @@
 package edu.fiu.vip_web.vip_r5_stories.tests.Card1172;
 
 import edu.fiu.vip_web.vip_r5_stories.common.SeleniumTestBase;
-import edu.fiu.vip_web.vip_r5_stories.common.step.SeleniumTestStep;
 import java.util.Arrays;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
+
+/**
+ *
+ * @author Dafna
+ */
 
 public class Card1172Test extends SeleniumTestBase{
     

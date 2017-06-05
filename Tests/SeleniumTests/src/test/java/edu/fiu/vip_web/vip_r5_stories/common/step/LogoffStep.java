@@ -12,6 +12,7 @@ public class LogoffStep extends SeleniumTestStep {
     @Override
     public void execute() throws Exception {
         click(HomePage.LOGOFF_BUTTON);
+        Thread.sleep(1000);
         waitForElement(HomePage.LOGIN_BUTTON);
     }
 }

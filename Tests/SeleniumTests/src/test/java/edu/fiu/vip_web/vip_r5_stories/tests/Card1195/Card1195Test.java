@@ -1,3 +1,4 @@
+
 // #####################################################################
 // #1195 Add a search Box in VIP projects page
 //
@@ -17,9 +18,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ *
+ * @author Dafna
+ */
+
 public class Card1195Test extends SeleniumTestBase{
     
-     @Before
+    private final String SEARCH_TERM = "Test";
+    
+    @Before
     public void setup() {
         super.setup();
     }
@@ -27,8 +35,7 @@ public class Card1195Test extends SeleniumTestBase{
     @Test
     public void card1195Test() throws Exception {
         
-        executeSteps(Arrays.asList(
-                new Card1195Step(getDriver())
+        executeSteps(Arrays.asList(new Card1195Step(getDriver(), SEARCH_TERM)
         )); 
         
     }
@@ -42,5 +49,5 @@ public class Card1195Test extends SeleniumTestBase{
             super.teardown();
         }
     }
-    
 }
+    

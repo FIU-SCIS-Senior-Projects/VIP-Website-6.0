@@ -26,17 +26,9 @@ import edu.fiu.vip_web.vip_r5_stories.common.step.SeleniumTestStep;
 import edu.fiu.vip_web.vip_r5_stories.common.step.ToSpecificProjectStep;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.AdminPanelPage;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.Dialog;
-import edu.fiu.vip_web.vip_r5_stories.common.ui.HomePage;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.ProjectDetailsPage;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
-
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.List;
-import java.util.function.Function;
 import org.openqa.selenium.By;
 
 /**
@@ -79,15 +71,15 @@ public class Card1101Step extends SeleniumTestStep {
         new ToSpecificProjectStep(getDriver()).execute(project);
         click(ProjectDetailsPage.JOIN_BUTTON);
         
-        if (status == "Active")
+        if ("Active".equals(status))
         {
             try {waitForElement(By.xpath("//div[@class='container']//h3[.=' Confirm Information ']"));}
-            catch (Exception e){Assert.fail("Project " + project + "was not activated.");}
+            catch (InterruptedException e){Assert.fail("Project " + project + "was not activated.");}
         }
-        if (status == "Disabled")
+        if ("Disabled".equals(status))
         {
             try {waitForElement(Dialog.CONFIRM_BUTTON); click(Dialog.CONFIRM_BUTTON);}
-            catch(Exception e){Assert.fail("Project " + project + "was not disabled.");}
+            catch(InterruptedException e){Assert.fail("Project " + project + "was not disabled.");}
         }
     }
        

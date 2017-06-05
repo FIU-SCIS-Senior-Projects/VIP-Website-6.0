@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: edu.fiu.vip_web.vip_r5_stories.tests.Card1144.Card1144Test
+Test set: edu.fiu.vip_web.vip_r5_stories.tests.Card1193.Card1193Test
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 61.296 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 41.752 sec

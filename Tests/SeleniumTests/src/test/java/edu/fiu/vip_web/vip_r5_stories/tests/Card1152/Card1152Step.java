@@ -21,6 +21,11 @@ import edu.fiu.vip_web.vip_r5_stories.common.ui.ProposeProjectPage;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 
+/**
+ *
+ * @author Dafna
+ */
+
 public class Card1152Step extends SeleniumTestStep {
 
     private String mingleURL; 

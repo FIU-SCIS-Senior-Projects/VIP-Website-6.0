@@ -14,13 +14,24 @@
 package edu.fiu.vip_web.vip_r5_stories.tests.Card1193;
 
 import edu.fiu.vip_web.vip_r5_stories.common.SeleniumTestBase;
+import edu.fiu.vip_web.vip_r5_stories.common.step.AdminLoginStep;
+import edu.fiu.vip_web.vip_r5_stories.common.step.LogoffStep;
+import edu.fiu.vip_web.vip_r5_stories.common.step.ToAdminPanelStep;
 import java.util.Arrays;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ *
+ * @author Dafna
+ */
+
 public class Card1193Test extends SeleniumTestBase{
     
+        final String PROJ_NAME = "BOLO", 
+                 ACTIVE = "Active", 
+                 DISABLED = "Disabled"; 
      @Before
     public void setup() {
         super.setup();
@@ -30,7 +41,11 @@ public class Card1193Test extends SeleniumTestBase{
     public void card1193Test() throws Exception {
         
         executeSteps(Arrays.asList(
-                new Card1193Step(getDriver())
+                new AdminLoginStep(getDriver()), 
+                new ToAdminPanelStep(getDriver()),
+                new Card1193Step(getDriver(), PROJ_NAME, DISABLED),
+                new ToAdminPanelStep(getDriver()),
+                new Card1193Step(getDriver(), PROJ_NAME, ACTIVE) 
         )); 
         
     }
@@ -38,7 +53,8 @@ public class Card1193Test extends SeleniumTestBase{
     @After
     public void teardown() throws Exception {
         try {
-            // nothing to tear down 
+            toBaseURL(); 
+                new LogoffStep(getDriver()).execute();
             
         } finally {
             super.teardown();

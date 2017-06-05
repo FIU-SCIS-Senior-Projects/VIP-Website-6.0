@@ -1,31 +1,32 @@
-
 // #####################################################################
-// #1195 Add a search Box in VIP projects page
+// 1144 - Add skill item in student application form and faculty proposal form
 //
 // Description:
-// As a user I would like to have a Search box which would let me search for
-// the projects easily.
-//
-// Acceptance Criteria:
-// When any word is entered the respective project should be displayed.
+// As a user, i would like to have a separate text box for skill item so 
+// that student can enter the skills that they have and professors can enter
+// the skills that project requires.
 // #####################################################################
 
 package edu.fiu.vip_web.vip_r5_stories.tests.Card1144;
 
 import edu.fiu.vip_web.vip_r5_stories.common.SeleniumTestBase;
-import edu.fiu.vip_web.vip_r5_stories.common.step.SeleniumTestStep;
+import edu.fiu.vip_web.vip_r5_stories.common.step.AdminLoginStep;
+import edu.fiu.vip_web.vip_r5_stories.common.step.DeleteProjectStep;
+import edu.fiu.vip_web.vip_r5_stories.common.step.LogoffStep;
 import java.util.Arrays;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
 
+/**
+ *
+ * @author Dafna
+ */
 
 public class Card1144Test extends SeleniumTestBase{
     
-    private final String SEARCH_TERM = "Test";
-    
-    @Before
+    private final String PROJECT_NAME = "Test_1144"; 
+     @Before
     public void setup() {
         super.setup();
     }
@@ -34,7 +35,8 @@ public class Card1144Test extends SeleniumTestBase{
     public void card1144Test() throws Exception {
         
         executeSteps(Arrays.asList(
-                new Card1144Step(getDriver(), SEARCH_TERM)
+                new AdminLoginStep(getDriver()), 
+                new Card1144Step(getDriver(), PROJECT_NAME)
         )); 
         
     }
@@ -42,11 +44,12 @@ public class Card1144Test extends SeleniumTestBase{
     @After
     public void teardown() throws Exception {
         try {
-            // nothing to tear down 
+            new DeleteProjectStep(getDriver()).execute(PROJECT_NAME);
+         new LogoffStep(getDriver()).execute();
             
         } finally {
             super.teardown();
         }
     }
-}
     
+}

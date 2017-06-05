@@ -16,12 +16,15 @@ import edu.fiu.vip_web.vip_r5_stories.common.SeleniumTestBase;
 import edu.fiu.vip_web.vip_r5_stories.common.step.AdminLoginStep;
 import edu.fiu.vip_web.vip_r5_stories.common.step.DeleteProjectStep;
 import edu.fiu.vip_web.vip_r5_stories.common.step.LogoffStep;
-import edu.fiu.vip_web.vip_r5_stories.common.step.SeleniumTestStep;
 import java.util.Arrays;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
+
+/**
+ *
+ * @author Dafna
+ */
 
 public class Card1152Test extends SeleniumTestBase{
     

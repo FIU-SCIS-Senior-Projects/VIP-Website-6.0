@@ -7,11 +7,15 @@
 package edu.fiu.vip_web.vip_r5_stories.tests.Card1185;
 
 import edu.fiu.vip_web.vip_r5_stories.common.SeleniumTestBase;
-import edu.fiu.vip_web.vip_r5_stories.tests.Card1142.Card1142Step;
 import java.util.Arrays;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+/**
+ *
+ * @author Dafna
+ */
 
 public class Card1185Test extends SeleniumTestBase{
     

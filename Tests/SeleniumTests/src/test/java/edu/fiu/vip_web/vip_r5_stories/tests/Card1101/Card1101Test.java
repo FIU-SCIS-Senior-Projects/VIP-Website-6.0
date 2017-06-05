@@ -28,6 +28,11 @@ import org.junit.Before;
 import org.junit.Test;
 import java.util.Arrays;
 
+/**
+ *
+ * @author Dafna
+ */
+
 public class Card1101Test extends SeleniumTestBase{
     
      final String PROJ_NAME = "BOLO", 

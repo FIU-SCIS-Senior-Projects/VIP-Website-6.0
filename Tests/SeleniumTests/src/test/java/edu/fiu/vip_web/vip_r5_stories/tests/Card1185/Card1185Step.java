@@ -15,6 +15,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+/**
+ *
+ * @author Dafna
+ */
+
 public class Card1185Step extends SeleniumTestStep {
 
     private String videoName = "FIUSCIS SeniorProject"; 

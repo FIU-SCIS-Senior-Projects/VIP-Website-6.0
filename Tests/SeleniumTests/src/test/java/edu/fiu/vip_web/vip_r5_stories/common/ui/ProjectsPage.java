@@ -11,4 +11,6 @@ public class ProjectsPage {
     public static final By SEARCH_BOX = By.cssSelector("input.form-control"); 
     
     public static final By PROJECT_TITLES = By.cssSelector("a.ng-binding"); 
+    
+    public static final By PROJECT_CONTAINERS = By.cssSelector("div.col-md-6"); 
 }

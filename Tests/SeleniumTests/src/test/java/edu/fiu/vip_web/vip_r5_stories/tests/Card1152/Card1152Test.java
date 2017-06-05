@@ -13,6 +13,9 @@
 package edu.fiu.vip_web.vip_r5_stories.tests.Card1152;
 
 import edu.fiu.vip_web.vip_r5_stories.common.SeleniumTestBase;
+import edu.fiu.vip_web.vip_r5_stories.common.step.AdminLoginStep;
+import edu.fiu.vip_web.vip_r5_stories.common.step.DeleteProjectStep;
+import edu.fiu.vip_web.vip_r5_stories.common.step.LogoffStep;
 import edu.fiu.vip_web.vip_r5_stories.common.step.SeleniumTestStep;
 import java.util.Arrays;
 import org.junit.After;
@@ -22,6 +25,9 @@ import org.openqa.selenium.WebDriver;
 
 public class Card1152Test extends SeleniumTestBase{
     
+     private final String MINGLE_URL = "https://profile.thoughtworks.com/cas/fiu-scis-seniorproject/login?service=https://fiu-scis-seniorproject.mingle.thoughtworks.com/profile/login";
+     private final String PROJECT_NAME = "Test_1152"; 
+     
      @Before
     public void setup() {
         super.setup();
@@ -31,7 +37,8 @@ public class Card1152Test extends SeleniumTestBase{
     public void card1152Test() throws Exception {
         
         executeSteps(Arrays.asList(
-                new Card1152Step(getDriver())
+                new AdminLoginStep(getDriver()),
+                new Card1152Step(getDriver(), PROJECT_NAME, MINGLE_URL)
         )); 
         
     }
@@ -39,7 +46,10 @@ public class Card1152Test extends SeleniumTestBase{
     @After
     public void teardown() throws Exception {
         try {
-            // nothing to tear down 
+            
+         toBaseURL();
+         new DeleteProjectStep(getDriver()).execute(PROJECT_NAME);
+         new LogoffStep(getDriver()).execute();
             
         } finally {
             super.teardown();

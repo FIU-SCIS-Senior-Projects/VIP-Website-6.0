@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="edu.fiu.vip_web.vip_r5_stories.tests.Card1101.Card1101Test" time="52.794" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="edu.fiu.vip_web.vip_r5_stories.tests.Card1144.Card1144Test" time="16.868" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/jre/lib"/>
@@ -14,7 +14,7 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="unknown"/>
-    <property name="test" value="edu.fiu.vip_web.vip_r5_stories.tests.Card1101.Card1101Test"/>
+    <property name="test" value="edu.fiu.vip_web.vip_r5_stories.tests.Card1144.Card1144Test"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="user.dir" value="/Users/Dafna/Documents/VIP_GIT/VIP-Website-6.0/Tests/SeleniumTests"/>
     <property name="java.runtime.version" value="1.8.0_91-b14"/>
@@ -45,7 +45,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=edu.fiu.vip_web.vip_r5_stories.tests.Card1101.Card1101Test -Dmaven.ext.class.path=/Applications/NetBeans/NetBeans 8.2.app/Contents/Resources/NetBeans/java/maven-nblib/netbeans-eventspy.jar surefire:test"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=edu.fiu.vip_web.vip_r5_stories.tests.Card1144.Card1144Test -Dmaven.ext.class.path=/Applications/NetBeans/NetBeans 8.2.app/Contents/Resources/NetBeans/java/maven-nblib/netbeans-eventspy.jar surefire:test"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
@@ -63,5 +63,5 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="edu.fiu.vip_web.vip_r5_stories.tests.Card1101.Card1101Test" name="card1101Test" time="52.584"/>
+  <testcase classname="edu.fiu.vip_web.vip_r5_stories.tests.Card1144.Card1144Test" name="card1144Test" time="16.772"/>
 </testsuite>

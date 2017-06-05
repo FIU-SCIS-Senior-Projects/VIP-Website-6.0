@@ -13,17 +13,39 @@
 package edu.fiu.vip_web.vip_r5_stories.tests.Card1144;
 
 import edu.fiu.vip_web.vip_r5_stories.common.step.SeleniumTestStep;
+import edu.fiu.vip_web.vip_r5_stories.common.ui.ProjectsPage;
+import edu.fiu.vip_web.vip_r5_stories.common.ui.TopMenu;
+import java.util.List;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class Card1144Step extends SeleniumTestStep {
 
-    
-     public Card1144Step(WebDriver driver) {
+    private final String searchString; 
+     public Card1144Step(WebDriver driver, String str) {
         super(driver);
+        searchString = str; 
     }
 
     @Override
     public void execute() throws Exception {
+        
+        waitForElement(TopMenu.PROJECTS);
+        click(TopMenu.PROJECTS); 
+        
+        type(ProjectsPage.SEARCH_BOX, searchString);
+        List<WebElement> projects = getMultipleElements(ProjectsPage.PROJECT_CONTAINERS, 1);
+      
+        for (WebElement prBox : projects)
+        {
+            if (!prBox.getText().toUpperCase().contains(searchString.toUpperCase()))
+            {
+                Assert.fail("One or more projects does not match the search term \'" + searchString + "\'.\n" + prBox.getText());
+                break;
+            }
+        }
+        
       
     }
     

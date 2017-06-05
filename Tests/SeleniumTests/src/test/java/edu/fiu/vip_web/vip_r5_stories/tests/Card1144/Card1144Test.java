@@ -23,7 +23,9 @@ import org.openqa.selenium.WebDriver;
 
 public class Card1144Test extends SeleniumTestBase{
     
-     @Before
+    private final String SEARCH_TERM = "Test";
+    
+    @Before
     public void setup() {
         super.setup();
     }
@@ -32,7 +34,7 @@ public class Card1144Test extends SeleniumTestBase{
     public void card1144Test() throws Exception {
         
         executeSteps(Arrays.asList(
-                new Card1144Step(getDriver())
+                new Card1144Step(getDriver(), SEARCH_TERM)
         )); 
         
     }

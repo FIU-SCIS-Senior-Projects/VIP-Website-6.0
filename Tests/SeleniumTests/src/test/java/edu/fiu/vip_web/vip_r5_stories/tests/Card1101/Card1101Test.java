@@ -30,30 +30,24 @@ import java.util.Arrays;
 
 public class Card1101Test extends SeleniumTestBase{
     
+     final String PROJ_NAME = "BOLO", 
+               ACTIVE = "Active", 
+               DISABLED = "Disabled"; 
+     
      @Before
     public void setup() {
-        super.setup();
+        super.setup(); 
     }
 
     @Test
     public void card1101Test() throws Exception {
-
-        /*
-        final String PROJ_NAME = "Test_1101";
-        
-        super.toBaseURL();
-        new AdminLoginStep(getDriver()).execute();
-        new ProposeProjectStep(getDriver()).execute(PROJ_NAME);
-        new AcceptProjectProposalStep(getDriver()).execute(); 
-        new ToSpecificProjectStep(getDriver()).execute(PROJ_NAME);
-        new DeleteProjectStep(getDriver()).execute(PROJ_NAME);
-        */
-        
         
         executeSteps(Arrays.asList(
                 new AdminLoginStep(getDriver()), 
                 new ToAdminPanelStep(getDriver()),
-                new Card1101Step(getDriver())
+                new Card1101Step(getDriver(), PROJ_NAME, DISABLED),
+                new ToAdminPanelStep(getDriver()),
+                new Card1101Step(getDriver(), PROJ_NAME, ACTIVE)   
         )); 
         
     }
@@ -61,8 +55,8 @@ public class Card1101Test extends SeleniumTestBase{
     @After
     public void teardown() throws Exception {
         try {
-            // nothing to tear down 
-            
+             new LogoffStep(getDriver()).execute();
+             
         } finally {
             super.teardown();
         }

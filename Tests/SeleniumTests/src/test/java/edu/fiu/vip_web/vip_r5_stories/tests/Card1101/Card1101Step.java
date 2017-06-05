@@ -23,8 +23,11 @@
 package edu.fiu.vip_web.vip_r5_stories.tests.Card1101;
 
 import edu.fiu.vip_web.vip_r5_stories.common.step.SeleniumTestStep;
+import edu.fiu.vip_web.vip_r5_stories.common.step.ToSpecificProjectStep;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.AdminPanelPage;
+import edu.fiu.vip_web.vip_r5_stories.common.ui.Dialog;
 import edu.fiu.vip_web.vip_r5_stories.common.ui.HomePage;
+import edu.fiu.vip_web.vip_r5_stories.common.ui.ProjectDetailsPage;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -34,6 +37,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 import java.util.function.Function;
+import org.openqa.selenium.By;
 
 /**
  *
@@ -41,16 +45,50 @@ import java.util.function.Function;
  */
 public class Card1101Step extends SeleniumTestStep {
     
-     public Card1101Step(WebDriver driver) {
+    private String status, project; 
+    
+     public Card1101Step(WebDriver driver, String prj, String stat) 
+     {
         super(driver);
+        status = stat; 
+        project = prj; 
     }
 
     @Override
     public void execute() throws Exception {
       
-        select(AdminPanelPage.LOCK_SEM_SEMESTER_COMBOBOX, "Summer 2017"); 
-        select(AdminPanelPage.LOCK_SEM_STATUS_COMBOBOX, "Active"); 
-        Thread.sleep(5000);
+        changeStatus(); 
+        checkStatus(); 
+        Thread.sleep(1000);
+        
     }
     
+    private void changeStatus() throws Exception
+    {
+        select(AdminPanelPage.LOCK_PROJ_PROJECT_COMBOBOX, project); 
+        select(AdminPanelPage.LOCK_PROJ_STATUS_COMBOBOX, status); 
+        click(AdminPanelPage.LOCK_PROJ_BUTTON); 
+        
+        waitForElement(Dialog.CONFIRM_BUTTON); 
+        click(Dialog.CONFIRM_BUTTON); 
+        
+    }
+    
+    private void checkStatus() throws Exception
+    {
+        new ToSpecificProjectStep(getDriver()).execute(project);
+        click(ProjectDetailsPage.JOIN_BUTTON);
+        
+        if (status == "Active")
+        {
+            try {waitForElement(By.xpath("//div[@class='container']//h3[.=' Confirm Information ']"));}
+            catch (Exception e){Assert.fail("Project " + project + "was not activated.");}
+        }
+        if (status == "Disabled")
+        {
+            try {waitForElement(Dialog.CONFIRM_BUTTON); click(Dialog.CONFIRM_BUTTON);}
+            catch(Exception e){Assert.fail("Project " + project + "was not disabled.");}
+        }
+    }
+       
 }

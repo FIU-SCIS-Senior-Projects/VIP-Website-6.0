@@ -13,14 +13,15 @@
 package edu.fiu.vip_web.vip_r5_stories.tests.Card1142;
 
 import edu.fiu.vip_web.vip_r5_stories.common.SeleniumTestBase;
-import edu.fiu.vip_web.vip_r5_stories.common.step.AdminLoginStep;
-import edu.fiu.vip_web.vip_r5_stories.common.step.ToAdminPanelStep;
+import edu.fiu.vip_web.vip_r5_stories.common.step.*; 
 import java.util.Arrays;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class Card1142Test extends SeleniumTestBase{
+    
+    private final String PROJECT_NAME = "Test_1142"; 
     
      @Before
     public void setup() {
@@ -30,8 +31,11 @@ public class Card1142Test extends SeleniumTestBase{
     @Test
     public void card1142Test() throws Exception {
         
+        
         executeSteps(Arrays.asList(
-                new Card1142Step(getDriver())
+                new AdminLoginStep(getDriver()), 
+                new Card1142Step(getDriver(), PROJECT_NAME)
+                
         )); 
         
     }
@@ -39,7 +43,8 @@ public class Card1142Test extends SeleniumTestBase{
     @After
     public void teardown() throws Exception {
         try {
-            // nothing to tear down 
+         new DeleteProjectStep(getDriver()).execute(PROJECT_NAME);
+         new LogoffStep(getDriver()).execute();
             
         } finally {
             super.teardown();

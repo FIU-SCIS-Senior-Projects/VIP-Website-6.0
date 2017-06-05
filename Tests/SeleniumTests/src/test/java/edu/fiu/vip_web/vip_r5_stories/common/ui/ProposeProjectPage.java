@@ -18,4 +18,5 @@ public class ProposeProjectPage {
     // ADDED BY DAFNA 
     
     public static final By MINGLE_LINK_TEXTBOX = By.xpath("//div[1]/div/div/form/div[14]/input"); 
+    public static final By DESCRIPTION_TEXTBOX = By.xpath("//div/div/div/form/div[7]/trix-editor"); 
 }

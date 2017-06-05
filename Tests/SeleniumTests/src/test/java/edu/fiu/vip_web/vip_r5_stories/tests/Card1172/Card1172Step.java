@@ -20,7 +20,10 @@
 
 package edu.fiu.vip_web.vip_r5_stories.tests.Card1172;
 
+import edu.fiu.vip_web.vip_r5_stories.common.step.AdminLoginStep;
+import edu.fiu.vip_web.vip_r5_stories.common.step.LogoffStep;
 import edu.fiu.vip_web.vip_r5_stories.common.step.SeleniumTestStep;
+import edu.fiu.vip_web.vip_r5_stories.common.step.StudentLoginStep;
 import org.openqa.selenium.WebDriver;
 
 public class Card1172Step extends SeleniumTestStep {
@@ -32,6 +35,11 @@ public class Card1172Step extends SeleniumTestStep {
 
     @Override
     public void execute() throws Exception {
+        
+        new StudentLoginStep(getDriver()).execute();
+        new LogoffStep(getDriver()).execute(); 
+        new AdminLoginStep(getDriver()).execute(); 
+        new LogoffStep(getDriver()).execute();
       
     }
     

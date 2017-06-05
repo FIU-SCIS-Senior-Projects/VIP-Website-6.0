@@ -14,5 +14,8 @@ public class ProjectDetailsPage {
     public static final By DELETE_BUTTON = By.xpath("//div/div/div/div[3]/div[2]/div[5]"); 
     
     public static final By SKILLS_DESCRIPTION = By.xpath("//div/div/div/div[2]/div/p[1]"); 
+    public static final By PROJECT_DESCRIPTION = By.xpath("//pre[@class='proj-description']"); 
+    
+    public static final By MINGLE_LINK = By.xpath("//div/div/div/div[3]/div[1]/a[4]/i"); 
 }
 

@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -55,6 +56,19 @@ public abstract class SeleniumTestStep {
         wait.withTimeout(seconds, TimeUnit.SECONDS).until(ExpectedConditions.elementToBeClickable(by));
         Thread.sleep(500);
     }
+    
+    // ############ ADDED BY DAFNA ###############
+    protected void waitForMultipleElements(By by, int minimum) throws InterruptedException 
+    {
+        waitForMultipleElements(by, minimum, 10); 
+    }
+    
+   // ############ ADDED BY DAFNA ###############
+    protected void waitForMultipleElements(By by, int min, int seconds) throws InterruptedException 
+    {
+        wait.withTimeout(seconds, TimeUnit.SECONDS).until(ExpectedConditions.numberOfElementsToBeMoreThan(by, min-1)); 
+        Thread.sleep(500);
+    }
 
     protected void waitForElementGone(By element) throws InterruptedException {
         waitForElementGone(element, 5);
@@ -71,12 +85,47 @@ public abstract class SeleniumTestStep {
         Thread.sleep(500);
     }
 
+    // ############ ADDED BY DAFNA ###############
+    protected List<WebElement> getMultipleElements(By statement) throws InterruptedException
+    {
+        return getMultipleElements(statement, 1); 
+    }
+    
+    // ############ ADDED BY DAFNA ###############
+    protected List<WebElement> getMultipleElements(By statement, int minSize) throws InterruptedException
+    {
+        waitForMultipleElements(statement, minSize);
+        
+        return driver.findElements(statement); 
+    }
+    
+    protected void printResults(List<WebElement> res)
+    {
+        for (WebElement we : res)
+        {
+            System.out.println(we.getText());
+        }
+    }
+    
+    
+     // ############ ADDED BY DAFNA ###############
+    protected String select(By selectBox, String stringToMatch) throws InterruptedException
+    {
+        List<WebElement> options = new Select(driver.findElement(selectBox)).getOptions(); 
+        String selected = matchFromList(options, stringToMatch);  
+        new Select(driver.findElement(selectBox))
+                .selectByVisibleText(selected); 
+
+        return selected; 
+    }
+    
     /**
      *
      * @param selectBox
      * @param optionToSelect
      * @return The text of the object selected
      */
+    
     protected String select(By selectBox, By optionToSelect) throws InterruptedException {
         waitForElement(optionToSelect);
         String selected = driver.findElement(optionToSelect).getText();
@@ -95,7 +144,30 @@ public abstract class SeleniumTestStep {
         driver.findElement(textBox).clear();
         driver.findElement(textBox).sendKeys(text);
     }
-
+    
+    private String matchFromList(List<WebElement> wList, String input)
+    {
+        String toMatch = input.trim(); 
+        String weString; 
+        
+        for (WebElement we : wList)
+        {
+            weString = we.getText().trim();
+            
+            if (weString.length() == 0 && toMatch.length() > 0)
+                continue; 
+            if ( (weString.toUpperCase()).contains(toMatch.toUpperCase()))
+            {
+                String digits = ""; 
+                digits = toMatch.replaceAll("[^0-9]", "");
+                
+                if (weString.contains(digits))
+                    return weString;   
+            }
+        }
+        return null; 
+    }
+    
     protected boolean checkDateFound(String format, int startingIndex, Function<WebElement, String> getDateValue) {
         DateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
         boolean dateFound = false;

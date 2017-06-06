@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>test.single</actionName>
+            <packagings>
+                <packaging>*</packaging>
+            </packagings>
+            <goals>
+                <goal>test-compile</goal>
+                <goal>surefire:test</goal>
+            </goals>
+            <properties>
+                <test>${packageClassName}</test>
+                <Env.VIP_ADMIN_USERNAME>sadjadi@cs.fiu.edu</Env.VIP_ADMIN_USERNAME>
+                <Env.VIP_ADMIN_PASSWORD>Research123!</Env.VIP_ADMIN_PASSWORD>
+                <Env.VIP_STUDENT_USERNAME>dstei035@fiu.edu</Env.VIP_STUDENT_USERNAME>
+                <Env.VIP_STUDENT_PASSWORD>Dss18856;)</Env.VIP_STUDENT_PASSWORD>
+            </properties>
+        </action>
+    </actions>

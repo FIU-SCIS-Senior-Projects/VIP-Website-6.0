@@ -1,7 +1,8 @@
 (function() {
-    angular.module('MessengerController', ['ProjectProposalService', 'userService', 'toDoModule', 'MessengerService'])
-        .controller('MessengerController', function ($window, $location, $scope, User, ProfileService, ProjectService, ToDoService, $stateParams, MessengerService, reviewStudentAppService) {
-
+    angular.module('MessengerController', ['ProjectProposalService', 'userService', 'toDoModule', 'MessengerService', 'vip-projects'])
+        .controller('MessengerController', function ($window, $location, $scope, User, ProfileService, ProjectService,
+                                                     LocationService, ToDoService, $stateParams, MessengerService,
+                                                     reviewStudentAppService) {
             var profile;
             var curr_profile;
             var vm = this;
@@ -496,7 +497,7 @@
 
             function sendMessage(usersToMessage, MessageSubject, MessageBody) {
                 // build email URL
-                var EmailURL = "http://vip.fiu.edu/#/sendmessage/" + profile.email + "/" + "1/" + encodeURIComponent(MessageSubject.trim());
+                var EmailURL = LocationService.vipWebUrls.sendMessage + "/" + profile.email + "/" + "1/" + encodeURIComponent(MessageSubject.trim());
 
                 var email_msg =
                     {

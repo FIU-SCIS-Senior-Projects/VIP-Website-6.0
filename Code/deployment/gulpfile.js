@@ -64,6 +64,7 @@ module.exports = function(webapp) {
         webapp + "features/admin-panel/adminService.js",
         webapp + "features/messenger/MessengerService.js",
         webapp + "features/reusable-services/DateTimeService.js",
+        webapp + "features/reusable-services/LocationService.js",
         //directives
         webapp + "features/header/headerDirective.js",
         webapp + "features/footer/footerDirective.js",

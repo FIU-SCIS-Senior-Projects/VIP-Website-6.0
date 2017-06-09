@@ -5,6 +5,9 @@ var request = require('request');
 
 module.exports = function (app, express) {
     var apiRouter = express.Router();
+    var host = app.get("host");
+    var protocol = app.get("protocol");
+    var baseWebUrl = app.get("baseWebUrl");
 
     // updates profile based on data submitted when applying for a project
     apiRouter.route('/updateprofileproject')
@@ -290,7 +293,7 @@ module.exports = function (app, express) {
                     vm.userData.recipient = profile.email;
 
                     // email body text
-                    vm.userData.text = "Dear " + profile.firstName + " " + profile.lastName + ", \n\nCongratulations, your account for VIP has been approved! You may now login at http://vip.fiu.edu/#/login";
+                    vm.userData.text = "Dear " + profile.firstName + " " + profile.lastName + ", \n\nCongratulations, your account for VIP has been approved! You may now login at " + baseWebUrl + "/login";
 
                     // email subject line
                     vm.userData.subject = "Your VIP Account has been Approved";
@@ -331,7 +334,7 @@ module.exports = function (app, express) {
                     vm.userData.recipient = profile.email;
 
                     // email body text
-                    vm.userData.text = "Dear " + profile.firstName + " " + profile.lastName + ", \n\Unfortunantly, your account for VIP was not approved. You may attempt to register a new account at http://vip.fiu.edu/#/registration.";
+                    vm.userData.text = "Dear " + profile.firstName + " " + profile.lastName + ", \n\Unfortunantly, your account for VIP was not approved. You may attempt to register a new account at " + baseWebUrl + "/registration.";
 
                     // email subject line
                     vm.userData.subject = "Sorry, your VIP Account has been Rejected";
@@ -373,7 +376,7 @@ module.exports = function (app, express) {
                     vm.userData.recipient = profile.email;
 
                     // email body text
-                    vm.userData.text = "Dear " + profile.firstName + " " + profile.lastName + ", \n\nCongratulations, your account and email for VIP has been approved!  You may now login at http://vip.fiu.edu/#/login";
+                    vm.userData.text = "Dear " + profile.firstName + " " + profile.lastName + ", \n\nCongratulations, your account and email for VIP has been approved!  You may now login at " + baseWebUrl + "/login";
 
                     // email subject line
                     vm.userData.subject = "Your VIP Account has been Approved";

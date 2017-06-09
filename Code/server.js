@@ -16,6 +16,8 @@ require('./deployment/gulpfile')('./webapp/');//this will take care to generate 
 
 //Set HOST 
 app.set("host", "localhost");
+app.set("protocol", "http");
+app.set("baseWebUrl", app.get("protocol") + "://" + app.get("host") + "/#");
 
 //connect to mongodb
 mongoose.connect(config.database, { server: { poolSize: 30 } });

@@ -1,7 +1,8 @@
 (function () {
     angular
-        .module('projectApplicationController', ['ProjectProposalService', 'user-profile', 'toDoModule', 'userService', 'reviewProfile'])
-        .controller('projAppCtrl', function (ProjectService, ProfileService, ToDoService, User, reviewProfileService, $stateParams, $location, $window, $scope, $state, $document) {
+        .module('projectApplicationController', ['ProjectProposalService', 'user-profile', 'toDoModule', 'userService', 'reviewProfile', 'vip-projects'])
+        .controller('projAppCtrl', function (ProjectService, ProfileService, ToDoService, User, reviewProfileService,
+                                             LocationService, $stateParams, $location, $window, $scope, $state, $document) {
 
             var vm = this;
             var profile;
@@ -511,7 +512,7 @@
                                             text: "Dear " + profile.firstName + ", thank you for applying to " + project.title + " you are currently pending and this is just a confirmation that you applied to the project please keep checking the VIP to-do or your email as the PI will approve or deny your request to join the project.\n\nProject: " + project.title + "\nStatus: Pending",
                                             subject: "Project Application Submission Pending",
                                             recipient2: "vip@cis.fiu.edu",
-                                            text2: "Dear PI, " + profile.firstName + " " + profile.lastName + " has applied to project " + project.title + ". Please approve him/her by going to http://vip.fiu.edu/#/reviewuser.",
+                                            text2: "Dear PI, " + profile.firstName + " " + profile.lastName + " has applied to project " + project.title + ". Please approve him/her by going to " + LocationService.vipWebUrls.reviewUser,
                                             subject2: "New Student Applied Has Applied To " + project.title
                                         };
                                     User.nodeEmail(email_msg);

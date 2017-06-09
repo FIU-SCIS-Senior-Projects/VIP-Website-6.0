@@ -6,7 +6,7 @@
 
     angular
         .module('userRegistrationController', ['userService', 'toDoModule', 'vip-projects'])
-        .controller('registrationController', function (User, ToDoService, ProfileService, LocationService) {
+        .controller('registrationController', function (User, ToDoService, ProfileService, LocationService, DateTimeService) {
             var vm = this;
 
 
@@ -180,18 +180,7 @@
                 vm.message = '';
                 vm.objectId = '';
                 //userstory 1209
-                var d = new Date();
-                var date = d.getDate();
-                var month = d.getMonth() + 1;
-                var year = d.getFullYear();
-                var hours = d.getHours();
-                var min = d.getMinutes();
-                var sec = d.getSeconds();
-                var ampm = hours >= 12 ? 'pm' : 'am';
-                hours = hours % 12;
-                hours = hours ? hours : 12;
-                min = min < 10 ? '0' + min : min;
-                vm.userData.RegDate = month + "/" + date + "/" + year + " " + hours + ":" + min + ":" + sec + ' ' + ampm;
+                vm.userData.RegDate = DateTimeService.getCurrentDateTimeAsString();
 
 
                 if (vm.userData == undefined) {

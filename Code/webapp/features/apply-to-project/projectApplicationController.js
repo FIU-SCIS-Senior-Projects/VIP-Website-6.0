@@ -1,8 +1,9 @@
 (function () {
     angular
-        .module('projectApplicationController', ['ProjectProposalService', 'user-profile', 'toDoModule', 'userService', 'reviewProfile', 'vip-projects'])
+        .module('projectApplicationController', ['ProjectProposalService', 'user-profile', 'toDoModule', 'userService',
+            'reviewProfile', 'vip-projects'])
         .controller('projAppCtrl', function (ProjectService, ProfileService, ToDoService, User, reviewProfileService,
-                                             LocationService, $stateParams, $location, $window, $scope, $state, $document) {
+                                             LocationService, DateTimeService, $stateParams, $location, $window, $scope, $state, $document) {
 
             var vm = this;
             var profile;
@@ -265,19 +266,7 @@
                     // in the event of high volume traffic, this function may take longer to complete for each user
                     loading();
                     //Userstory 1208
-                    var d = new Date();
-                    var date = d.getDate();
-                    var month = d.getMonth() + 1;
-                    var year = d.getFullYear();
-                    var hours = d.getHours();
-                    var min = d.getMinutes();
-                    var sec = d.getSeconds();
-                    var ampm = hours >= 12 ? 'pm' : 'am';
-                    hours = hours % 12;
-                    hours = hours ? hours : 12;
-                    min = min < 10 ? '0' + min : min;
-                    var today = month + "/" + date + "/" + year + " " + hours + ":" + min + ":" + sec + ' ' + ampm;
-                    vm.appliedDate = today;
+                    vm.appliedDate = DateTimeService.getCurrentDateTimeAsString();
                     vm.profile.appliedDate = vm.appliedDate;
 
                     if (vm.profile.userType == 'Student') {

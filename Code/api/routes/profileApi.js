@@ -184,7 +184,7 @@ module.exports = function (app, express) {
                 );
 
             });
-        })
+        });
 
     apiRouter.route('/profile')
         .put(function (req, res) {
@@ -244,9 +244,7 @@ module.exports = function (app, express) {
                 // this field will be set to true if the acceptProfile() function called us
                 if (req.body.piApproval) {
                     profile.piApproval = req.body.piApproval;
-                } else if (req.body.piDenial) {
-                    profile.piDenial = req.body.piDenial;
-                } else if (!profile.google) {//todo: this will never be true(profile.google always returns a model object even if non-existent in the database), i just don't delete it because i don't know why it's supposed to be here in the first place
+                } else if (req.body.piDenial && req.body.isDecisionMade) {
                     //console.log("Rejected account like most girls do to me...\nnow attempting to delete account forever!");
                     profile.remove(function (err) {
                         if (err) {

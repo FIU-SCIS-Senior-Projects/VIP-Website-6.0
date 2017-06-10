@@ -445,7 +445,7 @@ module.exports = function (app, express) {
                     vm.objectId = profile.objectId;
 
                     // recipient email(s)
-                    vm.userData.recipient = "vlalo001@fiu.edu,jgonz770@fiu.edu,mtahe006@fiu.edu,sadjadi@cs.fiu.edu";
+                    vm.userData.recipient = "vip@cis.fiu.edu";
 
                     // email body text
                     vm.userData.text = "Dear Pi/CoPi, \n\n" + profile.firstName + " " + profile.lastName + " is attempting to update their userType FROM "

@@ -5,9 +5,6 @@
         .module('reviewProjectProposals', ['ProjectProposalService', 'vip-projects'])
         .controller('reviewProjectController', reviewProjectCtrl);
 
-   // reviewProjectCtrl.$inject = ['$window', '$state', '$scope', 'reviewPPS', 'ToDoService', 'User', 'ProjectService'];
-   //
-   // /* @ngInject */
     function reviewProjectCtrl($window, $state, $scope, reviewPPS, ToDoService, User, ProjectService, LocationService) {
         var vm = this;
         vm.projects;

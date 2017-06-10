@@ -12,3 +12,8 @@ exports.getCurrentDateTimeAsString = function() {
     min = min < 10 ? '0'+min : min;
     return month+"/"+date+"/"+year+" "+hours+":"+min+":"+sec + ' ' + ampm;
 };
+
+exports.getDateOneYearFromNow = function() {
+    var date = new Date();
+    return new Date(date.getFullYear() + 1, date.getMonth());
+};

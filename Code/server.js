@@ -1,7 +1,7 @@
 //base setup michael
 var express		= require('express');
 var nodemailer = require('nodemailer');
-
+var dateTimeService = require('./api/services/DateTimeService');
 var mongoose	        = require('mongoose');
 var passport			= require('passport');
 var cookieParser		= require('cookie-parser');
@@ -37,7 +37,12 @@ app.use(function(req, res, next) {
 	next();
 });
 
-app.use(session(({ secret: 'ThisIsMyDirtyLittleSecretChocolatebunniesson'})));
+app.use(session({
+    secret: 'ThisIsMyDirtyLittleSecretChocolatebunniesson',
+    cookie: {
+        expires: dateTimeService.getDateOneYearFromNow()
+    }
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());

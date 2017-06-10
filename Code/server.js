@@ -12,12 +12,13 @@ var path		= require('path');
 var config		= require('./api/config/config');
 var app			= express();
 
-require('./deployment/gulpfile')('./webapp/');//this will take care to generate the distrib js and css files.
-
-//Set HOST 
+//Set HOST
 app.set("host", "localhost");
 app.set("protocol", "http");
 app.set("baseWebUrl", app.get("protocol") + "://" + app.get("host") + "/#");
+
+require('./deployment/gulpfile')('./webapp/');//this will take care to generate the distrib js and css files.
+require('./api/services/ExistingProjectsNotificationService').configureNotifications('0 0 0 1 * *', app);//setup existing projects notifications for the first day of each month
 
 //connect to mongodb
 mongoose.connect(config.database, { server: { poolSize: 30 } });

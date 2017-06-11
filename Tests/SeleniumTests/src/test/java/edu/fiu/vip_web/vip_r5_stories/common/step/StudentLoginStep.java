@@ -15,8 +15,7 @@ public class StudentLoginStep extends SeleniumTestStep {
 
     @Override
     public void execute() throws Exception {
-        waitForElement(HomePage.LOGIN_BUTTON);
-        getDriver().findElement(HomePage.LOGIN_BUTTON).click();
+        getDriver().navigate().to(getTestData().getBaseUrl() + "login");
 
         waitForElement(LoginPage.GOOGLE_LOGIN_BUTTON);
         getDriver().findElement(LoginPage.GOOGLE_LOGIN_BUTTON).click();

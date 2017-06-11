@@ -20,7 +20,7 @@ public class ToAdminPanelStep  extends SeleniumTestStep{
         
         waitForElement(HomePage.ADMIN_PANEL_BUTTON); 
         click(HomePage.ADMIN_PANEL_BUTTON); 
-        waitForUrlToBe("http://vip-dev.cis.fiu.edu/#/adminpanel");
+        waitForUrlToBe(getTestData().getBaseUrl() + "adminpanel");
     }
     
     

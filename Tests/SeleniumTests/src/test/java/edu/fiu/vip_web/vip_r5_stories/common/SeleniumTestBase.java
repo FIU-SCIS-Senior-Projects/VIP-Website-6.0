@@ -15,7 +15,7 @@ public class SeleniumTestBase {
     private WebDriver driver;
     private TestDataRepository testData;
 
-    public void setup() {
+    public void setup() throws Exception {
         testData = new FixedTestDataRepository();
 
         FirefoxProfile fxProfile = new FirefoxProfile();
@@ -46,7 +46,9 @@ public class SeleniumTestBase {
     
     protected void toBaseURL()
     {
-         driver.get(testData.getBaseUrl());
+        if (!driver.getCurrentUrl().equals(testData.getBaseUrl())) {
+            driver.navigate().to(testData.getBaseUrl());
+        }
     }
     
     public WebDriver getDriver() { return driver; }

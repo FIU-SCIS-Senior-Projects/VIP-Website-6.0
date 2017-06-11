@@ -29,18 +29,15 @@ public class Card1142Test extends SeleniumTestBase{
     private final String PROJECT_NAME = "Test_1142"; 
     
      @Before
-    public void setup() {
+    public void setup() throws Exception {
         super.setup();
     }
 
     @Test
     public void card1142Test() throws Exception {
-        
-        
         executeSteps(Arrays.asList(
                 new AdminLoginStep(getDriver()), 
                 new Card1142Step(getDriver(), PROJECT_NAME)
-                
         )); 
         
     }
@@ -48,9 +45,8 @@ public class Card1142Test extends SeleniumTestBase{
     @After
     public void teardown() throws Exception {
         try {
-         new DeleteProjectStep(getDriver()).execute(PROJECT_NAME);
-         new LogoffStep(getDriver()).execute();
-            
+            new DeleteProjectStep(getDriver()).execute(PROJECT_NAME);
+            new LogoffStep(getDriver()).execute();
         } finally {
             super.teardown();
         }

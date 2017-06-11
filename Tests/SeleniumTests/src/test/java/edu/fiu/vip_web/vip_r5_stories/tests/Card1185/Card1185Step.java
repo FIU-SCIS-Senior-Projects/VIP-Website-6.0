@@ -29,10 +29,11 @@ public class Card1185Step extends SeleniumTestStep {
 
     @Override
     public void execute() throws Exception {
-        
-        waitForElement(HomePage.LOGIN_BUTTON);
-        click(HomePage.LOGIN_BUTTON); 
-        
+        String loginUrl = getTestData().getBaseUrl() + "login";
+        getDriver().navigate().to(loginUrl);
+        waitForUrlToBe(loginUrl);
+
+        waitForElement(By.cssSelector("iframe"));
         List<WebElement> iFrames = super.getMultipleElements(By.cssSelector("iframe")); 
         
         int i = 1; 
@@ -41,14 +42,13 @@ public class Card1185Step extends SeleniumTestStep {
             //String videoURL = fr.getCssValue("src"); 
             Assert.assertTrue("Guideline video " + i + " not displayed." ,fr.isDisplayed()); 
             
-            getDriver().switchTo().frame(fr); 
+            getDriver().switchTo().frame(fr);
+            waitForElement(By.cssSelector("a.ytp-title-link"));
             String videoTitle = getDriver().findElement(By.cssSelector("a.ytp-title-link")).getText(); 
             
             Assert.assertTrue(videoTitle.contains(videoName));
             getDriver().switchTo().parentFrame();
-         
-            
-            
+
             i++; 
         }
       

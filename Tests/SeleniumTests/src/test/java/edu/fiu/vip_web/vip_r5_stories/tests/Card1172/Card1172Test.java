@@ -34,7 +34,7 @@ import org.junit.Test;
 public class Card1172Test extends SeleniumTestBase{
     
      @Before
-    public void setup() {
+    public void setup() throws Exception {
         super.setup();
     }
 

@@ -14,6 +14,8 @@ package edu.fiu.vip_web.vip_r5_stories.tests.Card1195;
 
 import edu.fiu.vip_web.vip_r5_stories.common.SeleniumTestBase;
 import java.util.Arrays;
+
+import edu.fiu.vip_web.vip_r5_stories.common.step.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,27 +26,33 @@ import org.junit.Test;
  */
 
 public class Card1195Test extends SeleniumTestBase{
-    
-    private final String SEARCH_TERM = "Test";
+
+    private final String PROJ_NAME = "Test";
     
     @Before
-    public void setup() {
+    public void setup() throws Exception {
         super.setup();
     }
 
     @Test
     public void card1195Test() throws Exception {
-        
-        executeSteps(Arrays.asList(new Card1195Step(getDriver(), SEARCH_TERM)
-        )); 
-        
+        executeSteps(Arrays.asList(
+                new AdminLoginStep(getDriver()),
+                new ProposeProjectStep(getDriver(), PROJ_NAME),
+                new AcceptProjectProposalStep(getDriver()),
+                new LogoffStep(getDriver()),
+                new Card1195Step(getDriver(), PROJ_NAME)
+        ));
     }
     
     @After
     public void teardown() throws Exception {
         try {
-            // nothing to tear down 
-            
+            executeSteps(Arrays.asList(
+                    new AdminLoginStep(getDriver()),
+                    new DeleteProjectStep(getDriver(), PROJ_NAME),
+                    new LogoffStep(getDriver())
+            ));
         } finally {
             super.teardown();
         }

@@ -32,7 +32,7 @@ public class Card1152Test extends SeleniumTestBase{
      private final String PROJECT_NAME = "Test_1152"; 
      
      @Before
-    public void setup() {
+    public void setup() throws Exception {
         super.setup();
     }
 

@@ -27,7 +27,7 @@ public class Card1144Test extends SeleniumTestBase{
     
     private final String PROJECT_NAME = "Test_1144"; 
      @Before
-    public void setup() {
+    public void setup() throws Exception {
         super.setup();
     }
 

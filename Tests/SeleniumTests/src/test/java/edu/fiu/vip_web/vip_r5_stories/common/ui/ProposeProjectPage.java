@@ -10,7 +10,7 @@ public class ProposeProjectPage {
     public static final By TEAM_TITLE_TEXTBOX = By.xpath("//input[@type='text']");
 
     public static final By SEMESTER_SELECT = By.xpath("//select[@value='selectedTerm']");
-    public static final By SEMESTER_THIRD_OPTION = By.xpath("//select[@value='selectedTerm']/option[3]");
+    public static final By SEMESTER_SECOND_OPTION = By.xpath("//select[@value='selectedTerm']/option[2]");
 
     public static final By TEAM_DESCRIPTION_BULLET_BUTTON = By.xpath("(//button[@type='button'])[11]");
     public static final By SKILLS_TEXTBOX = By.xpath("(//input[@type='text'])[16]");

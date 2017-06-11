@@ -26,6 +26,7 @@ public abstract class SeleniumTestStep {
     private WebDriver driver;
     private WebDriverWait wait;
     private TestDataRepository testData;
+    private static int TIMEOUT = 30;
 
     protected static final String DATE_FORMAT = "MM/dd/yyyy HH:mm:ss a";
 
@@ -35,7 +36,7 @@ public abstract class SeleniumTestStep {
         }
         this.driver = driver;
         testData = new FixedTestDataRepository();
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(driver, TIMEOUT);
     }
 
     public abstract void execute() throws Exception;
@@ -50,7 +51,7 @@ public abstract class SeleniumTestStep {
     }
 
     protected  void waitForElement(By by) throws InterruptedException {
-        waitForElement(by, 5);
+        waitForElement(by, TIMEOUT);
     }
     protected  void waitForElement(By by, int seconds) throws InterruptedException {
         wait.withTimeout(seconds, TimeUnit.SECONDS).until(ExpectedConditions.elementToBeClickable(by));
@@ -60,7 +61,7 @@ public abstract class SeleniumTestStep {
     // ############ ADDED BY DAFNA ###############
     protected void waitForMultipleElements(By by, int minimum) throws InterruptedException 
     {
-        waitForMultipleElements(by, minimum, 10); 
+        waitForMultipleElements(by, minimum, TIMEOUT);
     }
     
    // ############ ADDED BY DAFNA ###############
@@ -71,14 +72,14 @@ public abstract class SeleniumTestStep {
     }
 
     protected void waitForElementGone(By element) throws InterruptedException {
-        waitForElementGone(element, 5);
+        waitForElementGone(element, TIMEOUT);
     }
     protected void waitForElementGone(By element, int seconds) throws InterruptedException {
         wait.withTimeout(seconds, TimeUnit.SECONDS).until(ExpectedConditions.invisibilityOfElementLocated(element));
         Thread.sleep(500);
     }
     protected void waitForUrlToBe(String url) throws InterruptedException {
-        waitForUrlToBe(url, 10);
+        waitForUrlToBe(url, TIMEOUT);
     }
     protected void waitForUrlToBe(String url, int seconds) throws InterruptedException {
         wait.withTimeout(seconds, TimeUnit.SECONDS).until(ExpectedConditions.urlToBe(url));
@@ -198,7 +199,7 @@ public abstract class SeleniumTestStep {
             if(isElementPresent(criteria)) {
                 String value = getDriver().findElement(criteria).getAttribute("value");
                 if (value != null &&
-                        value.trim().startsWith(String.format("%02d/%02d/%d",
+                        value.trim().startsWith(String.format("%d/%d/%d",
                                 date.get(Calendar.MONTH) + 1, date.get(Calendar.DAY_OF_MONTH), date.get(Calendar.YEAR)))) {
                     dateFound = true;
                     break;

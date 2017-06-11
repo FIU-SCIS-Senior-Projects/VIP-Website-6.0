@@ -26,7 +26,6 @@ public class ToSpecificProjectStep extends SeleniumTestStep {
     }
     
     public void execute(String projectName) throws Exception {
-        
         waitForElement(TopMenu.PROJECTS);
         click(TopMenu.PROJECTS); 
         findSpecific(projectName); 
@@ -39,6 +38,7 @@ public class ToSpecificProjectStep extends SeleniumTestStep {
                 + "EXPECTED: %s, ACTUAL: %s"; 
         
         type(ProjectsPage.SEARCH_BOX, projectName);
+        Thread.sleep(1000);//it takes some time for the filtering to happen
         List<WebElement> projects = getMultipleElements(ProjectsPage.PROJECT_TITLES, 1);
       
         for (WebElement prLink : projects)
@@ -50,7 +50,8 @@ public class ToSpecificProjectStep extends SeleniumTestStep {
             }
         }
         
-        waitForElement(ProjectDetailsPage.PROJECT_NAME_HEADER); 
+        waitForElement(ProjectDetailsPage.PROJECT_NAME_HEADER);
+        Thread.sleep(1000);
         nameFromHeader = getDriver().findElement(ProjectDetailsPage.PROJECT_NAME_HEADER).getText();
          
         Assert.assertTrue(String.format(failMessage, projectName, nameFromHeader), nameFromHeader.contains(projectName)); 

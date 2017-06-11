@@ -10,26 +10,29 @@ import org.openqa.selenium.WebDriver;
  * @author Dafna
  */
 public class DeleteProjectStep extends SeleniumTestStep {
+    private String projectName;
 
     public DeleteProjectStep(WebDriver driver) {
         super(driver);
+    }
+    public DeleteProjectStep(WebDriver driver, String projectName) {
+        super(driver);
+        this.projectName = projectName;
     }
 
     
     @Override
     public void execute() throws Exception
     {
-        
+        execute(projectName);
     }
     
     public void execute(String projectName) throws Exception {
         
         new ToSpecificProjectStep(getDriver()).execute(projectName);
         
-        waitForElement(ProjectDetailsPage.DELETE_BUTTON);
-        click(ProjectDetailsPage.DELETE_BUTTON); 
-        
-        waitForElement(Dialog.CONFIRM_BUTTON); 
+        click(ProjectDetailsPage.DELETE_BUTTON);
+
         click(Dialog.CONFIRM_BUTTON); 
         waitForElementGone(Dialog.CONFIRM_BUTTON); 
     }

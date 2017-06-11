@@ -23,56 +23,57 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 /**
- *
  * @author Dafna
  */
 
 public class Card1193Step extends SeleniumTestStep {
-    
-    private String status, project; 
-    private String semester = "Spring 2017"; 
-    
-     public Card1193Step(WebDriver driver, String pr, String stat) {
+
+    private String status, project;
+    private String semester = "Spring 2017";
+
+    public Card1193Step(WebDriver driver, String pr, String stat) {
         super(driver);
-        status = stat; 
-        project = pr; 
+        status = stat;
+        project = pr;
     }
 
     @Override
     public void execute() throws Exception {
-        
-        changeStatus(); 
-        checkStatus(); 
+        changeStatus();
+        checkStatus();
         Thread.sleep(1000);
     }
-    
-    private void changeStatus() throws Exception
-    {
-     select(AdminPanelPage.LOCK_SEM_SEMESTER_COMBOBOX, semester); 
-        select(AdminPanelPage.LOCK_SEM_STATUS_COMBOBOX, status); 
-        click(AdminPanelPage.LOCK_SEM_BUTTON);  
-        
-        waitForElement(Dialog.CONFIRM_BUTTON); 
-        click(Dialog.CONFIRM_BUTTON);    
+
+    private void changeStatus() throws Exception {
+        select(AdminPanelPage.LOCK_SEM_SEMESTER_COMBOBOX, semester);
+        select(AdminPanelPage.LOCK_SEM_STATUS_COMBOBOX, status);
+        click(AdminPanelPage.LOCK_SEM_BUTTON);
+
+        waitForElement(Dialog.CONFIRM_BUTTON);
+        click(Dialog.CONFIRM_BUTTON);
+        waitForElementGone(Dialog.CONFIRM_BUTTON);
     }
-    
-        private void checkStatus() throws Exception
-    {
+
+    private void checkStatus() throws Exception {
         new ToSpecificProjectStep(getDriver()).execute(project);
         click(ProjectDetailsPage.JOIN_BUTTON);
-        
-        if ("Active".equals(status))
-        {
-            try {waitForElement(By.xpath("//div[@class='container']//h3[.=' Confirm Information ']"));}
-            catch (InterruptedException e){Assert.fail("Semester " + semester + "was not activated.");}
+
+        if ("Active".equals(status)) {
+            try {
+                waitForElement(By.xpath("//div[@class='container']//h3[.=' Confirm Information ']"));
+            } catch (InterruptedException e) {
+                Assert.fail("Semester " + semester + "was not activated.");
+            }
         }
-        if ("Disabled".equals(status))
-        {
-            try {waitForElement(Dialog.CONFIRM_BUTTON); click(Dialog.CONFIRM_BUTTON);}
-            catch(InterruptedException e){Assert.fail("Semester " + semester + "was not disabled.");}
+        if ("Disabled".equals(status)) {
+            try {
+                waitForElement(Dialog.CONFIRM_BUTTON);
+                click(Dialog.CONFIRM_BUTTON);
+            } catch (InterruptedException e) {
+                Assert.fail("Semester " + semester + "was not disabled.");
+            }
         }
     }
-    
-    
-    
+
+
 }

@@ -40,15 +40,17 @@ public class Card1101Test extends SeleniumTestBase{
                DISABLED = "Disabled"; 
      
      @Before
-    public void setup() {
-        super.setup(); 
+    public void setup() throws Exception {
+        super.setup();
     }
 
     @Test
     public void card1101Test() throws Exception {
         
         executeSteps(Arrays.asList(
-                new AdminLoginStep(getDriver()), 
+                new AdminLoginStep(getDriver()),
+                new ProposeProjectStep(getDriver(), PROJ_NAME),
+                new AcceptProjectProposalStep(getDriver()),
                 new ToAdminPanelStep(getDriver()),
                 new Card1101Step(getDriver(), PROJ_NAME, DISABLED),
                 new ToAdminPanelStep(getDriver()),
@@ -60,8 +62,10 @@ public class Card1101Test extends SeleniumTestBase{
     @After
     public void teardown() throws Exception {
         try {
-             new LogoffStep(getDriver()).execute();
-             
+            executeSteps(Arrays.asList(
+                    new DeleteProjectStep(getDriver(), PROJ_NAME),
+                    new LogoffStep(getDriver())
+            ));
         } finally {
             super.teardown();
         }

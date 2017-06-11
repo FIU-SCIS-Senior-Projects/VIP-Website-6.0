@@ -40,6 +40,7 @@ public class Card1195Step extends SeleniumTestStep {
         click(TopMenu.PROJECTS); 
         
         type(ProjectsPage.SEARCH_BOX, searchString);
+        Thread.sleep(1000);
         List<WebElement> projects = getMultipleElements(ProjectsPage.PROJECT_CONTAINERS, 1);
       
         for (WebElement prBox : projects)

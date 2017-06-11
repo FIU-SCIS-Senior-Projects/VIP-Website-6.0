@@ -55,7 +55,7 @@
                         <label>Gender:</label>
                         <div>
                             <select ng-model="vm.profile.gender" class="form-control"
-                                    ng-options=" sex for sex in vm.genders">
+                                    ng-options=" sex for sex in vm.genders"/>
                         </div>
                     </td>
                 <tr>
@@ -73,7 +73,7 @@
 
                         <label>School/Department:</label>
                         <select ng-model="vm.profile.department"
-                                ng-options="school for school in vm.selectedCollege.schools" class="form-control">
+                                ng-options="school for school in vm.selectedCollege.schools" class="form-control"/>
 
 
                             </input>
@@ -116,7 +116,7 @@
                     <td colspan="4">
                         <div class="flow-control">
                             <label for="">Upload a Profile Photo</label>
-                            <input onchange="uploadImage()" id="profileImage" accept=".jpg,.png,.gif" type="file"
+                            <input onchange="userProfile.uploadImage()" ng-model="vm.profileImage" id="profileImage" accept=".jpg,.png,.gif" type="file"
                                    class="form-control"/>
                             <br>
                             <progress id="pI" class="form-control" style="visibility: hidden;"/>
@@ -129,8 +129,8 @@
                     <td colspan="4">
                         <div class="form-group">
                             <label>Upload Resume</label>
-                            <input onchange="uploadResume()" ng-model="vm.profileResume" id="profileResume"
-                                   accept=".pdf" type="file" class="form-control" id="teamImage"/>
+                            <input onchange="userProfile.uploadResume()" ng-model="vm.profileResume" id="profileResume"
+                                   accept=".pdf" type="file" class="form-control"/>
                             <br>
                             <progress id="pR" class="form-control" style="visibility: hidden;"/>
                             <small><i>Resume must be uploaded in PDF format and under 16MB</i></small>

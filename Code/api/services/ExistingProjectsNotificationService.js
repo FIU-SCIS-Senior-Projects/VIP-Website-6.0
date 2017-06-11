@@ -34,7 +34,8 @@ exports.configureNotifications = function(cronPattern, app) {
                 var error = null;
                 var emails = "";
 
-                User.find(null, 'email').stream().on('data', function(user) {
+                User.find(null, 'email').or([{ noNotifications: null }, { noNotifications: false }])
+                    .stream().on('data', function(user) {
                     emails += "," + user.email;
                 }).on('error', function(e) {
                     error = e;

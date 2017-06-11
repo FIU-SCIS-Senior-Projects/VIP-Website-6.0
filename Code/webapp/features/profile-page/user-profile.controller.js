@@ -24,15 +24,12 @@
                 }
             };
             r.onloadend = function (e) {
-
                 var dataURL = e.target.result;
                 image = dataURL;
-
-            }
+            };
             r.readAsDataURL(f);
         }
-    };
-
+    }
 
     function uploadResume() {
 
@@ -60,7 +57,7 @@
             r2.readAsDataURL(f2);
         }
 
-    };
+    }
 
 
     (function () {
@@ -91,6 +88,7 @@
             function loadProfileData() {
                 ProfileService.loadProfile().then(function (data) {
                     vm.profile = data;
+                    vm.allowNotifications = data.noNotifications ? false : true;
                     ////console.log(vm.profile.userType);
                     currRank = vm.profile.userType;
 
@@ -100,19 +98,18 @@
                             vm.selectedCollege = vm.Colleges[i];
                         }
                     }
-
                 });
             }
 
             // save changes to profile
             function updateProfile() {
-
                 loading();
 
                 if (image)
                     vm.profile.image = image;
                 if (resume)
                     vm.profile.resume = resume;
+                vm.profile.noNotifications = !vm.allowNotifications;
 
                 ProfileService.saveProfile(vm.profile).then(function (data) {
                     // user is trying to change the userType, which may need approval
@@ -120,21 +117,14 @@
                         // however, Pi/CoPi/Coordinators can update the profile without approval
                         if (vm.profile.isSuperUser) {
                             success_msg();
-                        }
-
-                        // otherwise, this requested userType change needs approval
-                        else {
+                        } else {// otherwise, this requested userType change needs approval
                             success_msg_student();
                         }
-                    }
-
-                    // changing anything else doesnt need approval
-                    else {
+                    } else {// changing anything else doesnt need approval
                         success_msg();
                     }
                 });
             }
-
 
             function destroyAccount() {
                 swal({

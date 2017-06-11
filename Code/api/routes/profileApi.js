@@ -219,8 +219,6 @@ module.exports = function (app, express) {
                     profile.isDecisionMade = req.body.isDecisionMade;
                 }
 
-                ////console.log("Profile.findById rank is " + profile.rank);
-
                 // populate nonsensitive values
                 profile.firstName = req.body.firstName;
                 profile.lastName = req.body.lastName;
@@ -231,10 +229,11 @@ module.exports = function (app, express) {
                 profile.pantherID = req.body.pantherID;
                 profile.major = req.body.major;
                 profile.modifying = req.body.modifying;
-                // all user types are allowed to update their rankes without approval
+                // all user types are allowed to update their ranks without approval
                 profile.rank = req.body.rank;
                 profile.image = req.body.image;
                 profile.resume = req.body.resume;
+                profile.noNotifications = req.body.noNotifications;
 
                 // User Story #1144
                 profile.skillItem = req.body.skillItem;

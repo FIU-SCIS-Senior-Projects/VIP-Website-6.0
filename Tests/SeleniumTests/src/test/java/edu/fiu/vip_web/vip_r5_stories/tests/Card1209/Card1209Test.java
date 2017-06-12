@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class Card1209Test extends SeleniumTestBase {
 
     @Before
-    public void setup() {
+    public void setup() throws Exception {
         super.setup();
     }
 

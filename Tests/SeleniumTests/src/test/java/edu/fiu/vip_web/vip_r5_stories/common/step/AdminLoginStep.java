@@ -12,7 +12,10 @@ public class AdminLoginStep extends SeleniumTestStep {
 
     @Override
     public void execute() throws Exception {
-        click(HomePage.LOGIN_BUTTON);
+        String loginUrl = getTestData().getBaseUrl() + "login";
+        getDriver().navigate().to(loginUrl);
+        waitForUrlToBe(loginUrl);
+
         type(LoginPage.EMAIL_TEXTBOX, getTestData().getAdminUsername());
         type(LoginPage.PASSWORD_TEXTBOX, getTestData().getAdminPassword());
         click(LoginPage.LOGIN_BUTTON);

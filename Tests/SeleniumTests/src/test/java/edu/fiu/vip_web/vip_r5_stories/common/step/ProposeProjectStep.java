@@ -10,14 +10,21 @@ import org.openqa.selenium.WebDriver;
  */
 public class ProposeProjectStep extends SeleniumTestStep {
 
+    private String project = "The invincibles"; 
     public ProposeProjectStep(WebDriver driver) {
         super(driver);
     }
-
+    
+    public ProposeProjectStep(WebDriver driver, String proj)
+    {
+        super(driver);
+        project = proj; 
+    }
+    
     public void proposeProjectNoSubmit() throws InterruptedException {
         click(HomePage.PROPOSE_PROJECT);
-        type(ProposeProjectPage.TEAM_TITLE_TEXTBOX, "The invincibles");
-        select(ProposeProjectPage.SEMESTER_SELECT, ProposeProjectPage.SEMESTER_THIRD_OPTION);
+        type(ProposeProjectPage.TEAM_TITLE_TEXTBOX, project);
+        select(ProposeProjectPage.SEMESTER_SELECT, ProposeProjectPage.SEMESTER_SECOND_OPTION);
         click(ProposeProjectPage.TEAM_DESCRIPTION_BULLET_BUTTON);
         type(ProposeProjectPage.SKILLS_TEXTBOX, "absolutely none");
     }
@@ -25,7 +32,11 @@ public class ProposeProjectStep extends SeleniumTestStep {
     @Override
     public void execute() throws Exception {
         proposeProjectNoSubmit();
-
+        submit(); 
+    }
+    
+    public void submit() throws Exception 
+    {
         click(ProposeProjectPage.SUBMIT_BUTTON);
         click(Dialog.CONFIRM_BUTTON);
         waitForElementGone(Dialog.CONFIRM_BUTTON);

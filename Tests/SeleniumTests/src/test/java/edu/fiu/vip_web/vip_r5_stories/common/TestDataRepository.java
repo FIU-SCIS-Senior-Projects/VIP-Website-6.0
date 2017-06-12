@@ -10,4 +10,5 @@ public interface TestDataRepository {
     String getStudentPassword();
     String getBaseUrl();
     String getDownloadFolder();
+    String getOS(); 
 }

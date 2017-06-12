@@ -7,6 +7,7 @@ var bcrypt      = require('bcrypt-nodejs');
 module.exports = function (app, express) {
 
     var supportRouter = express.Router();
+    var baseWebUrl = app.get("baseWebUrl");
 
     supportRouter.route('/recover/validate_email')
         .post(function (req, res) {
@@ -16,7 +17,7 @@ module.exports = function (app, express) {
                 }
 
                 if (record && record._id) {
-                    mailingService.sendPinRecoveryCode(record._id, function () {
+                    mailingService.sendPinRecoveryCode(record._id, baseWebUrl, function () {
                         //console.log('mail sent')
                     }, function () {
                         //console.log('error in mail sending')

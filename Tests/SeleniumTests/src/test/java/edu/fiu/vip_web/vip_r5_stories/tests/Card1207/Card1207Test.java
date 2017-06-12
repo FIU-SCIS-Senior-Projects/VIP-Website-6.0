@@ -28,7 +28,7 @@ public class Card1207Test extends SeleniumTestBase {
     public void teardown() throws Exception {
         try {
             executeSteps(Arrays.asList(
-                    new RejectFacultyAccountStep(getDriver()),
+                    new RejectFacultyAccountStep(getDriver(), "firstName"),
                     new LogoffStep(getDriver())
             ));
 

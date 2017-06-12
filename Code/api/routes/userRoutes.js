@@ -117,7 +117,7 @@ module.exports = function (app, express) {
 					return; //////console.log(error);
 				}
             });
-	})
+	});
 
     userRouter.route('/nodeemail').post(function(req, res)
 	{
@@ -175,7 +175,7 @@ module.exports = function (app, express) {
                     return; //////console.log(error);
                 }
             });
-	})
+	});
 	
 	userRouter.route('/users/email/:email').get(function(req,res) {
 		//////console.log("GET /users/email/:email");

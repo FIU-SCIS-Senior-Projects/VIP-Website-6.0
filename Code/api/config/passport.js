@@ -3,6 +3,7 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var User = require('../models/users');
 var configAuth = require('./auth');
 var nodemailer      = require('nodemailer');
+var dateTimeService = require('../services/DateTimeService');
 
 module.exports = function(passport,app) {
 	
@@ -112,15 +113,15 @@ module.exports = function(passport,app) {
                                    {
                                         newUser.userType = "Student";
                                         newUser.rank = "";
-                                        newUser.firstlogin_date = new Date();
+                                        newUser.firstlogin_date = dateTimeService.getCurrentDateTimeAsString();
                                    }
                                    
                                    
 								   // save the user
 								   newUser.save(function (err)
 								   {
-									  if (err)
-										////console.log("Error: " + err);
+									  //if (err)
+                                      //console.log("Error: " + err);
 									   
 														   
 									   return done(null, newUser);

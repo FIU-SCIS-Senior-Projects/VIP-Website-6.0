@@ -92,10 +92,10 @@ module.exports = function(webapp) {
         return gulp.src(jsFiles)
             .pipe(concat('scripts.js', {newline: ';'}))
             .pipe(gulp.dest(distribFolder))
-            .pipe(rename('scripts.min.js'))
-            .pipe(ng_annotate())
-            .pipe(uglify({mangle: false}))
-            .pipe(gulp.dest(distribFolder))
+            // .pipe(rename('scripts.min.js'))
+            // .pipe(ng_annotate())
+            // .pipe(uglify({mangle: false}))
+            // .pipe(gulp.dest(distribFolder))
     });
 
     gulp.task('processStylesheets', ['clean'], function () {

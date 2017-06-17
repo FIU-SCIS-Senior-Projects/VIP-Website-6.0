@@ -53,14 +53,22 @@ module.exports = function (app, express) {
         function adminImpersonateUser(req, res, next) {//this method here allows someone logged in as a pi to impersonate any user
             if (!req.user || req.user.rank !== 'PI') {//if not logged in yet or logged in but not PI, proceed with regular authentication as usual
                 return next();
+            } else {
+                User.findOne({email: req.body.email}, function (error, user) {//impersonate this user
+                    if (error) {
+                        return next(error);
+                    } else {
+                        req.logout();
+                        req.logIn(user, function (error) {
+                            if (error) {
+                                return next(error);
+                            } else {
+                                res.send({ redirectUrl: "/#", error: null })
+                            }
+                        });
+                    }
+                });
             }
-            User.findOne({ email: req.body.email }, function(error, user) {//impersonate this user
-                if (error) {
-                    res.send(error);
-                }
-                req.logIn(user);
-                res.redirect('/#/proxy');
-            });
         },
         passport.authenticate('local', {
             successRedirect: '/#/proxy',

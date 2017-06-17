@@ -5,8 +5,6 @@
         .module('admin')
         .controller('adminController', adminCtrl);
 
-    adminCtrl.$inject = ['$location', '$window', '$state', '$scope', 'adminService', 'User', 'reviewStudentAppService', 'ProfileService', 'reviewRegService', 'reviewProfileService', 'ProjectService'];
-    /* @ngInject */
     function adminCtrl($location, $window, $state, $scope, adminService, User, reviewStudentAppService, ProfileService, reviewRegService, reviewProfileService, ProjectService) {
         var vm = this;
 
@@ -92,7 +90,25 @@
                     }
                 }
             }
-        }
+        };
+
+        vm.impersonate = function(user) {
+            adminService.impersonate(user).then(function(data) {
+                if (!data.redirectUrl) {//there was an error
+                    swal({
+                            title: 'Impersonation error.',
+                            text: 'There was an error when attempting to impersonate user: ' + user.email + "\n" + data.message,
+                            html: true,
+                            timer: 10000,
+                            showConfirmButton: true
+                        }
+                    );
+                } else {
+                    $window.location.href = data.redirectUrl;
+                    $window.location.reload();
+                }
+            });
+        };
 
         //Used for filters
         vm.getRank = getRank;

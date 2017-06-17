@@ -17,6 +17,7 @@
                 projectDetailed: locationService.getAbsoluteUrl("/#/vip-projects-detailed")
             };
             locationService.vipApiUrls = {
+                login: locationService.getAbsoluteUrl("/login"),
                 vip: {
                     verifyEmail: locationService.getAbsoluteUrl("/vip/verifyEmail")
                 },

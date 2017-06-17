@@ -18,7 +18,7 @@ app.set("protocol", "http");
 app.set("baseWebUrl", app.get("protocol") + "://" + app.get("host") + "/#");
 
 require('./deployment/gulpfile')('./webapp/');//this will take care to generate the distrib js and css files.
-require('./api/services/ExistingProjectsNotificationService').configureNotifications('0 0 0 1 * *', app);//setup existing projects notifications for the first day of each month
+require('./api/services/ExistingProjectsNotificationService').configureNotifications('0 0 3 * * *', app);//setup existing projects notifications as daily
 
 //connect to mongodb
 mongoose.connect(config.database, { server: { poolSize: 30 } });

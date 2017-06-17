@@ -17,3 +17,14 @@ exports.getDateOneYearFromNow = function() {
     var date = new Date();
     return new Date(date.getFullYear() + 1, date.getMonth());
 };
+var getTodaysDate = function() {
+    var date = new Date();
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);//midnight today(in the past)
+};
+exports.getTodaysDate = getTodaysDate;
+
+exports.getYesterdaysDate = function() {
+    var today = getTodaysDate();
+    var oneDay = 1000 * 60 * 60 * 24;
+    return new Date(today.getTime() - oneDay);
+};

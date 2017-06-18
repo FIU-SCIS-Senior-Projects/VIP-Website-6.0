@@ -57,6 +57,8 @@ module.exports = function (app, express) {
                 User.findOne({email: req.body.email}, function (error, user) {//impersonate this user
                     if (error) {
                         return next(error);
+                    } else if (user.userType === 'Pi/CoPi') {
+                        return next(new Error('Users of type Pi/CoPi can\' be impersonated.'));
                     } else {
                         req.logout();
                         req.logIn(user, function (error) {

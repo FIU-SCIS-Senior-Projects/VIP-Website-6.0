@@ -1,4 +1,3 @@
-var bodyParser = require('body-parser');
 var Profile = require('../models/users');
 var passport = require('passport');
 var request = require('request');
@@ -12,10 +11,6 @@ module.exports = function (app, express) {
     // updates profile based on data submitted when applying for a project
     apiRouter.route('/updateprofileproject')
         .put(function (req, res) {
-            ////console.log('updateprofile has been called');
-            ////console.log('updating the profile for user ' + req.body._id);
-
-            console.log("update user info 1");
 
             Profile.findById(req.body._id, function (err, profile) {
                 console.log("old gender: " + profile.gender);
@@ -57,8 +52,6 @@ module.exports = function (app, express) {
     // used to update the rank/usertype of a profile that the PI has authorized the changes to
     apiRouter.route('/updateprofile')
         .put(function (req, res) {
-            ////console.log('updateprofile has been called');
-            ////console.log('updating the profile for user ' + req.body._id);
 
             Profile.findById(req.body._id, function (err, profile) {
                 ////console.log(req.body);
@@ -89,12 +82,6 @@ module.exports = function (app, express) {
                 profile.appliedDate = req.body.appliedDate;
                 // User Story #1209
                 profile.RegDate = req.body.RegDate;
-
-                ////console.log("rank = " + req.body.rank);
-                ////console.log("userType = " + req.body.userType);
-
-                ////console.log("rank = " + req.body.rank);
-                ////console.log("userType = " + req.body.userType);
 
                 // we only update userType with approval
                 if (profile.isApproved) {
@@ -135,33 +122,20 @@ module.exports = function (app, express) {
                 vm.userData.recipient = profile.email;
 
                 if (profile.modifying) {
-
-                    ////console.log("profile changes have been approved");
                     // email body text
-                    vm.userData.text = "Dear " + profile.firstName + " " + profile.lastName + ", \n\n" + "An admin has changed your usertype. You can view your new profile information by visiting this URL: " + reviewDomain;
+                    vm.userData.text = "An admin has changed your usertype. You can view your new profile information by visiting this URL: " + reviewDomain;
 
                     // email subject line
                     vm.userData.subject = "Profile Changes have been changed";
-
-                }
-
-                // define the message if a user has been approved
-                else if (profile.isApproved || profile.google) {
-                    ////console.log("profile changes have been approved");
+                } else if (profile.isApproved || profile.google) {// define the message if a user has been approved
                     // email body text
-                    vm.userData.text = "Dear " + profile.firstName + " " + profile.lastName + ", \n\n" + "Your request to update your profile has been approved. You can view your new profile information by visiting this URL: " + reviewDomain;
+                    vm.userData.text = "Your request to update your profile has been approved. You can view your new profile information by visiting this URL: " + reviewDomain;
 
                     // email subject line
                     vm.userData.subject = "Profile Changes have been Approved";
-                }
-
-
-                // define the message if a user has been rejected
-                else {
-                    ////console.log("profile changes have been rejected");
-
+                } else {// define the message if a user has been rejected
                     // email body text
-                    vm.userData.text = "Dear " + profile.firstName + " " + profile.lastName + ", \n\n" + "Unfortunantly, your request to update your profile has been rejected. You can view your current profile information by visiting this URL: " + reviewDomain;
+                    vm.userData.text = "Unfortunantly, your request to update your profile has been rejected. You can view your current profile information by visiting this URL: " + reviewDomain;
 
                     // email subject line
                     vm.userData.subject = "Profile Changes have been Denied";
@@ -173,16 +147,9 @@ module.exports = function (app, express) {
                     {form: {vm}},
                     function (error, response, body) {
                         if (!error && response.statusCode == 200) {
-                            ////console.log(body);
-                            ////console.log(error);
-                            ////console.log(response);
                         }
-                        ////console.log(body);
-                        ////console.log(error);
-                        ////console.log(response);
                     }
                 );
-
             });
         });
 
@@ -290,7 +257,7 @@ module.exports = function (app, express) {
                     vm.userData.recipient = profile.email;
 
                     // email body text
-                    vm.userData.text = "Dear " + profile.firstName + " " + profile.lastName + ", \n\nCongratulations, your account for VIP has been approved! You may now login at " + baseWebUrl + "/login";
+                    vm.userData.text = "Congratulations, your account for VIP has been approved! You may now login at " + baseWebUrl + "/login";
 
                     // email subject line
                     vm.userData.subject = "Your VIP Account has been Approved";
@@ -303,13 +270,7 @@ module.exports = function (app, express) {
                         {form: {vm}},
                         function (error, response, body) {
                             if (!error && response.statusCode == 200) {
-                                ////console.log(body);
-                                ////console.log(error);
-                                ////console.log(response);
                             }
-                            ////console.log(body);
-                            ////console.log(error);
-                            ////console.log(response);
                         }
                     );
                 }
@@ -331,12 +292,10 @@ module.exports = function (app, express) {
                     vm.userData.recipient = profile.email;
 
                     // email body text
-                    vm.userData.text = "Dear " + profile.firstName + " " + profile.lastName + ", \n\Unfortunantly, your account for VIP was not approved. You may attempt to register a new account at " + baseWebUrl + "/registration.";
+                    vm.userData.text = "Unfortunately, your account for VIP was not approved. You may attempt to register a new account at " + baseWebUrl + "/registration.";
 
                     // email subject line
                     vm.userData.subject = "Sorry, your VIP Account has been Rejected";
-
-                    ////console.log("Sending account rejection email");
 
                     // deploy email
                     request.post(
@@ -344,13 +303,7 @@ module.exports = function (app, express) {
                         {form: {vm}},
                         function (error, response, body) {
                             if (!error && response.statusCode == 200) {
-                                ////console.log(body);
-                                ////console.log(error);
-                                ////console.log(response);
                             }
-                            ////console.log(body);
-                            ////console.log(error);
-                            ////console.log(response);
                         }
                     );
                 }
@@ -373,12 +326,10 @@ module.exports = function (app, express) {
                     vm.userData.recipient = profile.email;
 
                     // email body text
-                    vm.userData.text = "Dear " + profile.firstName + " " + profile.lastName + ", \n\nCongratulations, your account and email for VIP has been approved!  You may now login at " + baseWebUrl + "/login";
+                    vm.userData.text = "Congratulations, your account and email for VIP has been approved!  You may now login at " + baseWebUrl + "/login";
 
                     // email subject line
                     vm.userData.subject = "Your VIP Account has been Approved";
-
-                    ////console.log("Sending account approval email");
 
                     // deploy email
                     request.post(
@@ -386,13 +337,7 @@ module.exports = function (app, express) {
                         {form: {vm}},
                         function (error, response, body) {
                             if (!error && response.statusCode == 200) {
-                                ////console.log(body);
-                                ////console.log(error);
-                                ////console.log(response);
                             }
-                            ////console.log(body);
-                            ////console.log(error);
-                            ////console.log(response);
                         }
                     );
                 }
@@ -408,7 +353,7 @@ module.exports = function (app, express) {
                     var postDomain = "http://" + "127.0.0.1:3000" + "/vip/nodeemail2";
                     vm.objectId = profile.objectId;
                     vm.userData.recipient = profile.email;
-                    vm.userData.text = "Dear " + profile.firstName + " " + profile.lastName + ", \n\nCurrently, Your profile has been kept on HOLD! by the admin. You will be informed if admin approves or rejects your account. Sorry for the inconvenience";
+                    vm.userData.text = "Currently, Your profile has been kept on HOLD! by the admin. You will be informed if admin approves or rejects your account. Sorry for the inconvenience";
                     vm.userData.subject = "Your VIP Account has been kept on HOLD!";
                     request.post(
                         postDomain,
@@ -420,7 +365,6 @@ module.exports = function (app, express) {
                         }
                     );
                 }
-
 
                 // update profile, "Rank" and "userType" changes will be handled below this, it's impossible to update those values here
                 // request values will be populated in the DB here
@@ -447,13 +391,11 @@ module.exports = function (app, express) {
                     vm.userData.recipient = "vip@cis.fiu.edu";
 
                     // email body text
-                    vm.userData.text = "Dear Pi/CoPi, \n\n" + profile.firstName + " " + profile.lastName + " is attempting to update their userType FROM "
+                    vm.userData.text = profile.firstName + " " + profile.lastName + " is attempting to update their userType FROM "
                         + profile.userType + " TO " + profile.requested_userType + ".\n\n Accept/Reject the changes using this URL: " + reviewDomain;
 
                     // email subject line
                     vm.userData.subject = "Profile update request from " + profile.firstName + " " + profile.lastName;
-
-                    ////console.log("Sending PI approval email for userType update request");
 
                     // deploy email
                     request.post(
@@ -461,13 +403,7 @@ module.exports = function (app, express) {
                         {form: {vm}},
                         function (error, response, body) {
                             if (!error && response.statusCode == 200) {
-                                ////console.log(body);
-                                ////console.log(error);
-                                ////console.log(response);
                             }
-                            ////console.log(body);
-                            ////console.log(error);
-                            ////console.log(response);
                         }
                     );
                 }
@@ -475,7 +411,6 @@ module.exports = function (app, express) {
         })
 
         .get(function (req, res) {
-            ////console.log('POST /profile');
             Profile.find({email: req.user.email}, function (err, profile) {
                 if (err) {
                     ////console.log(err);
@@ -483,42 +418,32 @@ module.exports = function (app, express) {
                 }
                 return res.json(profile);
             });
-
         });
-
 
     apiRouter.route('/profile/:email')
         .get(function (req, res) {
-            ////console.log('POST /profile/:email ');
             Profile.find({email: req.user.email}, function (err, profile) {
                 if (err) {
-                    ////console.log(err);
                     return res.send('error');
                 }
                 return res.json(profile);
             });
-
         });
 
     apiRouter.route('/profilestudent/:id')
         .get(function (req, res) {
-            ////console.log('POST /profilestudent/:id ');
             var id = req.params.id;
             Profile.findOne({_id: id}, function (err, profile) {
                 if (err) {
-                    ////console.log(err);
                     return res.send('error');
                 }
-                ////console.log(profile);
                 return res.json(profile);
             });
-
         });
 
     //Set joinedproject to false
     apiRouter.route('/profilejoinedproject/:id')
         .put(function (req, res) {
-            ////console.log("PUT /profilejoinedproject/:id ");
             var id = req.params.id;
             Profile.findOne({_id: id}, function (err, profile) {
                 if (err) {
@@ -534,8 +459,7 @@ module.exports = function (app, express) {
                             res.send(err);
                         }
                         res.json(profile);
-                    })
-
+                    });
                 }
             });
         });
@@ -543,10 +467,8 @@ module.exports = function (app, express) {
 
     apiRouter.route('/reviewuser/')
         .get(function (req, res) {
-            ////console.log('POST /reviewuser');
-            Profile.find({}, function (err, profile) {
+            Profile.find({}, function (err, profile) {//todo: performance issue, sending every record in the database in every response is not a good idea
                 if (err) {
-                    ////console.log(err);
                     return res.send('error');
                 }
                 return res.json(profile);
@@ -570,8 +492,6 @@ module.exports = function (app, express) {
     //route for adding a member to a project(after approval)
     apiRouter.route('/reviewusers/:userid/:pid')
         .put(function (req, res) {
-            ////console.log("PUT /reviewusers/:userid/:pid");
-            ////console.log(req.params);
             var id = req.params.userid;
             var pid = req.params.pid;
             Profile.findOne({_id: id}, function (err, profile) {
@@ -588,11 +508,9 @@ module.exports = function (app, express) {
                         }
                         res.json({message: 'Project Id Added to Users Profile'});
                     })
-
                 }
             });
         });
-
 
     apiRouter.route('/verifyuser/:user_id')
         .get(function (req, res) {
@@ -600,13 +518,11 @@ module.exports = function (app, express) {
                 if (profile == null) {
                     res.json('Invalid link. User cannot be verified.');
                     return;
-                }
-                else {
+                } else {
                     res.json(profile);
                 }
             });
         });
-
 
     //Gets all users
     apiRouter.route('/getallusers')
@@ -620,9 +536,7 @@ module.exports = function (app, express) {
                     return;
                 }
             });
-
         });
-
 
     return apiRouter;
 };

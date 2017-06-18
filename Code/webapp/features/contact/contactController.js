@@ -11,10 +11,9 @@
             $scope.send = function send() {
                 if (vm.title != "" && vm.option != "" && vm.issue != "") {
                     if (vm.option == "Technical issue") {
-                        //, jgonz770@fiu.edu, mtahe006@fiu.edu, vlalo001@fiu.edu
                         var email_msg =
                             {
-                                recipient: "mtahe006@fiu.edu, jgonz770@fiu.edu, vlalo001@fiu.edu",
+                                recipient: "vip@cis.fiu.edu",
                                 text: vm.issue + "  -------You can reply to the user if necessary at: " + vm.email,
                                 subject: "(VIP) Technical Issue: " + vm.title
                             };
@@ -27,7 +26,7 @@
                     if (vm.option == "Vip Educational credits") {
                         var email_msg =
                             {
-                                recipient: "fortega@cis.fiu.edu, mtahe006@fiu.edu",
+                                recipient: "vip@cis.fiu.edu",
                                 text: vm.issue + "  -------You can reply to the user if necessary at: " + vm.email,
                                 subject: "(VIP) New Question: " + vm.title
                             };

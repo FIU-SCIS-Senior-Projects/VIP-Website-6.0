@@ -47,7 +47,7 @@
                 var email_msg =
                     {
                         recipient: email,
-                        text: "Dear proposer of project, the project titled: " + title + " has been approved by the PI. Link To Project: \n" + LocationService.vipWebUrls.projectDetailed + "/" + projectid,
+                        text: "The project titled: " + title + " has been approved by the PI. Link To Project: \n" + LocationService.vipWebUrls.projectDetailed + "/" + projectid,
                         subject: "Project Approved",
                         recipient2: "vip@cis.fiu.edu",
                         text2: "",
@@ -104,7 +104,7 @@
                 var email_msg =
                     {
                         recipient: email,
-                        text: "Dear proposer of project, the project titled: " + title + " has been rejected by the PI. Please contact the PI for the specific reason why the project didn't meet the criteria for acceptance.",
+                        text: "The project titled: " + title + " has been rejected by the PI. Please contact the PI for the specific reason why the project didn't meet the criteria for acceptance.",
                         subject: "Project Rejected",
                         recipient2: "vip@cis.fiu.edu",
                         text2: "",

@@ -506,14 +506,14 @@
 
                         // we message all of the users using bcc, because they way they only see the fiuvipmailer@gmail.com email address, and not the email address of all the people who are also included on that email
                         bcc: usersToMessage,
-                        text: "Dear User, you have recieved a new message!\n\n\nFrom: " + profile.firstName + " " + profile.lastName + "\n"
+                        text: "You have received a new message!\n\n\nFrom: " + profile.firstName + " " + profile.lastName + "\n"
                         + "Message Subject: " + MessageSubject + "\nMessage Text: " + MessageBody + "\n\nPlease reply to this message using the following form: " + EmailURL,
 
                         subject: "New Message from " + profile.firstName + " " + profile.lastName + "!",
 
                         recipient2: curr_profile,
                         subject2: "You have sent a new message",
-                        text2: "Your message to " + usersToMessage + " has been sent sucessfully. Thank you!"
+                        text2: "Your message to " + usersToMessage + " has been sent successfully. Thank you!"
                     };
 
                 User.nodeEmail(email_msg);

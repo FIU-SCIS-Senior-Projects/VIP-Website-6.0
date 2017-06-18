@@ -378,10 +378,10 @@
                                 var email_msg =
                                     {
                                         recipient: profile.email,
-                                        text: "Dear " + profile.firstName + ", thank you for proposing " + $scope.project.title + " your proposed project is currently pending and this is just a confirmation that you proposed the project please keep checking the VIP to-do or your email as the PI will approve or deny the project you have just proposed.\n\nProject:" + $scope.project.title + "\nStatus: Pending",
+                                        text: "Thank you for proposing " + $scope.project.title + " your proposed project is currently pending and this is just a confirmation that you proposed the project please keep checking the VIP to-do or your email as the PI will approve or deny the project you have just proposed.\n\nProject:" + $scope.project.title + "\nStatus: Pending",
                                         subject: "Project Proposal Submission Pending",
                                         recipient2: "vip@cis.fiu.edu",
-                                        text2: "Dear PI, " + profile.firstName + " " + profile.lastName + " has proposed a project titled: " + $scope.project.title + ", please approve or deny the project as it requires your approval. Approve Projects Here: " + LocationService.vipWebUrls.reviewProject,
+                                        text2: profile.firstName + " " + profile.lastName + " has proposed a project titled: " + $scope.project.title + ", please approve or deny the project as it requires your approval. Approve Projects Here: " + LocationService.vipWebUrls.reviewProject,
                                         subject2: "Faculty Has Proposed New Project: " + $scope.project.title
                                     };
                                 User.nodeEmail(email_msg);
@@ -438,17 +438,17 @@
                                 var email_msg =
                                     {
                                         recipient: profile.email,
-                                        text: "Dear " + profile.firstName + ", please be patient while the edits that you have proposed for the project " + $scope.project.title + " are reviewed. Once a decision has been made to approve/reject your edits, you will be notified again via email.\n\nProject:" + $scope.project.title + "\nStatus: Modified-PendingReview",
+                                        text: "Please be patient while the edits that you have proposed for the project " + $scope.project.title + " are reviewed. Once a decision has been made to approve/reject your edits, you will be notified again via email.\n\nProject:" + $scope.project.title + "\nStatus: Modified-PendingReview",
                                         subject: "Proposed Edits for " + $scope.project.title + " are being Reviewed",
                                         recipient2: "vip@cis.fiu.edu",
                                         subject2: "Faculty Has Edited the Existing Project " + $scope.project.title,
-                                        text2: "Dear PI, " + profile.firstName + " " + profile.lastName + " has edited the existing project " + $scope.project.title + ". Please review the edits to the project, and approve/deny the project by visiting the following link - " + LocationService.vipWebUrls.reviewProject
+                                        text2: profile.firstName + " " + profile.lastName + " has edited the existing project " + $scope.project.title + ". Please review the edits to the project, and approve/deny the project by visiting the following link - " + LocationService.vipWebUrls.reviewProject
                                     };
 
                                 User.nodeEmail(email_msg);
 
                             }, function (error) {
-                                $.scope.result = "An Error Occured Whilst Submitting Project Proposal!";
+                                $scope.result = "An Error Occured Whilst Submitting Project Proposal!";
                             });
                     }
 

@@ -7,7 +7,7 @@ var dateTimeService = require('./DateTimeService');
 
 var sendNotification = function (app, emails, projects) {
     var subject = "Existing Vip projects notification";
-    var body = "Dear Vip user:<br/>The following new  projects are available right now for you to apply to:<br/>";
+    var body = "The following new  projects are available right now for you to apply to:<br/>";
     projects.forEach(function (project) {
         var url = app.get("baseWebUrl") + '/vip-projects-detailed/' + project._id;
         body += "<a href='" + url + "'>" + project.title + "</a><br/>";
@@ -15,8 +15,10 @@ var sendNotification = function (app, emails, projects) {
     body += "To opt out of this notifications, visit the <a href='" + app.get("baseWebUrl") + "/login'>vip website<a/>,<br/>" +
         " Login, click on the profile icon, and then uncheck the \"allow notifications\" checkbox and click \"update\".";
 
-    emailService.sendEmail(emails, body, subject, function (error) {
-        console.log('Failed to send existing projects notification email to ' + emails + ".\nWith error: " + error.toString());
+    emails.split(',').forEach(function(email) {
+        emailService.sendEmailWithHeaderAndSignatureNoUser(email, body, subject, function (error) {
+            console.log('Failed to send existing projects notification email to ' + email + ".\nWith error: " + error.toString());
+        }, null);
     });
 };
 

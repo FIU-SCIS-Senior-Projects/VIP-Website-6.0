@@ -817,6 +817,7 @@ a {
 {
     border-bottom: 1px solid lightgray;
     white-space: nowrap;
+    vertical-align: middle; 
 }
 .table #header>#headerInputs>th>input[type= "text"]
 {

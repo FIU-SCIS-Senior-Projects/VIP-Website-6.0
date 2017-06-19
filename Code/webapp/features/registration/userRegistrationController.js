@@ -6,9 +6,18 @@
 
     angular
         .module('userRegistrationController', ['userService', 'toDoModule', 'vip-projects'])
-        .controller('registrationController', function (User, ToDoService, ProfileService, LocationService, DateTimeService) {
+        .controller('registrationController', function (User, ToDoService, ProfileService, LocationService, DateTimeService, adminService) {
             var vm = this;
 
+            vm.adminEmail;
+            adminService.getAdminSettings().then(function (data)
+            {
+                var adminData;
+                adminData = data;
+                console.log(adminData);
+                console.log(adminData.current_email);
+                vm.adminEmail = adminData.current_email;
+            });
 
             vm.Users = [
                 {
@@ -286,7 +295,7 @@
                         vm.userData.subject = "Welcome to FIU VIP Project!";
 
                         // send email to PI for approval
-                        vm.userData.recipient2 = "vip@cis.fiu.edu"; // NEED TO PUT MAIN PI EMAIL HERE FOR NOW
+                        vm.userData.recipient2 = vm.adminEmail; // NEED TO PUT MAIN PI EMAIL HERE FOR NOW
 
                         // User Story #1140
                         vm.userData.text2 = "Dear PI/CoPI," +

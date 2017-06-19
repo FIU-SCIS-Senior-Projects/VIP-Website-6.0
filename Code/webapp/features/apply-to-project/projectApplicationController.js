@@ -431,7 +431,7 @@
                                     var email_msg =
                                         {
                                             recipient: profile.email,
-                                            text: "Thank you for applying to " + project.title + ", as either a faculty or mentor please register an account using the same email as soon as possible so people who are signed into the website can see your profile.\n\nProject: " + project.title + "\nStatus: Approved",
+                                            text: "Thank you for applying to " + project.title + ", as either a faculty or mentor please register an account using the same email as soon as possible so people who are signed into the website can see your profile.<br/><br/>Project: " + project.title + "<br/>Status: Approved",
                                             subject: "Faculty/Mentor Application Successfull",
                                             recipient2: "vip@cis.fiu.edu",
                                             text2: profile.firstName + " " + profile.lastName + " has applied to project as a mentor or faculty you can remove this person off the project if he or she isn't authorized to join project.",
@@ -495,7 +495,7 @@
                                     var email_msg =
                                         {
                                             recipient: profile.email,
-                                            text: "Thank you for applying to " + project.title + " you are currently pending and this is just a confirmation that you applied to the project please keep checking the VIP to-do or your email as the PI will approve or deny your request to join the project.\n\nProject: " + project.title + "\nStatus: Pending",
+                                            text: "Thank you for applying to " + project.title + " you are currently pending and this is just a confirmation that you applied to the project please keep checking the VIP to-do or your email as the PI will approve or deny your request to join the project.<br/><br/>Project: " + project.title + "<br/>Status: Pending",
                                             subject: "Project Application Submission Pending",
                                             recipient2: "vip@cis.fiu.edu",
                                             text2: profile.firstName + " " + profile.lastName + " has applied to project " + project.title + ". Please approve him/her by going to " + LocationService.vipWebUrls.reviewUser,
@@ -585,7 +585,7 @@
                                 var email_msg =
                                     {
                                         recipient: vm.email2,
-                                        text: "Thank you for applying to " + project.title + ", as either a faculty or mentor please register an account using the same email as soon as possible so people who are signed into the website can see your profile.\n\nProject: " + project.title + "\nStatus: Approved",
+                                        text: "Thank you for applying to " + project.title + ", as either a faculty or mentor please register an account using the same email as soon as possible so people who are signed into the website can see your profile.<br/><br/>Project: " + project.title + "<br/>Status: Approved",
                                         subject: "Faculty/Mentor Application Successfull",
                                         recipient2: "vip@cis.fiu.edu",
                                         text2: vm.name + " has applied to project as a mentor or faculty you can remove this person off the project if he or she isn't authorized to join project.",

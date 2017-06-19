@@ -282,14 +282,14 @@
 
                         vm.userData.recipient = vm.userData.email;
                         vm.userData.text = "Welcome to FIU's VIP Project!" +
-                            " Please verify your email with the link below and standby for your account to be verified by the PI.\n\n" + LocationService.vipApiUrls.vip.verifyEmail + "/" + vm.objectId + "";
+                            " Please verify your email with the link below and standby for your account to be verified by the PI.<br/><br/>" + LocationService.vipApiUrls.vip.verifyEmail + "/" + vm.objectId + "";
                         vm.userData.subject = "Welcome to FIU VIP Project!";
 
                         // send email to PI for approval
                         vm.userData.recipient2 = "vip@cis.fiu.edu"; // NEED TO PUT MAIN PI EMAIL HERE FOR NOW
 
                         // User Story #1140
-                        vm.userData.text2 = vm.userData.firstName + " " + vm.userData.lastName + " is attempting to register, please accept or reject using the following link:\n\ " + LocationService.vipWebUrls.verifyUser;
+                        vm.userData.text2 = vm.userData.firstName + " " + vm.userData.lastName + " is attempting to register, please accept or reject using the following link:<br/><br/> " + LocationService.vipWebUrls.verifyUser;
                         vm.userData.subject2 = vm.userData.firstName + " " + vm.userData.lastName + " is attempting to Register a New Account";
 
                         User.nodeEmail(vm.userData);

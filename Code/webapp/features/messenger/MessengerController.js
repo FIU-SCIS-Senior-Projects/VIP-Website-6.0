@@ -506,8 +506,8 @@
 
                         // we message all of the users using bcc, because they way they only see the fiuvipmailer@gmail.com email address, and not the email address of all the people who are also included on that email
                         bcc: usersToMessage,
-                        text: "You have received a new message!\n\n\nFrom: " + profile.firstName + " " + profile.lastName + "\n"
-                        + "Message Subject: " + MessageSubject + "\nMessage Text: " + MessageBody + "\n\nPlease reply to this message using the following form: " + EmailURL,
+                        text: "You have received a new message!<br/><br/><br/>From: " + profile.firstName + " " + profile.lastName + "<br/>"
+                        + "Message Subject: " + MessageSubject + "<br/>Message Text: " + MessageBody + "<br/><br/>Please reply to this message using the following form: " + EmailURL,
 
                         subject: "New Message from " + profile.firstName + " " + profile.lastName + "!",
 

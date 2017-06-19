@@ -3,11 +3,8 @@
 
     angular
         .module('reviewStudentApp', ['reviewProjectProposals', 'ProjectProposalService'])
-        .controller('reviewStudentAppController', reviewStudentAppCtrl);
-
-    reviewStudentAppCtrl.$inject = ['$window','$state', '$scope', 'reviewStudentAppService','ToDoService','User', 'reviewPPS', 'ProjectService', 'ProfileService'];
-    /* @ngInject */
-    function reviewStudentAppCtrl($window,$state, $scope, reviewStudentAppService, ToDoService,User, reviewPPS, ProjectService, ProfileService) {
+        .controller('reviewStudentAppController', function ($window,$state, $scope, reviewStudentAppService, ToDoService,
+															User, reviewPPS, ProjectService, ProfileService, adminService) {
         var vm = this;
         vm.profile;
 		vm.projects;
@@ -18,8 +15,20 @@
 		vm.UndoStudent = UndoStudent;
 		vm.DeleteLog = deletelog;
 		vm.logs;
-		
-		
+
+
+        vm.adminEmail;
+        adminService.getAdminSettings().then(function (data)
+        {
+            var adminData;
+            adminData = data;
+
+            console.log(adminData);
+            console.log(adminData.current_email);
+            vm.adminEmail = adminData.current_email;
+        });
+
+
         init();
         function init(){
             loadProjects();
@@ -110,7 +119,7 @@
 					recipient: user.email, 
 					text:  "Dear student, the project you joined has accepted you to participate.",
 					subject: "Project Approved", 
-					recipient2: "vip@cis.fiu.edu",
+					recipient2: vm.adminEmail,
 					text2: "", 
 					subject2: "" 
 				};
@@ -145,7 +154,7 @@
 					recipient: user.email, 
 					text:  "Dear student, the project you applied for has rejected you from joining.",
 					subject: "Project Rejected", 
-					recipient2: "vip@cis.fiu.edu",
+					recipient2: vm.adminEmail,
 					text2: "", 
 					subject2: "" 
 				};
@@ -400,5 +409,5 @@
             }
             );
         };
-    }
-})();
+    });
+}());

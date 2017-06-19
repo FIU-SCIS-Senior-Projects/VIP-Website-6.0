@@ -299,16 +299,86 @@
 			</table>
 		</div>
 	</div>
-</div>	<!--
+	<!--
 		This button is to add new terms to the terms collection in Mongo, leave commented out unless you are planning to add a new collection	
 		Take Note, this button allows duplicates, so be careful, or you'll have to manually remove duplicate terms from the db 
 				<button  ng-click="vm.AddTerms()">Add Terms</button>
 				-->
 
 
+
+	<!--Dafna's code-->
+
+	<button ng-click="vm.addsetting()"> Add "Settings" Collection </button>
+	<table class="table">
+		<thead>
+		<tr>
+			<th>Owner</th>
+			<th>Current Index</th>
+			<th>Email Options</th>
+			<th>ID</th>
+			<th> Delete?</th>
+		</tr>
+		</thead>
+
+		<tbody>
+		<tr>
+			<td>{{vm.adminSettings.owner}}</td>
+			<td>{{vm.adminSettings.current_email}}</td>
+			<td>{{vm.adminSettings.emails}}</td>
+			<td>{{vm.adminSettings._id}}</td>
+			<td> <button ng-click="vm.deletesetting(vm.adminSettings)">Delete</button></td>
+		</tr>
+		</tbody>
+	</table>
+
+	<div class="col-md-6 panel panel-default">
+		<h3 align="center" style="margin-bottom: 0px">Admin Email</h3>
+		<p align="center"><b>{{vm.adminSettings.current_email}}</b></p>
+
+		<div class="form-group">
+
+			<table class="table">
+				<tr><th>
+
+					<ul class="list-group">
+						<button class="list-group-item" ng-repeat="email in vm.adminSettings.emails"
+						ng-click="vm.toggleactive($event)" value="{{email}}"
+						ng-class="email === vm.adminSettings.current_email ? 'active' : ''">
+							{{email}}
+							<a ng-click="vm.deleteemail(email)">
+								<span class="pull-right fa fa-times fa-lg fa-fw" style="padding-top: 5px"></span>
+							</a>
+						</button>
+					</ul>
+
+					<div class="input-group">
+						<input class="form-control" type="email" ng-model="newEmail">
+						<span class="input-group-btn">
+							<button class="btn" type="submit" ng-click="vm.addemail()">Add New</button>
+						</span>
+					</div>
+				</th></tr>
+
+				<table class="table">
+					<tr>
+						<th>
+							<button style= "width: 80px;" ng-click="vm.savesetting()" class="btn btn-success btn-block">Change</button>
+						</th>
+						<th>
+							<button style= "width: 80px;" ng-click="vm.loadsettings()" class="btn btn-success btn-danger">Revert</button>
+						</th>
+					</tr>
+
+				</table>
+			</table>
+		</div>
+	</div>
+	<!--Dafna's code-->
+
 </div>
 			
 
 
-
+</div>
 </html>

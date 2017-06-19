@@ -38,7 +38,7 @@ exports.sendEmailWithHeaderAndSignature = sendEmailWithHeaderAndSignature;
 exports.sendEmailWithHeaderAndSignatureNoUser = function (recipient, mainText, subject, errorHandler, successHandler) {
     User.findOne({ email: recipient }, function(error, user) {
         if (error || !user) {
-            console.log("Failed to find user " + recipient + " to send an email to.\n" + error.toString());
+            console.log("Failed to find user " + recipient + " to send an email to.\n" + ((error) ? error.toString() : ""));
             sendEmailWithHeaderAndSignature({ email: recipient }, mainText, subject, errorHandler, successHandler);
         } else {
             sendEmailWithHeaderAndSignature(user, mainText, subject, errorHandler, successHandler);

@@ -15,7 +15,7 @@ var app			= express();
 //Set HOST
 app.set("host", "localhost");
 app.set("protocol", "http");
-app.set("baseWebUrl", app.get("protocol") + "://" + app.get("host") + "/#");
+app.set("baseWebUrl", app.get("protocol") + "://" + app.get("host") + ":" + config.externalPort + "/#");
 
 require('./deployment/gulpfile')('./webapp/');//this will take care to generate the distrib js and css files.
 require('./api/services/ExistingProjectsNotificationService').configureNotifications('0 0 3 * * *', app);//setup existing projects notifications as daily

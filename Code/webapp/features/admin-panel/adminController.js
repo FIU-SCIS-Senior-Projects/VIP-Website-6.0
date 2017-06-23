@@ -181,6 +181,71 @@
             }, function (error) { });
         };
 
+        vm.deleteemail = DeleteEmail;
+        vm.addemail = AddEmail;
+        vm.addsetting = AddSetting;
+        vm.deletesetting = DeleteSetting;
+        vm.savesetting = SaveSetting;
+        vm.toggleactive = ToggleActive;
+        vm.loadsettings = loadSettings;
+
+
+        function ToggleActive(event)
+        {
+            if ($(event.target).val().length > 0) {
+
+                $(".list-group .list-group-item").removeClass("active");
+                $(event.target).toggleClass("active");
+
+                vm.adminSettings.current_email = $(event.target).val();
+            }
+        }
+
+        function DeleteEmail(which)
+        {
+            if (vm.adminSettings.emails.length > 1 )
+            {
+                var indexToRemove = vm.adminSettings.emails.indexOf(which);
+
+                if (which === vm.adminSettings.current_email)
+                {
+                    if (indexToRemove == 0)
+                        vm.adminSettings.current_email = vm.adminSettings.emails[indexToRemove + 1];
+                    else
+                        vm.adminSettings.current_email =
+                            vm.adminSettings.emails[indexToRemove - 1];
+                }
+
+                vm.adminSettings.emails.splice(indexToRemove, 1);
+            }
+            else
+                cannotdelete_msg();
+        }
+        function AddEmail()
+        {
+            if ($scope.newEmail != null)
+            {
+                vm.adminSettings.emails.push($scope.newEmail);
+                $scope.newEmail = "";
+            }
+            else
+                cannotadd_msg();
+        }
+        function DeleteSetting(setting)
+        {
+            adminService.deleteSettings(setting._id);
+        }
+        function AddSetting()
+        {
+            adminService.makeInitialSettings();
+        }
+
+        function SaveSetting()
+        {
+            adminService.saveAdminSettings(vm.adminSettings);
+            savesettings_msg();
+        }
+
         init();
 
         function init() {
@@ -188,6 +253,31 @@
             loadProjects();
             //Joe's User Story
             loadTerms();
+            loadSettings();
+        }
+
+        vm.adminSettings;
+        function loadSettings()
+        {
+            console.log("Loading settings...");
+
+            adminService.getAdminSettings().then(function (data)
+            {
+                var result = data;
+
+                if (result) {}
+                else {
+                    console.log("Creating admin settings");
+                    adminService.makeInitialSettings();
+
+                }
+
+                adminService.getAdminSettings().then(function (data) {
+                    vm.adminSettings = data;
+                });
+            });
+
+
         }
 
         //Load all user information
@@ -613,6 +703,45 @@
             );
         };
 
+        function savesettings_msg()
+        {
+            swal({
+                title: "Admin Email Saved",
+                text: "Admin email preferences have been saved!",
+                type: "info",
+                confirmButtonText: "Continue",
+                allowOutsideClick: true,
+                timer: 10000,
+        },
+                function () {}
+            );
+        };
+
+        function cannotadd_msg()
+        {
+            swal({
+                    title: "Cannot Add Email",
+                    text: "Input is not a valid email address!",
+                    type: "warning",
+                    confirmButtonText: "Continue",
+                    allowOutsideClick: true,
+                    timer: 10000,},
+                function () {}
+            );
+        }
+        function cannotdelete_msg()
+        {
+            swal({
+                title: "Cannot Delete",
+            text: "You cannot delete the last email!",
+            type: "warning",
+                confirmButtonText: "Continue",
+            allowOutsideClick: true,
+            timer: 10000,},
+            function () {}
+        );
+        };
+
         //Change User's Project
         function ChangeUserProject() {
             var user = vm.cuser;
@@ -709,7 +838,7 @@
                         recipient: email,
                         text: "Your current project has been cleared. For more information, please contact a PI.",
                         subject: "Project Cleared",
-                        recipient2: "vip@cis.fiu.edu",
+                        recipient2: vm.adminSettings.current_email,
                         text2: "",
                         subject2: ""
                     };

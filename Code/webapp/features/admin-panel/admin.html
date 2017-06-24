@@ -1,11 +1,12 @@
 <html>
 
 <head>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
-<link rel="stylesheet" href="https://cdn.gitcdn.xyz/cdn/angular/bower-material/v1.0.1-master-a687bfc/angular-material.css">
-<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-blue.min.css">
-<link rel="stylesheet" type="text/css" href="adminpanel.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel="stylesheet"
+          href="https://cdn.gitcdn.xyz/cdn/angular/bower-material/v1.0.1-master-a687bfc/angular-material.css">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-blue.min.css">
+    <link rel="stylesheet" type="text/css" href="adminpanel.css">
 </head>
 
 <style>
@@ -125,7 +126,11 @@
                     <tbody>
 
                     <tr ng-repeat="user in (filteredItems = ( vm.tabledata | filter:query1| filter:query2| filter:query3| filter:query4| filter:query5| filter:query6| filter:query7| filter:query8| filter:query9| filter:query10 | filter:query11 | filter:query12 | filter:query13 | filter: usertype? selectedusertype.name:'' | filter: userrank? selecteduserrank:'' | filter: userproject? selecteduserproject.title:'' | filter: google? google:'' | filter: mentor? mentor:'' | filter: multipleproject? multipleproject:'' | filter: piApproval? piApproval:'' | filter:query14 | filter:query15 | filter:query16 ))">
-                        <td><button class="btn btn-info btn-block" ng-click="vm.impersonate(user)" ng-hide="user.userType == 'Pi/CoPi'">Impersonate</button></td>
+                        <td>
+                            <button class="btn btn-info btn-block" ng-click="vm.impersonate(user)"
+                                    ng-hide="user.userType == 'Pi/CoPi'">Impersonate
+                            </button>
+                        </td>
                         <td>{{user.firstName}}</td>
                         <td>{{user.lastName}}</td>
                         <td>{{user.email}}</td>
@@ -146,9 +151,9 @@
                     </tbody>
                 </table>
 
+            </div>
+        </div>
     </div>
-</div>
-</div>
 
 
     <!-- .................................................... -->
@@ -300,117 +305,146 @@
             </div>
         </div>
 
-	<div class="col-md-6 panel panel-default">
-		<h3 align="center"> Lock/Unlock Semester </h3>
-		<div class="form-group">
-			<table class="table">
-				<tr>
-				<th>
-				<b>Term:</b> <select  class="form-control" ng-model="selectedTerm" ng-options="terms as terms.name for terms in vm.terms" value="{{vm.currentTerm(selectedTerm)}}" ></select>
-				</th>
-				</tr>
-				<tr>
-				<th>
-				<b>change Semester's status to:  </b>
-				</th>
-				</tr>
-				<tr>
-				<th>
-				<select  class="form-control" ng-model="selectedTermStatus" ng-options="terms as terms for terms in vm.active" value="{{vm.currentTerm(selectedTerm)}}"></select>
-				</th>
-				</tr>
-				</table>
-				<table class="table" style="height: 1px;">
-				<tr>
-				<th>
-				<button style= "width: 80px;" ng-click="vm.nw()" class="btn btn-success btn-block">Change</button>
-				</th>
-				<th>
-				</th>
-				</tr>
-			</table>
-		</div>
-	</div>
-	<!--
-		This button is to add new terms to the terms collection in Mongo, leave commented out unless you are planning to add a new collection	
-		Take Note, this button allows duplicates, so be careful, or you'll have to manually remove duplicate terms from the db 
-				<button  ng-click="vm.AddTerms()">Add Terms</button>
-				-->
+        <div class="col-md-6 panel panel-default">
+            <h3 align="center"> Lock/Unlock Semester </h3>
+            <div class="form-group">
+                <table class="table">
+                    <tr>
+                        <th>
+                            <b>Term:</b> <select class="form-control" ng-model="selectedTerm"
+                                                 ng-options="terms as terms.name for terms in vm.terms"
+                                                 value="{{vm.currentTerm(selectedTerm)}}"></select>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <b>change Semester's status to: </b>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <select class="form-control" ng-model="selectedTermStatus"
+                                    ng-options="terms as terms for terms in vm.active"
+                                    value="{{vm.currentTerm(selectedTerm)}}"></select>
+                        </th>
+                    </tr>
+                </table>
+                <table class="table" style="height: 1px;">
+                    <tr>
+                        <th>
+                            <button style="width: 80px;" ng-click="vm.nw()" class="btn btn-success btn-block">Change
+                            </button>
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!--
+            This button is to add new terms to the terms collection in Mongo, leave commented out unless you are planning to add a new collection
+            Take Note, this button allows duplicates, so be careful, or you'll have to manually remove duplicate terms from the db
+                    <button  ng-click="vm.AddTerms()">Add Terms</button>
+                    -->
 
 
+        <!--Dafna's code-->
 
-	<!--Dafna's code-->
+        <!--<button ng-click="vm.addsetting()"> Add "Settings" Collection </button>-->
+        <!--<table class="table">-->
+        <!--<thead>-->
+        <!--<tr>-->
+        <!--<th>Owner</th>-->
+        <!--<th>Current Index</th>-->
+        <!--<th>Email Options</th>-->
+        <!--<th>ID</th>-->
+        <!--<th> Delete?</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
 
-	<!--<button ng-click="vm.addsetting()"> Add "Settings" Collection </button>-->
-	<!--<table class="table">-->
-		<!--<thead>-->
-		<!--<tr>-->
-			<!--<th>Owner</th>-->
-			<!--<th>Current Index</th>-->
-			<!--<th>Email Options</th>-->
-			<!--<th>ID</th>-->
-			<!--<th> Delete?</th>-->
-		<!--</tr>-->
-		<!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr>-->
+        <!--<td>{{vm.adminSettings.owner}}</td>-->
+        <!--<td>{{vm.adminSettings.current_email}}</td>-->
+        <!--<td>{{vm.adminSettings.emails}}</td>-->
+        <!--<td>{{vm.adminSettings._id}}</td>-->
+        <!--<td> <button ng-click="vm.deletesetting(vm.adminSettings)">Delete</button></td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+        <!--</table>-->
 
-		<!--<tbody>-->
-		<!--<tr>-->
-			<!--<td>{{vm.adminSettings.owner}}</td>-->
-			<!--<td>{{vm.adminSettings.current_email}}</td>-->
-			<!--<td>{{vm.adminSettings.emails}}</td>-->
-			<!--<td>{{vm.adminSettings._id}}</td>-->
-			<!--<td> <button ng-click="vm.deletesetting(vm.adminSettings)">Delete</button></td>-->
-		<!--</tr>-->
-		<!--</tbody>-->
-	<!--</table>-->
+        <div class="col-md-6 panel panel-default">
+            <h3 align="center" style="margin-bottom: 0px">Admin Email</h3>
+            <p align="center"><b>{{vm.adminSettings.current_email}}</b></p>
 
-	<div class="col-md-6 panel panel-default">
-		<h3 align="center" style="margin-bottom: 0px">Admin Email</h3>
-		<p align="center"><b>{{vm.adminSettings.current_email}}</b></p>
+            <div class="form-group">
 
-		<div class="form-group">
+                <table class="table">
+                    <tr>
+                        <th>
 
-			<table class="table">
-				<tr><th>
+                            <ul class="list-group">
+                                <button class="list-group-item" ng-repeat="email in vm.adminSettings.emails"
+                                        ng-click="vm.toggleactive($event)" value="{{email}}"
+                                        ng-class="email === vm.adminSettings.current_email ? 'active' : ''">
+                                    {{email}}
+                                    <a ng-click="vm.deleteemail(email)">
+                                        <span class="pull-right fa fa-times fa-lg fa-fw"
+                                              style="padding-top: 5px"></span>
+                                    </a>
+                                </button>
+                            </ul>
 
-					<ul class="list-group">
-						<button class="list-group-item" ng-repeat="email in vm.adminSettings.emails"
-						ng-click="vm.toggleactive($event)" value="{{email}}"
-						ng-class="email === vm.adminSettings.current_email ? 'active' : ''">
-							{{email}}
-							<a ng-click="vm.deleteemail(email)">
-								<span class="pull-right fa fa-times fa-lg fa-fw" style="padding-top: 5px"></span>
-							</a>
-						</button>
-					</ul>
-
-					<div class="input-group">
-						<input class="form-control" type="email" ng-model="newEmail">
-						<span class="input-group-btn">
+                            <div class="input-group">
+                                <input class="form-control" type="email" ng-model="newEmail">
+                                <span class="input-group-btn">
 							<button class="btn" type="submit" ng-click="vm.addemail()">Add New</button>
 						</span>
-					</div>
-				</th></tr>
+                            </div>
+                        </th>
+                    </tr>
 
-				<table class="table">
-					<tr>
-						<th>
-							<button style= "width: 80px;" ng-click="vm.savesetting()" class="btn btn-success btn-block">Change</button>
-						</th>
-						<th>
-							<button style= "width: 80px;" ng-click="vm.loadsettings()" class="btn btn-success btn-danger">Revert</button>
-						</th>
-					</tr>
+                    <table class="table">
+                        <tr>
+                            <th>
+                                <button style="width: 80px;" ng-click="vm.savesetting()"
+                                        class="btn btn-success btn-block">Change
+                                </button>
+                            </th>
+                            <th>
+                                <button style="width: 80px;" ng-click="vm.loadsettings()"
+                                        class="btn btn-success btn-danger">Revert
+                                </button>
+                            </th>
+                        </tr>
 
-				</table>
-			</table>
-		</div>
-	</div>
-	<!--Dafna's code-->
+                    </table>
+                </table>
+            </div>
+        </div>
+        <!--Dafna's code-->
 
-</div>
-
-
-
-</div>
+        <div class="col-md-6 panel panel-default">
+            <h3 align="center">Email Signature</h3>
+            <div class="form-group">
+                <table class="table">
+                    <tr>
+                        <th>
+                            <b>Email Signature:</b>
+                            <textarea class="form-control" rows="3" ng-model="vm.adminSettings.emailSignature"></textarea>
+                        </th>
+                    </tr>
+                </table>
+                <table class="table" style="height: 1px;">
+                    <tr>
+                        <th>
+                            <button style= "width: 80px;" ng-click="vm.changeEmailSignature()" class="btn btn-success btn-block">Change</button>
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 </html>

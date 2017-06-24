@@ -1,5 +1,6 @@
 var mailer = require('nodemailer');
 var User = require('../models/users');
+var Settings = require('../models/settings');
 
 var transporter = mailer.createTransport('smtps://fiuvipmailer%40gmail.com:vipadmin123@smtp.gmail.com');
 
@@ -25,11 +26,15 @@ var sendEmail = function (recipient, text, subject, errorHandler, successHandler
 };
 
 var sendEmailWithHeaderAndSignature = function (user, mainText, subject, errorHandler, successHandler) {
-    var name = (user.firstName) ? user.firstName + " " + user.lastName : "VIP user";
-    var greeting = "Dear " + name + ",<br/><br/>";
-    var signature = "<br/><br/>Sincerely,<br/>Masoud Sadjadi<br/>VIP PI";
+    Settings.findOne({owner: "admin"}, function(error, setting) {
+        var name = (user.firstName) ? user.firstName + " " + user.lastName : "VIP ";
+        name += (setting.current_email === user.email) ? "Admin" : "User";
 
-    sendEmail(user.email, greeting + mainText + signature, subject, errorHandler, successHandler);
+        var greeting = "Dear " + name + ",<br/><br/>";
+        var signature = setting.emailSignature;
+
+        sendEmail(user.email, greeting + mainText + signature, subject, errorHandler, successHandler);
+    });
 };
 
 exports.sendEmail = sendEmail;

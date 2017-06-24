@@ -62,6 +62,7 @@ module.exports = function(app, express) {
                 settings.owner = "admin";
                 settings.emails = req.body.emails;
                 settings.current_email = req.body.current_email;
+                settings.emailSignature = (req.body.emailSignature) ? req.body.emailSignature : settings.emailSignature;
                 settings.save(function(err)
                 {
                     if (err)
@@ -70,20 +71,18 @@ module.exports = function(app, express) {
                         return res.send(err);
                     }
                     res.json({message: 'Saved!' })
-                })
-
-            })
+                });
+            });
         });
     apiRouter.route('/allsettings')
         .get(function (req, res) {
 
-            Setting.find({}, function(err, settings)
-            {
+            Setting.find({}, function(err, settings) {
                 if (err)
                     return res.send(err);
 
                 res.json(settings);
-            })
+            });
 
         });
 

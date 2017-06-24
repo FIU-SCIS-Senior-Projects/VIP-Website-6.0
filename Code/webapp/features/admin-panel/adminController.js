@@ -92,6 +92,13 @@
             }
         };
 
+        vm.changeEmailSignature = function() {
+            var signature = vm.adminSettings.emailSignature;
+            vm.adminSettings.emailSignature = vm.adminSettings.emailSignature.replace(/\n/g, "<br/>");
+            vm.savesetting();
+            vm.adminSettings.emailSignature = signature;
+        };
+
         vm.impersonate = function(user) {
             adminService.impersonate(user).then(function(data) {
                 if (!data.redirectUrl) {//there was an error
@@ -274,6 +281,7 @@
 
                 adminService.getAdminSettings().then(function (data) {
                     vm.adminSettings = data;
+                    vm.adminSettings.emailSignature = vm.adminSettings.emailSignature.replace(/<br\/>/g, "\n");
                 });
             });
 
@@ -706,8 +714,8 @@
         function savesettings_msg()
         {
             swal({
-                title: "Admin Email Saved",
-                text: "Admin email preferences have been saved!",
+                title: "Admin Settings Saved",
+                text: "Admin preferences have been saved!",
                 type: "info",
                 confirmButtonText: "Continue",
                 allowOutsideClick: true,

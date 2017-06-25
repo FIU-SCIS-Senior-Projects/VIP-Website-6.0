@@ -27,11 +27,17 @@ var sendEmail = function (recipient, text, subject, errorHandler, successHandler
 
 var sendEmailWithHeaderAndSignature = function (user, mainText, subject, errorHandler, successHandler) {
     Settings.findOne({owner: "admin"}, function(error, setting) {
-        var name = (user.firstName) ? user.firstName + " " + user.lastName : "VIP ";
-        name += (setting.current_email === user.email) ? "Admin" : "User";
+        var name = "";
+        if (setting.current_email === user.email) {
+            name = "VIP Admin";
+        } else if (user.firstName) {
+            name = user.firstName + " " + user.lastName;
+        } else {
+            name = "VIP User";
+        }
 
         var greeting = "Dear " + name + ",<br/><br/>";
-        var signature = setting.emailSignature;
+        var signature = "<br/><br/>" + setting.emailSignature;
 
         sendEmail(user.email, greeting + mainText + signature, subject, errorHandler, successHandler);
     });

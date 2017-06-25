@@ -93,10 +93,8 @@
         };
 
         vm.changeEmailSignature = function() {
-            var signature = vm.adminSettings.emailSignature;
             vm.adminSettings.emailSignature = vm.adminSettings.emailSignature.replace(/\n/g, "<br/>");
             vm.savesetting();
-            vm.adminSettings.emailSignature = signature;
         };
 
         vm.impersonate = function(user) {
@@ -249,7 +247,9 @@
 
         function SaveSetting()
         {
-            adminService.saveAdminSettings(vm.adminSettings);
+            adminService.saveAdminSettings(vm.adminSettings).then(function(data) {
+                vm.adminSettings.emailSignature = vm.adminSettings.emailSignature.replace(/<br\/>/g, "\n");
+            });
             savesettings_msg();
         }
 

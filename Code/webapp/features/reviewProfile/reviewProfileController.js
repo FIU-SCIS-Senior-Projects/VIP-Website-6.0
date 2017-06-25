@@ -11,11 +11,15 @@
     // function undefined reviewProfileService???
     function reviewProfileController($state, $scope, reviewProfileService, $location, $window, ProfileService) {        
 		var profile;
-        
+
         var vm = this;
-        vm.profile;
+
         vm.acceptProfile = acceptProfile;
         vm.rejectProfile = rejectProfile;
+
+        reviewProfileService.getReg($state.params.user_id).then(function(data) {
+            vm.profile = data;
+        });
 
 		// accepts the updated rank/usertype
         function acceptProfile ()

@@ -2,11 +2,22 @@
     angular.module('MessengerController', ['ProjectProposalService', 'userService', 'toDoModule', 'MessengerService', 'vip-projects'])
         .controller('MessengerController', function ($window, $location, $scope, User, ProfileService, ProjectService,
                                                      LocationService, ToDoService, $stateParams, MessengerService,
-                                                     reviewStudentAppService) {
+                                                     reviewStudentAppService, adminService) {
             var profile;
             var curr_profile;
             var vm = this;
             vm.userTypeNew;
+
+            vm.adminEmail;
+            adminService.getAdminSettings().then(function (data)
+            {
+                var adminData;
+                adminData = data;
+                console.log(adminData);
+                console.log(adminData.current_email);
+                vm.adminEmail = adminData.current_email;
+            });
+
 
             ProfileService.loadProfile().then(function (data) {
                 if (data) {
@@ -502,18 +513,18 @@
                 var email_msg =
                     {
                         // doing this for privacy concerns from Pi
-                        recipient: "vip@cis.fiu.edu",
+                        recipient: vm.adminEmail,
 
                         // we message all of the users using bcc, because they way they only see the fiuvipmailer@gmail.com email address, and not the email address of all the people who are also included on that email
                         bcc: usersToMessage,
-                        text: "Dear User, you have recieved a new message!\n\n\nFrom: " + profile.firstName + " " + profile.lastName + "\n"
-                        + "Message Subject: " + MessageSubject + "\nMessage Text: " + MessageBody + "\n\nPlease reply to this message using the following form: " + EmailURL,
+                        text: "You have received a new message!<br/><br/><br/>From: " + profile.firstName + " " + profile.lastName + "<br/>"
+                        + "Message Subject: " + MessageSubject + "<br/>Message Text: " + MessageBody + "<br/><br/>Please reply to this message using the following form: " + EmailURL,
 
                         subject: "New Message from " + profile.firstName + " " + profile.lastName + "!",
 
                         recipient2: curr_profile,
                         subject2: "You have sent a new message",
-                        text2: "Your message to " + usersToMessage + " has been sent sucessfully. Thank you!"
+                        text2: "Your message to " + usersToMessage + " has been sent successfully. Thank you!"
                     };
 
                 User.nodeEmail(email_msg);

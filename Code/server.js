@@ -15,10 +15,10 @@ var app			= express();
 //Set HOST
 app.set("host", "localhost");
 app.set("protocol", "http");
-app.set("baseWebUrl", app.get("protocol") + "://" + app.get("host") + "/#");
+app.set("baseWebUrl", app.get("protocol") + "://" + app.get("host") + ":" + config.externalPort + "/#");
 
 require('./deployment/gulpfile')('./webapp/');//this will take care to generate the distrib js and css files.
-require('./api/services/ExistingProjectsNotificationService').configureNotifications('0 0 0 1 * *', app);//setup existing projects notifications for the first day of each month
+require('./api/services/ExistingProjectsNotificationService').configureNotifications('0 0 3 * * *', app);//setup existing projects notifications as daily
 
 //connect to mongodb
 mongoose.connect(config.database, { server: { poolSize: 30 } });
@@ -59,6 +59,7 @@ var toDoRoutes = require('./api/routes/toDoRoutes')(app,express);
 var profileRoutes = require('./api/routes/profileApi')(app,express);
 var supportRoutes = require('./api/routes/support')(app,express);
 var logRoutes = require('./api/routes/logRoutes')(app,express);
+var settingsRoutes = require('./api/routes/settingsRoutes')(app,express);
 
 
 app.use('/api', projectRoutes);
@@ -67,6 +68,7 @@ app.use('/api', profileRoutes);
 app.use('/todo', toDoRoutes);
 app.use('/support', supportRoutes);
 app.use('/log', logRoutes);
+app.use('/settings', settingsRoutes);
 
 
 

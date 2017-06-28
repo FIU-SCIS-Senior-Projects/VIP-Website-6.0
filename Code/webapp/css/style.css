@@ -2,6 +2,11 @@ html {
 	min-height: 100%;
 }
 
+.center
+{
+    text-align: center;
+}
+
 .container-fluid {
     padding: 0;
 }
@@ -232,6 +237,8 @@ a {
 .horizontal-lin { /*userstory #1172 */
     border-bottom: 1px solid #1E1E1E;
 }
+
+.inline {white-space: nowrap;}
 
 /*.loginIcon{
 	float:right;
@@ -590,6 +597,7 @@ a {
 .red-text {
     color:red;
 }
+
 .team-project {
     margin-left: 0px;
     margin-right: 0px;
@@ -803,4 +811,40 @@ a {
 }
 .fa-google-plus:hover {
     background-color: #e25714;
+}
+
+#adminTable tbody>tr>td
+{
+    border-bottom: 1px solid lightgray;
+    white-space: nowrap;
+}
+.table #header>#headerInputs>th>input[type= "text"]
+{
+    height: 30px;
+    color: darkgrey;
+    font-weight: normal;
+    background-color: #204d74;
+    border-style: none;
+    min-width: 100px;
+    max-width: 500px;
+}
+
+.table #header>#headerInputs>th> input:focus
+{
+    color: gainsboro;
+    background-color: #265a88;
+    border: solid 1px steelblue;
+    box-shadow: black 2px;
+}
+
+.table #header>tr>th
+{
+    background-color: #061F3D;
+    color: white;
+}
+.table #header>#headerLabels>th
+{
+    vertical-align: bottom;
+    border-bottom: hidden;
+    padding-bottom: 0px;
 }

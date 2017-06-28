@@ -3,6 +3,7 @@ var passport      = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bodyParser    = require('body-parser');
 var nodemailer      = require('nodemailer');
+var emailService = require('../services/EmailService');
 
 //Models
 var User          = require('../models/users');
@@ -50,6 +51,28 @@ module.exports = function (app, express) {
     });
 
     app.post('/login',
+        function adminImpersonateUser(req, res, next) {//this method here allows someone logged in as a pi to impersonate any user
+            if (!req.user || req.user.rank !== 'PI') {//if not logged in yet or logged in but not PI, proceed with regular authentication as usual
+                return next();
+            } else {
+                User.findOne({email: req.body.email}, function (error, user) {//impersonate this user
+                    if (error) {
+                        return next(error);
+                    } else if (user.userType === 'Pi/CoPi') {
+                        return next(new Error('Users of type Pi/CoPi can\' be impersonated.'));
+                    } else {
+                        req.logout();
+                        req.logIn(user, function (error) {
+                            if (error) {
+                                return next(error);
+                            } else {
+                                res.send({ redirectUrl: "/#", error: null })
+                            }
+                        });
+                    }
+                });
+            }
+        },
         passport.authenticate('local', {
             successRedirect: '/#/proxy',
             failureRedirect: '/status',
@@ -85,7 +108,7 @@ module.exports = function (app, express) {
                    // res.json({message: 'Error, this user is not a pending student, faculty, staff or PI'})
                 });
             });
-        })
+        });
 
     userRouter.route('/nodeemail2')
         .post(function(req, res) {
@@ -93,88 +116,25 @@ module.exports = function (app, express) {
             var text = req.body.vm.userData.text;
             var subject = req.body.vm.userData.subject;
 
-            var transporter = nodemailer.createTransport({
-                service:'Gmail',
-                auth: {
-                    user: 'fiuvipmailer@gmail.com',
-                    pass: 'vipadmin123'
-                }
-            });
-
-            var mailOptions = {
-                from: 'FIU VIP <vipadmin@fiu.edu>', // sender address
-                to: recipient, // list of receivers
-                subject: subject, // Subject line
-                text: text
-            };
-
-            //////console.log(mailOptions);
-
-            // send mail with defined transport object
-			transporter.sendMail(mailOptions, function(error, info)
-			{
-				if(error) {
-					return; //////console.log(error);
-				}
-            });
+            emailService.sendEmailWithHeaderAndSignatureNoUser(recipient, text, subject, null, null);
 	});
 
-    userRouter.route('/nodeemail').post(function(req, res)
-	{
-			//////console.log("NodeEmailer Called. We should be sending 2 emails");
+    userRouter.route('/nodeemail').post(function(req, res)	{
 
             var recipient = req.body.recipient;
             var text = req.body.text;
             var subject = req.body.subject;
             var bccget = req.body.bcc;
 
+            recipient.split(',').concat(!bccget ? [] : bccget.split(',')).forEach(function(email) {
+                emailService.sendEmailWithHeaderAndSignatureNoUser(email, text, subject, null, null);
+            });
+
             var recipient2 = req.body.recipient2;
             var text2 = req.body.text2;
             var subject2 = req.body.subject2;
 
-            var transporter = nodemailer.createTransport({
-                service:'Gmail',
-                auth: {
-                    user: 'fiuvipmailer@gmail.com',
-                    pass: 'vipadmin123'
-                }
-            });
-
-
-            var mailOptions = {
-                from: 'FIU VIP <vipadmin@fiu.edu>', // sender address
-                to: recipient, // list of receivers
-                bcc: [bccget],
-                subject: subject, // Subject line
-                text: text
-            };
-
-            //////console.log(mailOptions);
-
-            // send mail with defined transport object
-			transporter.sendMail(mailOptions, function(error, info)
-			{
-				if(error) {
-					return; //////console.log(error);
-				}
-            });
-
-
-            var mailOptions2 = {
-                from: 'FIU VIP <vipadmin@fiu.edu>', // sender address
-                to: recipient2, // list of receivers
-                subject: subject2, // Subject line
-                text: text2
-            };
-
-            //////console.log(mailOptions2);
-
-            // send mail with defined transport object
-            transporter.sendMail(mailOptions2, function(error, info){
-                if(error) {
-                    return; //////console.log(error);
-                }
-            });
+            emailService.sendEmailWithHeaderAndSignatureNoUser(recipient2, text2, subject2, null, null);
 	});
 	
 	userRouter.route('/users/email/:email').get(function(req,res) {

@@ -6,9 +6,18 @@
 
     angular
         .module('userRegistrationController', ['userService', 'toDoModule', 'vip-projects'])
-        .controller('registrationController', function (User, ToDoService, ProfileService, LocationService, DateTimeService) {
+        .controller('registrationController', function (User, ToDoService, ProfileService, LocationService, DateTimeService, adminService) {
             var vm = this;
 
+            vm.adminEmail;
+            adminService.getAdminSettings().then(function (data)
+            {
+                var adminData;
+                adminData = data;
+                console.log(adminData);
+                console.log(adminData.current_email);
+                vm.adminEmail = adminData.current_email;
+            });
 
             vm.Users = [
                 {
@@ -281,16 +290,15 @@
                         vm.objectId = data.objectId;
 
                         vm.userData.recipient = vm.userData.email;
-                        vm.userData.text = "Dear " + vm.userData.firstName + ",\n\nWelcome to FIU's VIP Project!" +
-                            " Please verify your email with the link below and standby for your account to be verified by the PI.\n\n" + LocationService.vipApiUrls.vip.verifyEmail + "/" + vm.objectId + "";
+                        vm.userData.text = "Welcome to FIU's VIP Project!" +
+                            " Please verify your email with the link below and standby for your account to be verified by the PI.<br/><br/>" + LocationService.vipApiUrls.vip.verifyEmail + "/" + vm.objectId + "";
                         vm.userData.subject = "Welcome to FIU VIP Project!";
 
                         // send email to PI for approval
-                        vm.userData.recipient2 = "vip@cis.fiu.edu"; // NEED TO PUT MAIN PI EMAIL HERE FOR NOW
+                        vm.userData.recipient2 = vm.adminEmail; // NEED TO PUT MAIN PI EMAIL HERE FOR NOW
 
                         // User Story #1140
-                        vm.userData.text2 = "Dear PI/CoPI," +
-                            vm.userData.firstName + " " + vm.userData.lastName + " is attempting to register, please accept or reject using the following link:\n\ " + LocationService.vipWebUrls.verifyUser;
+                        vm.userData.text2 = vm.userData.firstName + " " + vm.userData.lastName + " is attempting to register, please accept or reject using the following link:<br/><br/> " + LocationService.vipWebUrls.verifyUser;
                         vm.userData.subject2 = vm.userData.firstName + " " + vm.userData.lastName + " is attempting to Register a New Account";
 
                         User.nodeEmail(vm.userData);

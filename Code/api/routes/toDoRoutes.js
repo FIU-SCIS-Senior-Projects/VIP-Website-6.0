@@ -29,7 +29,7 @@ module.exports = function(app, express) {
     var apiRouter = express.Router();
 
     apiRouter.route('/todo')
-        .get(function (req, res) {
+        .get(function (req, res) {//todo: this is awful design, why would you retrieve every single record in the database, huge performance issue.
             ToDo.find({}, function(err, todo) {
                 if(err) {
                     res.send('There was an error processing the tasks');//todo: missing error code

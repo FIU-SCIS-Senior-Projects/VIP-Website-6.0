@@ -3,9 +3,9 @@
 
     angular
         .module('reviewProjectProposals', ['ProjectProposalService', 'vip-projects'])
-        .controller('reviewProjectController', reviewProjectCtrl);
+        .controller('reviewProjectController', function ($window, $state, $scope, reviewPPS, ToDoService, User, ProjectService, LocationService, adminService)
 
-    function reviewProjectCtrl($window, $state, $scope, reviewPPS, ToDoService, User, ProjectService, LocationService) {
+        {
         var vm = this;
         vm.projects;
         vm.modified_projects;
@@ -14,7 +14,19 @@
         vm.RejectProject = RejectProject;
         vm.UndoProject = UndoProject;
         vm.DeleteLog = deletelog;
-        init();
+
+
+            vm.adminEmail;
+            adminService.getAdminSettings().then(function (data)
+            {
+                var adminData;
+                adminData = data;
+                console.log(adminData);
+                console.log(adminData.current_email);
+                vm.adminEmail = adminData.current_email;
+            });
+
+            init();
 
         function init() {
             loadData();
@@ -47,9 +59,9 @@
                 var email_msg =
                     {
                         recipient: email,
-                        text: "Dear proposer of project, the project titled: " + title + " has been approved by the PI. Link To Project: \n" + LocationService.vipWebUrls.projectDetailed + "/" + projectid,
+                        text: "The project titled: " + title + " has been approved by the PI. Link To Project: <br/>" + LocationService.vipWebUrls.projectDetailed + "/" + projectid,
                         subject: "Project Approved",
-                        recipient2: "vip@cis.fiu.edu",
+                        recipient2: vm.adminEmail,
                         text2: "",
                         subject2: ""
                     };
@@ -104,9 +116,9 @@
                 var email_msg =
                     {
                         recipient: email,
-                        text: "Dear proposer of project, the project titled: " + title + " has been rejected by the PI. Please contact the PI for the specific reason why the project didn't meet the criteria for acceptance.",
+                        text: "The project titled: " + title + " has been rejected by the PI. Please contact the PI for the specific reason why the project didn't meet the criteria for acceptance.",
                         subject: "Project Rejected",
-                        recipient2: "vip@cis.fiu.edu",
+                        recipient2: vm.adminEmail,
                         text2: "",
                         subject2: ""
                     };
@@ -297,5 +309,5 @@
         }
 
 
-    }
-})();
+    });
+}());

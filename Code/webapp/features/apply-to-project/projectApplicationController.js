@@ -2,7 +2,7 @@
     angular
         .module('projectApplicationController', ['ProjectProposalService', 'user-profile', 'toDoModule', 'userService',
             'reviewProfile', 'vip-projects'])
-        .controller('projAppCtrl', function (ProjectService, ProfileService, ToDoService, User, reviewProfileService,
+        .controller('projAppCtrl', function (ProjectService, ProfileService, ToDoService, User, reviewProfileService, adminService,
                                              LocationService, DateTimeService, $stateParams, $location, $window, $scope, $state, $document) {
 
             var vm = this;
@@ -10,6 +10,14 @@
             var currprof;
             $scope.done = false;
             $scope.joinAs = "fac";
+
+            vm.adminEmail;
+            adminService.getAdminSettings().then(function (data)
+            {
+                adminData = data;
+                vm.adminEmail = adminData.current_email;
+            });
+
 
             ProfileService.loadProfile().then(function (data) {
                 if (data) {
@@ -431,16 +439,13 @@
                                     var email_msg =
                                         {
                                             recipient: profile.email,
-                                            text: "Dear " + profile.firstName + " " + profile.lastName + ", thank you for applying to " + project.title + ", as either a faculty or mentor please register an account using the same email as soon as possible so people who are signed into the website can see your profile.\n\nProject: " + project.title + "\nStatus: Approved",
+                                            text: "Thank you for applying to " + project.title + ", as either a faculty or mentor please register an account using the same email as soon as possible so people who are signed into the website can see your profile.<br/><br/>Project: " + project.title + "<br/>Status: Approved",
                                             subject: "Faculty/Mentor Application Successfull",
-                                            recipient2: "vip@cis.fiu.edu",
-                                            text2: "Dear PI, " + profile.firstName + " " + profile.lastName + " has applied to project as a mentor or faculty you can remove this person off the project if he or she isn't authorized to join project.",
+                                            recipient2: vm.adminEmail,
+                                            text2: profile.firstName + " " + profile.lastName + " has applied to project as a mentor or faculty you can remove this person off the project if he or she isn't authorized to join project.",
                                             subject2: "Faculty/Mentor has joined " + project.title
                                         };
                                     User.nodeEmail(email_msg);
-
-                                    // // refresh the page after 3 seconds so the user can see the message
-                                    // setTimeout(function () { location.reload(true); }, 7000);
                                 },
                                 function (response) {
                                     msg("Cannot Apply Reason:", response.data);
@@ -498,10 +503,10 @@
                                     var email_msg =
                                         {
                                             recipient: profile.email,
-                                            text: "Dear " + profile.firstName + ", thank you for applying to " + project.title + " you are currently pending and this is just a confirmation that you applied to the project please keep checking the VIP to-do or your email as the PI will approve or deny your request to join the project.\n\nProject: " + project.title + "\nStatus: Pending",
+                                            text: "Thank you for applying to " + project.title + " you are currently pending and this is just a confirmation that you applied to the project please keep checking the VIP to-do or your email as the PI will approve or deny your request to join the project.<br/><br/>Project: " + project.title + "<br/>Status: Pending",
                                             subject: "Project Application Submission Pending",
-                                            recipient2: "vip@cis.fiu.edu",
-                                            text2: "Dear PI, " + profile.firstName + " " + profile.lastName + " has applied to project " + project.title + ". Please approve him/her by going to " + LocationService.vipWebUrls.reviewUser,
+                                            recipient2: vm.adminEmail,
+                                            text2: profile.firstName + " " + profile.lastName + " has applied to project " + project.title + ". Please approve him/her by going to " + LocationService.vipWebUrls.reviewUser,
                                             subject2: "New Student Applied Has Applied To " + project.title
                                         };
                                     User.nodeEmail(email_msg);
@@ -588,10 +593,10 @@
                                 var email_msg =
                                     {
                                         recipient: vm.email2,
-                                        text: "Dear " + vm.name + ", thank you for applying to " + project.title + ", as either a faculty or mentor please register an account using the same email as soon as possible so people who are signed into the website can see your profile.\n\nProject: " + project.title + "\nStatus: Approved",
+                                        text: "Thank you for applying to " + project.title + ", as either a faculty or mentor please register an account using the same email as soon as possible so people who are signed into the website can see your profile.<br/><br/>Project: " + project.title + "<br/>Status: Approved",
                                         subject: "Faculty/Mentor Application Successfull",
-                                        recipient2: "vip@cis.fiu.edu",
-                                        text2: "Dear PI, " + vm.name + " has applied to project as a mentor or faculty you can remove this person off the project if he or she isn't authorized to join project.",
+                                        recipient2: vm.adminEmail,
+                                        text2: vm.name + " has applied to project as a mentor or faculty you can remove this person off the project if he or she isn't authorized to join project.",
                                         subject2: "Faculty/Mentor has joined " + project.title
                                     };
                                 User.nodeEmail(email_msg);

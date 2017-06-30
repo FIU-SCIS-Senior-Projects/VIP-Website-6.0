@@ -3,13 +3,15 @@
  */
 
 var Setting = require('../models/settings');
-var bodyParser = require('body-parser');
+var authProvider = require('../services/AuthorizationProvider');
 
 module.exports = function(app, express) {
     var apiRouter = express.Router();
 
     apiRouter.route('/settings')
-        .post(function (req, res) {
+        .post(
+            authProvider.authorizeAuthenticatedUsers,
+            function (req, res) {
 
             console.log(req);
             console.log(res);
@@ -34,7 +36,9 @@ module.exports = function(app, express) {
         .get(function (req, res) {
 
         })
-        .delete(function (req, res) {
+        .delete(
+            authProvider.authorizeByUserType(authProvider.userType.PiCoPi),
+            function (req, res) {
 
             Setting.remove({_id: req.params.id}, function (err)
             {
@@ -45,7 +49,9 @@ module.exports = function(app, express) {
 
         });
     apiRouter.route('/admin')
-        .get(function (req, res)
+        .get(
+            authProvider.authorizeAll,
+            function (req, res)
         {
             Setting.findOne({owner: "admin"}, function(err, settings)
             {
@@ -55,7 +61,9 @@ module.exports = function(app, express) {
                 res.json(settings);
             })
         })
-        .put(function(req, res)
+        .put(
+            authProvider.authorizeByUserType(authProvider.userType.PiCoPi),
+            function(req, res)
         {
             Setting.findOne({owner: "admin"}, function(err, settings)
             {
@@ -75,7 +83,9 @@ module.exports = function(app, express) {
             });
         });
     apiRouter.route('/allsettings')
-        .get(function (req, res) {
+        .get(
+            authProvider.authorizeByUserType(authProvider.userType.PiCoPi),
+            function (req, res) {
 
             Setting.find({}, function(err, settings) {
                 if (err)
@@ -83,7 +93,6 @@ module.exports = function(app, express) {
 
                 res.json(settings);
             });
-
         });
 
     return apiRouter;

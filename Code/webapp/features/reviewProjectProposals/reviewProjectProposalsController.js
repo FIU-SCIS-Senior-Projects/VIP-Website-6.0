@@ -56,14 +56,17 @@
                 }, function (error) {
 
                 });
+
+                var subject = "Project Approved";
+                var text = "The project titled: " + title + " has been approved by the PI. Link To Project: <br/>" + LocationService.vipWebUrls.projectDetailed + "/" + projectid;
                 var email_msg =
                     {
                         recipient: email,
-                        text: "The project titled: " + title + " has been approved by the PI. Link To Project: <br/>" + LocationService.vipWebUrls.projectDetailed + "/" + projectid,
-                        subject: "Project Approved",
+                        text: text,
+                        subject: subject,
                         recipient2: vm.adminEmail,
-                        text2: "",
-                        subject2: ""
+                        text2: text,
+                        subject2: subject
                     };
                 User.nodeEmail(email_msg);
 
@@ -113,14 +116,16 @@
                 }, function (error) {
 
                 });
+
+                var subject = "Project Rejected";
                 var email_msg =
                     {
                         recipient: email,
                         text: "The project titled: " + title + " has been rejected by the PI. Please contact the PI for the specific reason why the project didn't meet the criteria for acceptance.",
-                        subject: "Project Rejected",
+                        subject: subject,
                         recipient2: vm.adminEmail,
-                        text2: "",
-                        subject2: ""
+                        text2: "The project titled: " + title + " has been rejected.",
+                        subject2: subject
                     };
                 User.nodeEmail(email_msg);
 

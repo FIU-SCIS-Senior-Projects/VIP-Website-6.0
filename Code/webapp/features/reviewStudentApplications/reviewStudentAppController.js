@@ -107,14 +107,17 @@
                 }, function (error) {
 
                 });
+
+                var subject = "Project Application Approved";
                 var email_msg =
                     {
                         recipient: user.email,
                         text: "The project you joined has accepted you to participate.",
-                        subject: "Project Approved",
+                        subject: subject,
                         recipient2: vm.adminEmail,
-                        text2: "",
-                        subject2: ""
+                        text2: "The application of " + user.firstName + " " + user.lastName + " to work on project '" +
+                            user.project + "' has been approved.",
+                        subject2: subject
                     };
                 User.nodeEmail(email_msg);
             });
@@ -160,14 +163,17 @@
                     }, function (error) {
 
                     });
+
+                    var subject = "Project Application Rejected";
                     var email_msg =
                         {
                             recipient: user.email,
                             text: "The project you applied for has rejected you from joining.",
-                            subject: "Project Rejected",
+                            subject: subject,
                             recipient2: vm.adminEmail,
-                            text2: "",
-                            subject2: ""
+                            text2: "The application of " + user.firstName + " " + user.lastName + " to work on project '" +
+                            user.project + "' has been rejected.",
+                            subject2: subject
                         };
                     User.nodeEmail(email_msg);
 

@@ -841,22 +841,24 @@
                 var formerProject;
                 var name = user.firstName + " " + user.lastName;
                 var email = user.email;
-                var email_msg =
-                    {
-                        recipient: email,
-                        text: "Your current project has been cleared. For more information, please contact a PI.",
-                        subject: "Project Cleared",
-                        recipient2: vm.adminSettings.current_email,
-                        text2: "",
-                        subject2: ""
-                    };
-                User.nodeEmail(email_msg);
 
                 for (i = 0; i < vm.projects.length; i++) {
                     if (vm.projects[i].members.includes(email)) {
                         formerProject = vm.projects[i];
                     }
                 }
+
+                var email_msg =
+                    {
+                        recipient: email,
+                        text: "Your current project has been cleared. For more information, please contact a PI.",
+                        subject: "Project Cleared",
+                        recipient2: vm.adminSettings.current_email,
+                        text2: name + " has been successfully removed from project '" + (formerProject ? formerProject : 'unknown') + "'.",
+                        subject2: "Removed user from project"
+                    };
+                User.nodeEmail(email_msg);
+
                 if (formerProject) {
                     for (i = 0; i < formerProject.members_detailed.length; i++) {
                         if (formerProject.members_detailed[i] == name) {

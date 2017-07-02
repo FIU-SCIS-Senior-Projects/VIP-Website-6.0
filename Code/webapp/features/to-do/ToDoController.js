@@ -38,23 +38,29 @@
         };
 
         function getToDo (profile) {
-            ToDoService.loadAllToDo()
+            //ToDoService.loadAllToDo()
+            ToDoService.loadMyToDo(profile)
                 .then(function(data) {
                     vm.list = data.data;
-                    for(i = 0; i < vm.list.length; i++) {
+
+
+                    for(i = 0; i < vm.list.length; i++)
+                    {
+                        console.log(vm.list[i].owner_id + ", " + vm.list[i].owner_name);
                         if(vm.list[i].read) continue;
 						
-						if (vm.list[i].owner != profile.userType) {
+						/*if (vm.list[i].owner != profile.userType) {
 							vm.list[i] = null; // Make null so it ignores it in ng-repeat the null value doesn't persist i.e not stored in db.
 							continue;
-						} 
-						
+						} */
+
+						/*
 						if (vm.list[i].owner_id) {
 							if (vm.list[i].owner_id != profile._id) {
 								vm.list[i] = null; // Make null so it ignores it in ng-repeat the null value doesn't persist i.e not stored in db.
 								continue;
 							}
-						}
+						}*/
 
                         if(vm.list[i].type == 'personal') vm.personalCount++;
 
@@ -73,6 +79,8 @@
 		
 		ProfileService.loadProfile().then(function(data){
 					if (data) {
+
+					    console.log(data);
 						getToDo(data);
 					
 					}

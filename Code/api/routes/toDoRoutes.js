@@ -68,5 +68,61 @@ module.exports = function (app, express) {
                 });
             });
 
+    apiRouter.route('/todo/my/:owner_id')
+        .get(
+            authProvider.authorizeAuthenticatedUsers,
+            function (req, res) {
+                ToDo.find({owner_id: req.params.owner_id}, function (err, todo)
+                {
+                    if (err) {
+                        res.send('There was an error processing the tasks');//todo: missing error code
+                    } else {
+                        res.send(todo);
+                    }
+                });
+            });
+
+    apiRouter.route('/todo/my/:owner_id/:type')
+        .get(
+            authProvider.authorizeAuthenticatedUsers,
+            function (req, res) {
+                ToDo.find({owner_id: req.params.owner_id, type: req.params.type}, function (err, todo)
+                {
+                    if (err) {
+                        res.send('There was an error processing the tasks');//todo: missing error code
+                    } else {
+                        res.send(todo);
+                    }
+                });
+            });
+
+    apiRouter.route('/todo/pi/:owner_id')
+        .get(
+            authProvider.authorizeByUserType(authProvider.userType.PiCoPi),
+            function (req, res) {
+                ToDo.find( { $or:[{owner: "Pi/CoPi", owner_id: null}, {owner_id: req.params.owner_id}]}, function (err, todo)
+                {
+                    if (err) {
+                        res.send('There was an error processing the tasks');//todo: missing error code
+                    } else {
+                        res.send(todo);
+                    }
+                });
+            });
+
+    apiRouter.route('/todo/pi/:owner_id/:type')
+        .get(
+            authProvider.authorizeByUserType(authProvider.userType.PiCoPi),
+            function (req, res) {
+                ToDo.find( {$or:[{owner: "Pi/CoPi", owner_id: null}, {owner_id: req.params.owner_id}], type: req.params.type} , function (err, todo)
+                {
+                    if (err) {
+                        res.send('There was an error processing the tasks');//todo: missing error code
+                    } else {
+                        res.send(todo);
+                    }
+                });
+            });
+
     return apiRouter;
 };

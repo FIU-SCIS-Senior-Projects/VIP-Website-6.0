@@ -28,3 +28,21 @@ exports.getYesterdaysDate = function() {
     var oneDay = 1000 * 60 * 60 * 24;
     return new Date(today.getTime() - oneDay);
 };
+exports.DateTimeEquals = function(date_str1, date_str2)
+{
+    var date1 = toDateObject(date_str1);
+    var date2 = toDateObject(date_str2);
+
+    var diffInMilli = Math.abs( date1.getTime() - date2.getTime());
+
+    if (diffInMilli <= 20000)
+        return true;
+    else
+        return false;
+};
+
+var toDateObject = function(dateString)
+{
+    var parsed = Date.parse(dateString);
+    return new Date(parsed);
+};

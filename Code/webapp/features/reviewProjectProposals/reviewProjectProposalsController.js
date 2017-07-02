@@ -3,7 +3,7 @@
 
     angular
         .module('reviewProjectProposals', ['ProjectProposalService', 'vip-projects'])
-        .controller('reviewProjectController', function ($window, $state, $scope, reviewPPS, ToDoService, User, ProjectService, LocationService, adminService)
+        .controller('reviewProjectController', function ($window, $state, $scope, reviewPPS, ToDoService, User, ProjectService, LocationService, adminService, ProfileService)
 
         {
         var vm = this;
@@ -26,6 +26,27 @@
                 vm.adminEmail = adminData.current_email;
             });
 
+            vm.profile;
+            vm.toDoData;
+            ProfileService.loadProfile().then(function (data)
+            {
+                var profileData;
+                profileData = data;
+                vm.profile = profileData;
+                console.log(vm.profile);
+
+                ToDoService.loadMyToDoType(vm.profile, "project").then(function (data2)
+                {
+                    console.log(data2.data);
+                });
+
+            });
+
+
+
+            vm.toDoData;
+
+
             init();
 
         function init() {
@@ -37,6 +58,7 @@
             reviewPPS.loadProjects().then(function (data) {
                 vm.projects = data;
             });
+
         }
 
         // User Story #1207
@@ -61,7 +83,7 @@
                         recipient: email,
                         text: "The project titled: " + title + " has been approved by the PI. Link To Project: <br/>" + LocationService.vipWebUrls.projectDetailed + "/" + projectid,
                         subject: "Project Approved",
-                        recipient2: vm.adminEmail,
+                        recipient2: "",
                         text2: "",
                         subject2: ""
                     };
@@ -118,7 +140,7 @@
                         recipient: email,
                         text: "The project titled: " + title + " has been rejected by the PI. Please contact the PI for the specific reason why the project didn't meet the criteria for acceptance.",
                         subject: "Project Rejected",
-                        recipient2: vm.adminEmail,
+                        recipient2: "",
                         text2: "",
                         subject2: ""
                     };

@@ -60,6 +60,7 @@ var profileRoutes = require('./api/routes/profileApi')(app,express);
 var supportRoutes = require('./api/routes/support')(app,express);
 var logRoutes = require('./api/routes/logRoutes')(app,express);
 var settingsRoutes = require('./api/routes/settingsRoutes')(app,express);
+var skillsRoutes = require('./api/routes/skillsRoutes')(app, express);
 
 
 app.use('/api', projectRoutes);
@@ -69,6 +70,7 @@ app.use('/todo', toDoRoutes);
 app.use('/support', supportRoutes);
 app.use('/log', logRoutes);
 app.use('/settings', settingsRoutes);
+app.use('/api', skillsRoutes);
 
 
 

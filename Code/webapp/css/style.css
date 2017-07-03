@@ -848,3 +848,8 @@ a {
     border-bottom: hidden;
     padding-bottom: 0px;
 }
+
+label.small {
+    font-weight: normal;
+    font-size: 0.8em;
+}

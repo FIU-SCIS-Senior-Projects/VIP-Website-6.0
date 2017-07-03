@@ -65,7 +65,9 @@ module.exports = function(webapp) {
         webapp + "features/messenger/MessengerService.js",
         webapp + "features/reusable-services/DateTimeService.js",
         webapp + "features/reusable-services/LocationService.js",
+        webapp + "features/reusable-services/skills/SkillsService.js",
         //directives
+        webapp + "features/reusable-services/skills/SkillsDirective.js",
         webapp + "features/header/headerDirective.js",
         webapp + "features/footer/footerDirective.js",
         //main Angular app files

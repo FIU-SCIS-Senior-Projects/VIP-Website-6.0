@@ -2,8 +2,9 @@
     angular
         .module('projectApplicationController', ['ProjectProposalService', 'user-profile', 'toDoModule', 'userService',
             'reviewProfile', 'vip-projects'])
-        .controller('projAppCtrl', function (ProjectService, ProfileService, ToDoService, User, reviewProfileService, adminService,
-                                             LocationService, DateTimeService, $stateParams, $location, $window, $scope, $state, $document) {
+        .controller('projAppCtrl', function (ProjectService, ProfileService, ToDoService, User, reviewProfileService,
+                                             adminService, LocationService, DateTimeService, SkillsService, $stateParams,
+                                             $location, $window, $scope, $state, $document) {
 
             var vm = this;
             var profile;
@@ -256,6 +257,9 @@
 
             // note: vm.xxx = data from form, vm.profile.xxx = data from current users account
             vm.save = function () {
+                SkillsService.saveSkills($scope.projApp.skillItem.split(',')
+                    .map(function(skill) { return skill.trim(); })
+                    .filter(function(skill) { return skill !== "" }));
 
                 if (vm.sProject.status == 'Disabled') {
                     console.log(vm.sProject.status);

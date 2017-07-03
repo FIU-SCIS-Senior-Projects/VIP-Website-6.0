@@ -19,7 +19,6 @@
             return $http.get('/settings/allsettings/').then(function (data)
             {
                 console.log("in getSettings");
-
                return data.data;
             });
         };

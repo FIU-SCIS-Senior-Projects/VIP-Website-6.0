@@ -35,7 +35,6 @@
         toDoFactory.createTodo = function (todo) {
             return $http.post('todo/todo', todo);
         };
-		
 
         return toDoFactory;
     }

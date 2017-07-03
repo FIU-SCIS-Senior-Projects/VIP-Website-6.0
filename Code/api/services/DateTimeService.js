@@ -41,6 +41,28 @@ exports.DateTimeEquals = function(date_str1, date_str2)
         return false;
 };
 
+exports.DaysElapsed = function(date_str)
+{
+    var date = toDateObject(date_str);
+    var today = Date.now();
+
+    return toDayCount(today-date);
+
+};
+
+var toDayCount = function(date_str)
+{
+    var date = toDateObject(date_str);
+
+     var mill_to_sec = 1000;
+     var sec_to_min = 60;
+     var min_to_hour = 60;
+     var hour_to_day = 24;
+
+     var millisec_in_day = mill_to_sec * sec_to_min * min_to_hour * hour_to_day;
+     return date / millisec_in_day;
+
+};
 var toDateObject = function(dateString)
 {
     var parsed = Date.parse(dateString);

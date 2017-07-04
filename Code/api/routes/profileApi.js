@@ -17,12 +17,6 @@ module.exports = function (app, express) {
             function (req, res) {
 
                 Profile.findById(req.body._id, function (err, profile) {
-                    console.log("old gender: " + profile.gender);
-                    console.log("req gender: " + req.body.gender);
-                    console.log("old college: " + profile.college);
-                    console.log("req college: " + req.body.college);
-                    console.log("old department: " + profile.department);
-                    console.log("req department: " + req.body.department);
                     profile.rank = req.body.rank;
                     profile.pantherID = req.body.pantherID;
                     profile.college = req.body.college;
@@ -40,11 +34,6 @@ module.exports = function (app, express) {
 
                     // Adding semester to database
                     profile.semester = req.body.semester;
-                    console.log("new gender: " + profile.gender);
-                    console.log("new college: " + profile.college);
-                    console.log("new department: " + profile.department);
-
-                    console.log("update user info 2");
 
                     profile.save(function (err) {
                         if (err) res.send(err);
@@ -164,31 +153,17 @@ module.exports = function (app, express) {
             authProvider.authorizeByUserType(authProvider.userType.PiCoPi,
                 authProvider.authorizeByUserId('body._id')),
             function (req, res) {
-                ////console.log('POST /profile');
-                /*
-                 * This update takes TOO LONG to complete therefore im using the not so short approach but the fastest of the two
-                 */
-                // Profile.update({ _id: req.body._id }, req.body).then(function(WriteResult){
-                //     ////console.log(WriteResult);
-                //     return res.json(profile);
-                // });
-
-                // find the profile via _id
                 Profile.findById(req.body._id, function (err, profile) {
                     // note to future devs: "profile.rank" is the users current rank in database, "req.body.rank" is the rank they are attempting to obtain
-                    // beyond this point, the profile has been found
-
-                    ////console.log("piApproval is " + req.body.piApproval);
 
                     var isUserTypeUpdateRequest = false;
+                    profile.allowNotifications = req.body.allowNotifications;
 
                     // set superuser status for a newly approved PI account
                     if (!profile.isSuperUser && profile.userType == "Pi/CoPi") {
                         ////console.log("User has been approved by PI, and is a PI himself, elevate privs");
                         profile.isSuperUser = true;
                     }
-
-                    ////console.log("decision made is " + req.body.isDecisionMade);
 
                     // profile has been accepted or rejected, update in db
                     if (!profile.isDecisionMade && req.body.isDecisionMade) {
@@ -209,7 +184,6 @@ module.exports = function (app, express) {
                     profile.rank = req.body.rank;
                     profile.image = req.body.image;
                     profile.resume = req.body.resume;
-                    profile.noNotifications = req.body.noNotifications;
 
                     // User Story #1144
                     profile.skillItem = req.body.skillItem;
@@ -232,16 +206,9 @@ module.exports = function (app, express) {
 
                     // user is privileged and should be allowed to update userType without approval
                     if (profile.isSuperUser) {
-                        ////console.log("User is privileged and allowed to update profile without approval");
                         profile.userType = req.body.userType;
                     } else {// user needs approval before updating the userType
-                        ////console.log("User is NOT privileged and needs approval to update the userType");
-
-                        // user is trying to change their account usertype
-                        if (profile.userType != req.body.userType) {
-                            ////console.log("Users current userType is " + profile.userType);
-                            ////console.log("User is attempting to change the userType to " + req.body.userType);
-
+                        if (profile.userType != req.body.userType) {// user is trying to change their account usertype
                             isUserTypeUpdateRequest = true;
 
                             // set temporary requested_rank userType database

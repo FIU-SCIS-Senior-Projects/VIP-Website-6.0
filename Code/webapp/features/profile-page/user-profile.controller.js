@@ -83,8 +83,6 @@ var userProfile = {
         function loadProfileData() {
             ProfileService.loadProfile().then(function (data) {
                 vm.profile = data;
-                vm.allowNotifications = data.noNotifications ? false : true;
-                ////console.log(vm.profile.userType);
                 currRank = vm.profile.userType;
 
                 // get the right index for the school/dept of the current college user is in
@@ -104,7 +102,6 @@ var userProfile = {
                 vm.profile.image = userProfile.image;
             if (userProfile.resume)
                 vm.profile.resume = userProfile.resume;
-            vm.profile.noNotifications = !vm.allowNotifications;
 
             ProfileService.saveProfile(vm.profile).then(function (data) {
                 // user is trying to change the userType, which may need approval

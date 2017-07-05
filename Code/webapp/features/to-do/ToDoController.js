@@ -113,9 +113,9 @@
 
                         if (daysElapsed > limit && !vm.list[i].read) {
 
-                            //vm.markedAsRead(vm.list[i]);
-                            vm.list[i].read = true;
-                            catItem.count--;
+                            vm.markedAsRead(vm.list[i]);
+                            //vm.list[i].read = true;
+                            //catItem.count--;
                         }
 
                     }

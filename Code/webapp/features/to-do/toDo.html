@@ -22,7 +22,7 @@
 
                         <!--To Do Category Titles-->
                         <h4 style="display: inline-block; margin-top: 5px;">
-                            <b> {{cat.headerText}}</b>
+                            <b>{{cat.headerText}}</b>
                         </h4>
 
                         <!--Clear Button-->
@@ -50,12 +50,12 @@
                 </div>
 
                 <!--To Do Details-->
-                <ul class="list-group" ng-repeat="todoItem in todo.list | filter: emptyOrNull
-                | filter: todoItem.type = cat.typeName | filter: message.read='false'
+                <ul class="list-group" ng-repeat="todoItem in todo.list
+                | filter: message.read='false' | filter: emptyOrNull
                 | orderBy: -todo.time:true">
 
                     <!--Trash Button-->
-                    <li class="list-group-item">
+                    <li class="list-group-item" ng-show="todoItem.type == cat.typeName">
                         <a ng-click="todo.markedAsRead(todoItem)">
                             <span class="fa fa-trash"></span>
                         </a>

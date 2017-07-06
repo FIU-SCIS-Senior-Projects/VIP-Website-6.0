@@ -3,7 +3,7 @@
 
     angular
         .module('reviewProjectProposals', ['ProjectProposalService', 'vip-projects'])
-        .controller('reviewProjectController', function ($window, $state, $scope, reviewPPS, ToDoService, User, ProjectService, LocationService, adminService)
+        .controller('reviewProjectController', function ($window, $state, $scope, reviewPPS, ToDoService, User, ProjectService, LocationService, adminService, ProfileService, DateTimeService)
 
         {
         var vm = this;
@@ -26,6 +26,22 @@
                 vm.adminEmail = adminData.current_email;
             });
 
+            vm.profile;
+            vm.toDoData;
+            ProfileService.loadProfile().then(function (data)
+            {
+                var profileData;
+                profileData = data;
+                vm.profile = profileData;
+                console.log(vm.profile);
+
+                ToDoService.loadMyToDoType(vm.profile, "project").then(function (data2)
+                {
+                    vm.toDoData = data2.data;
+                });
+
+            });
+
             init();
 
         function init() {
@@ -40,8 +56,9 @@
         }
 
         // User Story #1207
-        function AcceptProject(projectid, owner, owner_name, title, email, rank, description, image, term, firstSemester, maxStudents, proposedDate) {
+        function AcceptProject(projectid, owner, owner_name, title, email, rank, description, image, term, firstSemester, maxStudents, proposedDate, status) {
 
+            vm.findMatch(title, status, proposedDate);
             reviewPPS.AcceptProjects(projectid).then(function (data) {
                 $scope.result = "Project Approved";
                 var todo = {
@@ -101,7 +118,9 @@
         }
 
         // User Story #1207
-        function RejectProject(projectid, owner, owner_name, title, email, rank, description, image, term, firstSemester, maxStudents, proposedDate) {
+        function RejectProject(projectid, owner, owner_name, title, email, rank, description, image, term, firstSemester, maxStudents, proposedDate, status){
+
+            vm.findMatch(title, status, proposedDate);
             reviewPPS.RejectProjects(projectid).then(function (data) {
                 $scope.result = "Project Rejected";
                 var todo = {
@@ -156,6 +175,44 @@
             reject_msg();
 
         }
+
+
+        vm.findMatch = function(projTitle, projStatus, projDate)
+        {
+            console.log("Inside of \'findMatch\'!");
+            vm.toDoData.forEach(function (todoObj)
+            {
+                var equalDate, containsProj, keyWordsMatch, matchPhrase;
+                equalDate = true;
+
+                if(todoObj.owner_id == null || !todoObj.read)  // only looks at "Pi to-dos".
+                {
+                    if (projStatus == "pending")
+                    {
+                        equalDate =
+                            DateTimeService.DateTimeEquals(todoObj.time, projDate);
+                        matchPhrase = "has proposed";
+                    }
+                    else
+                        matchPhrase = "has edited";
+
+                    keyWordsMatch = (todoObj.todo).includes(matchPhrase);
+                    containsProj  = (todoObj.todo).includes(projTitle);
+
+                    if (containsProj && equalDate && keyWordsMatch)
+                    {
+                        ToDoService.markAsRead(todoObj._id).then(function (data)
+                        {
+                            console.log(projTitle);
+                            console.log(todoObj.todo);
+                        });
+
+                    }
+                }
+
+            });
+
+        };
 
         // User Story #1207
         function UndoProject(projectid, logid, action, ownerid, owner_name, title, email, desc, image, term, minStud, maxStud, proposedDate) {

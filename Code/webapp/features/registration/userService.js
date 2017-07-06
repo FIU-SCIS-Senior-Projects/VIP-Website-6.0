@@ -22,7 +22,7 @@
 
             userFactory.getByEmail = function (email) {
                 return $http.get('/vip/users/email/' + email);
-            }
+            };
 
             // get all users
             userFactory.all = function () {

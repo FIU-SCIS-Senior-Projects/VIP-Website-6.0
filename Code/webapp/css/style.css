@@ -732,14 +732,24 @@ a {
 
 
 /* Footer Design */
-.social-icon {
+.social-icon i, .social-icon a, .social-icon span{
     color: #fff;
-}
-
-.social-icons a {
-    color: #fff;
+    text-align: center;
     text-decoration: none;
 }
+
+#discover_more .fa{
+    margin-bottom: 5px;
+    width: 60px;
+    height: 60px;
+    line-height: inherit;
+}
+
+.social-icon a:hover, .social-icon i:hover, .social-icon span:hover
+{
+    color: white;
+}
+
 .fa-facebook {
     padding:10px 14px;
     -o-transition:.5s;
@@ -811,6 +821,70 @@ a {
 }
 .fa-google-plus:hover {
     background-color: #e25714;
+}
+
+.fa-github
+{
+    padding:10px 9px;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition: .5s;
+    background-color: #322f30;
+}
+
+.fa-github:hover
+{
+    background-color: purple;
+}
+
+#discover_more .fa-google
+{
+    padding:10px 9px;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition: .5s;
+    background-color: #322f30;
+}
+
+#discover_more .fa-google:hover
+{
+    background-color: #e25714;
+}
+
+.fa-medium
+{
+    padding:10px 9px;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition: .5s;
+    background-color: #322f30;
+}
+
+.fa-medium:hover
+{
+background-color: #1DBFE6;
+}
+
+.fa-hourglass
+{
+    padding:10px 9px;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition: .5s;
+    background-color: #322f30;
+}
+
+.fa-hourglass:hover
+{
+    background-color: greenyellow;
 }
 
 #adminTable tbody>tr>td

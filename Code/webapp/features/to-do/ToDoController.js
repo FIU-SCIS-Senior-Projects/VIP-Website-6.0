@@ -2,85 +2,125 @@
     angular.module('toDoModule')
     .controller('toDoController', toDoController);
 
-    toDoController.$inject = ['$rootScope','$scope','ToDoService','ProfileService'];
+    toDoController.$inject = ['$rootScope','$scope','ToDoService','ProfileService', 'DateTimeService'];
 
-    function toDoController ($rootScope,$scope,ToDoService,ProfileService) {
-		
+    function toDoController ($rootScope,$scope,ToDoService,ProfileService,DateTimeService) {
+
         var vm = this;
-		vm.done = false;
+        vm.done = false;
         vm.list = [];
-        vm.personalCount = 0;
-        vm.userCount = 0;
-        vm.projectCount = 0;
-        vm.studentCount = 0;
-		vm.message = 0;
-		
-		
 
-        vm.markedAsRead = function(todo) {
+        // Combo-box options for clearing to-do messages
+        vm.clearOptions = ["...", "Older than a week", "Older than a month", "All"];
+        $scope.clearOption =  {option: vm.clearOptions[0]};
+
+        // "category" object defintion, used to keep track of the
+        // "type" attribute belonging to the to-do collection
+        function category(tname, theader, tcount)
+        {
+            this.typeName = tname;
+            this.headerText = theader;
+            this.count = tcount;
+        }
+
+        vm.personalCat = new category('personal', 'General Messages', 0);
+        vm.userCat = new category('user', 'User Account Registration Review', 0);
+        vm.projectCat = new category('project', 'Project Proposal Review', 0);
+        vm.studentCat = new category ('student', 'Student Application Review', 0);
+        vm.messageCat = new category('message', 'Email Messages', 0);
+
+		vm.categories = [vm.messageCat, vm.personalCat, vm.userCat,
+           vm.studentCat, vm.projectCat];
+
+		// load user data
+        ProfileService.loadProfile().then(function(data)
+        {
+            if (data) { getToDo(data); }
+            else {vm.done = true;}
+        });
+
+        // retrieve to-dos
+        function getToDo (profile) {
+
+            ToDoService.loadMyToDo(profile)
+                .then(function(data) {
+
+                    vm.list = data.data;
+                    for(i = 0; i < vm.list.length; i++)
+                    {
+                        //console.log(vm.list[i].owner_id );
+                        if(vm.list[i].read) continue;
+
+                        vm.categories.forEach( function(catItem)
+                        {
+                            if (vm.list[i].type == catItem.typeName)
+                                catItem.count++;
+                        });
+                    }
+
+                    vm.done = true;});
+        }
+
+        vm.markedAsRead = function(todo)
+        {
             ToDoService.markAsRead(todo._id)
                 .then(function(data) {
                     todo.read = true;
-					$rootScope.$broadcast('refresh');
+                    $rootScope.$broadcast('refresh');
                 });
-            if(todo.type == 'personal') vm.personalCount--;
 
-            else if(todo.type == 'user') vm.userCount--;
-
-            else if(todo.type == 'project') vm.projectCount--;
-
-            else if(todo.type == 'student') vm.studentCount--;
-			
-			else if (todo.type == 'message') vm.message--;
-			
-			
-			
+            vm.categories.forEach( function(catItem)
+            {
+                if (vm.list[i].type == catItem.typeName) {
+                    catItem.count--;
+                }
+            });
         };
 
-        function getToDo (profile) {
-            ToDoService.loadAllToDo()
-                .then(function(data) {
-                    vm.list = data.data;
-                    for(i = 0; i < vm.list.length; i++) {
-                        if(vm.list[i].read) continue;
-						
-						if (vm.list[i].owner != profile.userType) {
-							vm.list[i] = null; // Make null so it ignores it in ng-repeat the null value doesn't persist i.e not stored in db.
-							continue;
-						} 
-						
-						if (vm.list[i].owner_id) {
-							if (vm.list[i].owner_id != profile._id) {
-								vm.list[i] = null; // Make null so it ignores it in ng-repeat the null value doesn't persist i.e not stored in db.
-								continue;
-							}
-						}
+        vm.getTotalCount = function()
+        {
+            var total = 0;
+            vm.categories.forEach( function(catItem)
+            {
+                var obj = catItem;
+                total += obj.count;
+            });
+            return total;
+        };
 
-                        if(vm.list[i].type == 'personal') vm.personalCount++;
+        vm.clearButton = function(catItem)
+        {
+            //console.log(catItem);
+            var whichOpt = $scope.clearOption.option;
+            var limit = 9999;
 
-                        else if(vm.list[i].type == 'user') vm.userCount++;
+            //console.log(whichOpt);
 
-                        else if(vm.list[i].type == 'project') vm.projectCount++;
+            if (whichOpt === null || whichOpt === vm.clearOptions[0])
+                return;
+            else if (whichOpt === vm.clearOptions[1])
+                limit = 7;
+            else if (whichOpt === vm.clearOptions[2])
+                limit = 30;
+            else
+                limit = 0;
 
-                        else if(vm.list[i].type == 'student') vm.studentCount++;
-						
-						else if (vm.list[i].type == 'message') vm.message++;
+            for(i = 0; i < vm.list.length; i++)
+            {
+                    if (vm.list[i].type == catItem.typeName)
+                    {
+                        var daysElapsed =  DateTimeService.DaysElapsed(vm.list[i].time);
+
+                        if (daysElapsed > limit && !vm.list[i].read) {
+
+                            vm.markedAsRead(vm.list[i]);
+                            //vm.list[i].read = true;
+                            //catItem.count--;
+                        }
+
                     }
-	
-					vm.done = true;
-                });
-        }
-		
-		ProfileService.loadProfile().then(function(data){
-					if (data) {
-						getToDo(data);
-					
-					}
-					else {
-						vm.done = true;
-					}
-		});
+            }
+        };
 
-        
     }
 }());

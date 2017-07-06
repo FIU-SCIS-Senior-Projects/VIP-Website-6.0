@@ -4,16 +4,20 @@
     angular
         .module('reviewStudentApp', ['reviewProjectProposals', 'ProjectProposalService'])
         .controller('reviewStudentAppController',
-    function ($window,$state, $scope, reviewStudentAppService, ToDoService,User, reviewPPS, ProjectService, ProfileService, adminService) {
+    function ($window,$state, $scope, reviewStudentAppService, ToDoService,User, reviewPPS, ProjectService, ProfileService, adminService, DateTimeService) {
         var vm = this;
+
+        vm.currUserProfile;
         vm.profile;
 		vm.projects;
+		vm.toDoData;
 		vm.members = []; //Used to get members email and their respective projects 
 		vm.membs = []; //Used to get Full information for members (including their application to a project)
 		vm.ApproveData = ApproveData;
 		vm.RejectData = RejectData;
 		vm.UndoStudent = UndoStudent;
 		vm.DeleteLog = deletelog;
+		vm.FindToDoMatch = findToDoMatch;
 		vm.logs;
 		
 		vm.adminEmail;
@@ -30,6 +34,7 @@
         function init() {
             loadProjects();
             loadLogs();
+            loadToDos();
         }
 
         function loadLogs() {
@@ -79,8 +84,49 @@
             });
         }
 
+        function loadToDos()
+        {
+            ProfileService.loadProfile().then(function (dt)
+            {
+                var profileData = dt;
+                vm.currUserProfile = profileData;
+
+                ToDoService.loadMyToDoType(vm.currUserProfile, "student").then(function (data)
+                {
+                    vm.toDoData = data.data;
+                });
+            });;
+        }
+
+        function findToDoMatch(user)
+        {
+            vm.toDoData.forEach(function (toDoObj)
+            {
+                var equalDate, containsName, containsProj;
+                if (!toDoObj.read || toDoObj.owner_id == null)
+                {
+                    equalDate = DateTimeService.DateTimeEquals(toDoObj.time, user.appliedDate);
+                    containsName = ( (toDoObj.todo).includes(user.firstName)
+                    || (toDoObj.todo).includes(user.lastName) );
+                    containsProj = (toDoObj.todo).includes(user.project);
+
+                    if (containsProj && equalDate && containsName)
+                    {
+                        ToDoService.markAsRead(toDoObj._id).then(function (data)
+                        {
+                            console.log(user);
+                            console.log(toDoObj.todo);
+                        });
+                    }
+                }
+            });
+
+        }
+
         function ApproveData(user) {
+
             loading();
+            findToDoMatch(user);
             //reviewStudentAppService.RemoveFromProject(user.projectid, user.email).then(function(data){
             //	$scope.result = "Approved";
 
@@ -144,7 +190,9 @@
         }
 
         function RejectData(user) {
+
             loading();
+            findToDoMatch(user);
             if (user.projectid != null) {
                 reviewStudentAppService.RemoveFromProject(user.projectid, user.email, user.fullName).then(function (data) {
                     $scope.result = "Rejected";

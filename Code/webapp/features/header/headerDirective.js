@@ -21,6 +21,8 @@
 				
 				ProfileService.loadProfile().then(function(data){
 					if (data) {
+
+						vm.data = data;
 						vm.current_user = data.firstName;
 						vm.user_type = data.userType;
 						var id = data._id;
@@ -29,7 +31,7 @@
 						
 						
 						vm.count = 0;
-						ToDoService.loadAllToDo()
+						ToDoService.loadMyToDo(vm.data)
 							.then(function (data) {
 								for(i = 0; i < data.data.length; i++) {
 									if(data.data[i].read) {
@@ -59,7 +61,7 @@
 						$rootScope.$on('refresh', function () {
 							console.log("View refreshed");
 							vm.count = 0;
-							ToDoService.loadAllToDo()
+							ToDoService.loadMyToDo(vm.data)
 								.then(function (data) {
 									for(i = 0; i < data.data.length; i++) {
 										if(data.data[i].read) {

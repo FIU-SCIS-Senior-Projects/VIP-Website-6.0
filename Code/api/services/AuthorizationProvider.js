@@ -122,8 +122,8 @@ module.exports = {
     authorizeByUserId: function (userIdPath, orAuthorize) {
         return function (req, res, next) {
             validateAuthenticated(req, res, function () {
-                var studentId = getValueFromReqByPath(req, userIdPath);
-                if (req.user._id === studentId) {
+                var userId = getValueFromReqByPath(req, userIdPath);
+                if (req.user._id.toString() === userId) {
                     return next();
                 } else {
                     attemptAlternativeAuthorization(orAuthorize, req, res, next);

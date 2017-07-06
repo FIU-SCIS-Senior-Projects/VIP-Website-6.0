@@ -15,7 +15,8 @@ var app			= express();
 //Set HOST
 app.set("host", "localhost");
 app.set("protocol", "http");
-app.set("baseWebUrl", app.get("protocol") + "://" + app.get("host") + ":" + config.externalPort + "/#");
+app.set("baseApiUrl", app.get("protocol") + "://" + app.get("host") + ":" + config.externalPort);
+app.set("baseWebUrl", app.get("baseApiUrl") + "/#");
 
 require('./deployment/gulpfile')('./webapp/');//this will take care to generate the distrib js and css files.
 require('./api/services/ExistingProjectsNotificationService').configureNotifications('0 0 3 * * *', app);//setup existing projects notifications as daily
@@ -60,6 +61,7 @@ var profileRoutes = require('./api/routes/profileApi')(app,express);
 var supportRoutes = require('./api/routes/support')(app,express);
 var logRoutes = require('./api/routes/logRoutes')(app,express);
 var settingsRoutes = require('./api/routes/settingsRoutes')(app,express);
+var skillsRoutes = require('./api/routes/skillsRoutes')(app, express);
 
 
 app.use('/api', projectRoutes);
@@ -69,6 +71,7 @@ app.use('/todo', toDoRoutes);
 app.use('/support', supportRoutes);
 app.use('/log', logRoutes);
 app.use('/settings', settingsRoutes);
+app.use('/api', skillsRoutes);
 
 
 

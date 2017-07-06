@@ -28,7 +28,7 @@ var sendEmail = function (recipient, text, subject, errorHandler, successHandler
 var sendEmailWithHeaderAndSignature = function (user, mainText, subject, errorHandler, successHandler) {
     Settings.findOne({owner: "admin"}, function(error, setting) {
         var name = "";
-        if (setting.current_email === user.email) {
+        if (setting && setting.current_email === user.email) {
             name = "VIP Admin";
         } else if (user.firstName) {
             name = user.firstName + " " + user.lastName;

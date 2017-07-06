@@ -8,12 +8,18 @@
             vm.option = "";
             vm.email = "";
 
+            vm.adminEmail;
+            adminService.getAdminSettings().then(function (data)
+            {
+                vm.adminEmail = data.current_email;
+            });
+
             $scope.send = function send() {
                 if (vm.title != "" && vm.option != "" && vm.issue != "") {
                     if (vm.option == "Technical issue") {
                         var email_msg =
                             {
-                                recipient: "vip@cis.fiu.edu",
+                                recipient: vm.adminEmail,
                                 text: vm.issue + "  -------You can reply to the user if necessary at: " + vm.email,
                                 subject: "(VIP) Technical Issue: " + vm.title
                             };
@@ -26,7 +32,7 @@
                     if (vm.option == "Vip Educational credits") {
                         var email_msg =
                             {
-                                recipient: "vip@cis.fiu.edu",
+                                recipient: vm.adminEmail,
                                 text: vm.issue + "  -------You can reply to the user if necessary at: " + vm.email,
                                 subject: "(VIP) New Question: " + vm.title
                             };

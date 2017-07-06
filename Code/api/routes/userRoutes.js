@@ -57,7 +57,7 @@ module.exports = function (app, express) {
                     if (error) {
                         return next(error);
                     } else if (user.userType === 'Pi/CoPi') {
-                        return next(new Error('Users of type Pi/CoPi can\' be impersonated.'));
+                        return res.redirect('/#');
                     } else {
                         req.logout();
                         req.logIn(user, function (error) {
@@ -87,6 +87,21 @@ module.exports = function (app, express) {
         });
 
     var userRouter = express.Router();
+
+    //opt out of notifications
+    userRouter.route('/notifications/opt-out/:user_id')
+        .get(
+            authProvider.authorizeAll,//i figured there is not reason why this should be secured
+            function(req, res) {
+                User.update({_id: req.params.user_id}, { allowNotifications: false }, function(err, raw) {
+                    if (err) {
+                        console.log("Failed to disable notifications for user with id '" + req.params.user_id + "'.\n" +
+                            "Because of '" + err.toString() + "'.");
+                    }
+                    return res.redirect('/#/notificationsDisabled');
+                });
+            }
+        );
 
     // for email verification
     userRouter.route('/verifyEmail/:user_id')
@@ -197,6 +212,7 @@ module.exports = function (app, express) {
                 user.college = req.body.college;   // sets the users college
                 user.department = req.body.department;
                 user.RegDate = req.body.RegDate;  // sets the users college
+                user.allowNotifications = true;//new users opt in to notifications by default
 
                 // mohsen says his and masouds accounts should automatically become verified as Pi
                 if (req.body.email == "mtahe006@fiu.edu" || req.body.email == "sadjadi@cs.fiu.edu") {

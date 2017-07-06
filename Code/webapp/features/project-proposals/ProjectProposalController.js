@@ -34,8 +34,9 @@
 
 
     angular.module('ProjectProposalController', ['ProjectProposalService', 'userService', 'toDoModule', 'vip-projects'])
-        .controller('ProjectProposalController', function ($window, $location, $scope, DateTimeService, LocationService, User, ProfileService, ProjectService,
-                                                           reviewStudentAppService, ToDoService, $stateParams, $rootScope, adminService) {
+        .controller('ProjectProposalController', function ($window, $location, $scope, DateTimeService, LocationService,
+                                                           User, ProfileService, ProjectService, reviewStudentAppService,
+                                                           ToDoService, $stateParams, $rootScope, adminService, SkillsService) {
 
 
             var profile;
@@ -293,6 +294,10 @@
             }
 
             $scope.save = function save() {
+                SkillsService.saveSkills($scope.project.reqskillItem.split(',')
+                    .map(function(skill) { return skill.trim(); })
+                    .filter(function(skill) { return skill !== "" }));
+
                 //Joe's Use Story
                 var SelectedTerm = $scope.project.semester;
                 var SelectedStatus;

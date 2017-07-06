@@ -5,19 +5,23 @@ var User = require('../models/users');
 var Log = require('../models/log');
 var dateTimeService = require('./DateTimeService');
 
-var sendNotification = function (app, emails, projects) {
+var sendNotification = function (app, users, projects) {
     var subject = "Existing Vip projects notification";
-    var body = "The following new  projects are available right now for you to apply to:<br/>";
+    var body = "The following new  projects are available right now for you to apply to:<br/><br/>";
+
+    body += "<ul>";
     projects.forEach(function (project) {
         var url = app.get("baseWebUrl") + '/vip-projects-detailed/' + project._id;
-        body += "<a href='" + url + "'>" + project.title + "</a><br/>";
+        body += "<li><a href='" + url + "'>" + project.title + "</a></li>";
     });
-    body += "To opt out of this notifications, visit the <a href='" + app.get("baseWebUrl") + "/login'>vip website<a/>,<br/>" +
-        " Login, click on the profile icon, and then uncheck the \"allow notifications\" checkbox and click \"update\".";
+    body += "</ul>";
+    body += "<br/>";
 
-    emails.split(',').forEach(function(email) {
-        emailService.sendEmailWithHeaderAndSignatureNoUser(email, body, subject, function (error) {
-            console.log('Failed to send existing projects notification email to ' + email + ".\nWith error: " + error.toString());
+    users.forEach(function(user) {
+        var userBody = body + "To opt out of this notifications, click the link below<br/>" +
+            "<a href='" + app.get("baseApiUrl") + "/vip/notifications/opt-out/" + user._id.toString() + "'>Disable notifications<a/>";
+        emailService.sendEmailWithHeaderAndSignatureNoUser(user.email, userBody, subject, function (error) {
+            console.log('Failed to send existing projects notification email to ' + user.email + ".\nWith error: " + error.toString());
         }, null);
     });
 };
@@ -66,19 +70,18 @@ exports.configureNotifications = function (cronPattern, app) {
                     console.log("No active projects found to notify users about in our monthly email.");
                 } else {
                     var error = null;
-                    var emails = "";
+                    var users = [];
 
-                    User.find(null, 'email').or([{noNotifications: null}, {noNotifications: false}])
+                    User.find({allowNotifications: true}, '_id email')
                         .stream().on('data', function (user) {
-                        emails += "," + user.email;
+                        users.push(user);
                     }).on('error', function (e) {
                         error = e;
                         console.log("Failed to get a list of user emails from the database to send existing project notifications." +
                             "\nWith error: " + err.toString());
                     }).on('close', function () {
                         if (!error) {
-                            emails = emails.substring(1);//delete initial comma
-                            sendNotification(app, emails, projects);
+                            sendNotification(app, users, projects);
                         }
                     });
                 }

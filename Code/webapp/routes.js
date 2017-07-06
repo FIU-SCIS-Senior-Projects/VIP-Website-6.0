@@ -86,6 +86,7 @@ angular.module('routes', ['ui.router'])
                 controller: 'VIPProjectsDetailedCtrl',
                 controllerAs: 'vm',
                 /*params: { id: null }*/
+                /*params: { id: null }*/
             })
             
             .state('registration', {
@@ -105,6 +106,11 @@ angular.module('routes', ['ui.router'])
             .state('verification', {
                 url: '/emailVerified',
                 templateUrl: 'features/emailVerification/email-verification.html',
+            })
+
+            .state('notificationsDisabled', {
+                url: '/notificationsDisabled',
+                templateUrl: 'features/notificationsDisabled/disableNotifications.html'
             })
             
             // sensitive page:

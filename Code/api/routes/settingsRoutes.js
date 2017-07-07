@@ -13,9 +13,6 @@ module.exports = function(app, express) {
             authProvider.authorizeAuthenticatedUsers,
             function (req, res) {
 
-            console.log(req);
-            console.log(res);
-
             Setting.create(req.body, function (err) {
                 if (err) {
                     res.status(400);

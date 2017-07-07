@@ -93,7 +93,6 @@
         };
 
         vm.changeEmailSignature = function() {
-            vm.adminSettings.emailSignature = vm.adminSettings.emailSignature.replace(/\n/g, "<br/>");
             vm.savesetting();
         };
 
@@ -247,6 +246,9 @@
 
         function SaveSetting()
         {
+            if (vm.adminSettings.emailSignature) {
+                vm.adminSettings.emailSignature = vm.adminSettings.emailSignature.replace(/\n/g, "<br/>");
+            }
             adminService.saveAdminSettings(vm.adminSettings).then(function(data) {
                 vm.adminSettings.emailSignature = vm.adminSettings.emailSignature.replace(/<br\/>/g, "\n");
             });

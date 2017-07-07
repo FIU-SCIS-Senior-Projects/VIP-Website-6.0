@@ -48,6 +48,7 @@
             settingsData.owner = "admin";
             settingsData.current_email = "vip@cis.fiu.edu";
             settingsData.emails = [settingsData.current_email];
+            settingsData.emailSignature = "Sincerely,<br/>VIP Admin,<br/>Masoud Sadjadi";
             console.log("in adminFactory makeInitSettings");
 
             return $http.post('/settings/settings', settingsData);

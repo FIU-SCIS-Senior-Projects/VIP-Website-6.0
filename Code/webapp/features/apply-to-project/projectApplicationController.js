@@ -162,7 +162,7 @@
                         {"name": "Full Professor", "rank": "Staff/Faculty"}
                     ];
                     vm.genders = ['Male', 'Female'];
-                    vm.semesters = ['Spring 2017', 'Summer 2017'];
+                    vm.semesters = ['Spring 2017', 'Summer 2017', 'Fall 2017'];
 
                     vm.selectedCollege = vm.Colleges.find(function (element) {
                         return element.name === data.college;
@@ -196,7 +196,7 @@
                     $scope.done = true;
                     //$window.sessionStorage.setItem('lr', 'studentConfirmation/');
                     //$location.path('login');
-                    vm.semesters = ['Fall 2016', 'Spring 2017', 'Summer 2017'];
+                    vm.semesters = ['Spring 2017', 'Summer 2017', 'Fall 2017'];
                     $scope.guest = true;
                 }
             });

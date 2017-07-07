@@ -69,7 +69,7 @@
             });
 
             //Joe Use Story
-            vm.semesters = ['Spring 2017', 'Summer 2017'];
+            vm.semesters = ['Spring 2017', 'Summer 2017', 'Fall 2017'];
             6
             $scope.colleges = [
                 {
@@ -242,7 +242,7 @@
                     $scope.SelectedMentorEmails = "";
                     $scope.SelectedStudentEmails = "";
                     //updating semester snaku001
-                    $scope.project.semesters = ['Spring 2017', 'Summer 2017'];
+                    $scope.project.semesters = ['Spring 2017', 'Summer 2017', 'Fall 2017'];
                     for (i = 0; i < $scope.project.faculty.length; i++) {
                         if (i != $scope.project.faculty.length - 1) {
                             $scope.SelectedFacultyNames += $scope.project.faculty[i].name + ", ";
@@ -406,7 +406,7 @@
                             });
                     }
                     else {
-                        vm.semesters = ['Spring 2017', 'Summer 2017'];
+                        vm.semesters = ['Spring 2017', 'Summer 2017', 'Fall 2017'];
                         if (old_project) {
                             $scope.project.old_project = old_project;
                         }

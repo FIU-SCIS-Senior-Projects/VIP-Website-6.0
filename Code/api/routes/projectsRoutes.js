@@ -18,22 +18,25 @@ module.exports = function (app, express) {
             start: new Date(2017, 1),
             end: new Date(2017, 5),
             deadline: new Date(2017, 1),
-            active: true
-        },
-        {
+            active: false
+        }, {
             name: "Summer 2017",
             start: new Date(2017, 5),
             end: new Date(2017, 8),
             deadline: new Date(2017, 5),
             active: false
-        },
-        //Joe User Story
-        {
+        }, {
             name: "Fall 2016",
             start: new Date(2016, 8),
             end: new Date(2016, 12),
             deadline: new Date(2016, 8),
             active: false
+        }, {
+            name: 'Fall 2017',
+            start: new Date(2017, 8),
+            end: new Date(2017, 12),
+            deadline: new Date(2017, 8),
+            active: true
         }
     ];
     var findActiveTerm = function () {

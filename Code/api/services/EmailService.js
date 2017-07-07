@@ -37,7 +37,7 @@ var sendEmailWithHeaderAndSignature = function (user, mainText, subject, errorHa
         }
 
         var greeting = "Dear " + name + ",<br/><br/>";
-        var signature = "<br/><br/>" + (setting.emailSignature ? setting.emailSignature : "");
+        var signature = "<br/><br/>" + (setting && setting.emailSignature ? setting.emailSignature : "");
 
         sendEmail(user.email, greeting + mainText + signature, subject, errorHandler, successHandler);
     });

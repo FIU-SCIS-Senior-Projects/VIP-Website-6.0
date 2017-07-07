@@ -67,7 +67,7 @@ exports.configureNotifications = function (cronPattern, app) {
                 });
 
                 if (projects.length === 0) {
-                    console.log("No active projects found to notify users about in our monthly email.");
+                    console.log("No active projects found to notify users about.");
                 } else {
                     var error = null;
                     var users = [];

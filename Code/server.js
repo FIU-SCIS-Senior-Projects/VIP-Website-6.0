@@ -9,6 +9,7 @@ var flash				= require('connect-flash');
 var session             = require('express-session');
 var bodyParser	        = require('body-parser');
 var path		= require('path');
+var fs = require('fs');
 var config		= require('./api/config/config');
 var app			= express();
 
@@ -26,6 +27,15 @@ mongoose.connect(config.database, { server: { poolSize: 30 } });
 mongoose.connection.on('error', function(err) {
 	//console.log('Error: could not connect to MongoDB.');
 });
+
+if (config.secure) {//redirect http to https
+    app.all('*', function (req, res, next) {
+		if (req.secure) {
+			return next();
+		}
+		res.redirect('https://' + req.hostname + req.url);
+    });
+}
 
 require('./api/config/passport')(passport,app);
 app.use(bodyParser.json({limit: '5mb'}));
@@ -74,15 +84,25 @@ app.use('/settings', settingsRoutes);
 app.use('/api', skillsRoutes);
 
 
-
-
-
 //home page
 app.get('*', function (req, res) {
-	//console.log(req.user);
-	res.sendFile(path.join(__dirname + '/webapp/index.html'));
+    res.sendFile(path.join(__dirname + '/webapp/index.html'));
 });
 
-//start the server
-app.listen(config.port);
-//console.log('Express router listening on port: ' + config.port);
+var http = require('http');
+var https = require('https');
+
+if (config.secure) {
+    var privateKey = fs.readFileSync('privkey.pem');
+    var certificate = fs.readFileSync('cert.pem');
+    var authority = fs.readFileSync('chain.pem');
+
+    https.createServer({
+        key: privateKey,
+        cert: certificate,
+        ca: authority
+    }, app).listen(443);
+    http.createServer(app).listen(config.port);
+} else {
+    app.listen(config.port);
+}

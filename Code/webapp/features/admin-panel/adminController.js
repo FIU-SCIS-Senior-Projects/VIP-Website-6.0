@@ -274,20 +274,22 @@
             {
                 var result = data;
 
-                if (result) {}
-                else {
+                var getAdminSettings = function() {
+                    adminService.getAdminSettings().then(function (data) {
+                        vm.adminSettings = data;
+                        vm.adminSettings.emailSignature = vm.adminSettings.emailSignature.replace(/<br\/>/g, "\n");
+                    });
+                };
+
+                if (result) {
+                    getAdminSettings();
+                } else {
                     console.log("Creating admin settings");
-                    adminService.makeInitialSettings();
-
+                    adminService.makeInitialSettings().then(function(response) {
+                        getAdminSettings();
+                    }, function(response) { });
                 }
-
-                adminService.getAdminSettings().then(function (data) {
-                    vm.adminSettings = data;
-                    vm.adminSettings.emailSignature = vm.adminSettings.emailSignature.replace(/<br\/>/g, "\n");
-                });
             });
-
-
         }
 
         //Load all user information

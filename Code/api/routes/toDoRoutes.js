@@ -42,7 +42,7 @@ module.exports = function (app, express) {
                 });
             })
         .post(
-            authProvider.authorizeAuthenticatedUsers,
+            authProvider.authorizeAll,
             function (req, res) {
                 ToDo.create(req.body, function (err) {
                     if (err) {

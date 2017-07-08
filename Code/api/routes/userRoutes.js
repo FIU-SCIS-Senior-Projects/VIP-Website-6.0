@@ -17,7 +17,7 @@ module.exports = function (app, express) {
         authProvider.authorizeAll,
         passport.authenticate('google',
             {
-                successRedirect: 'http://' + host + '/#/',
+                successRedirect: '/#',
                 failureRedirect: '/status'
             })
     );

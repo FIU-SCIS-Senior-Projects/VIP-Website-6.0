@@ -45,6 +45,23 @@ public class SeleniumTestBase {
             step.execute();
         }
     }
+
+    protected void executeStepsAll(List<SeleniumTestStep> testSteps) throws Exception {
+        if (testSteps == null || testSteps.size() == 0) {
+            return;
+        }
+        Exception e = null;
+        for (SeleniumTestStep step : testSteps) {
+            try {
+                step.execute();
+            } catch (Exception exception) {
+                e = exception;
+            }
+        }
+        if (e != null) {
+            throw e;
+        }
+    }
     
     protected void toBaseURL()
     {

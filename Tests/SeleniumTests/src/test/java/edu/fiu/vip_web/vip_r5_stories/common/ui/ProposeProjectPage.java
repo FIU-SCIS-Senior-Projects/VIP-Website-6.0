@@ -13,7 +13,7 @@ public class ProposeProjectPage {
     public static final By SEMESTER_SECOND_OPTION = By.xpath("//select[@value='selectedTerm']/option[2]");
 
     public static final By TEAM_DESCRIPTION_BULLET_BUTTON = By.xpath("(//button[@type='button'])[11]");
-    public static final By SKILLS_TEXTBOX = By.xpath("(//skills/div/textarea");
+    public static final By SKILLS_TEXTBOX = By.xpath("//skills/div/textarea");
     
     // ADDED BY DAFNA 
     

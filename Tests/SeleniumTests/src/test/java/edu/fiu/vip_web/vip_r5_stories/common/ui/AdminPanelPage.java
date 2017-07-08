@@ -19,9 +19,9 @@ public class AdminPanelPage {
 
     public static final By FIRST_LOGIN_DATE_FIELD_FIRST = By.xpath("//tbody/tr[1]/td[17]");
 
-    public static final By PROJECT_APPLICATION_DATE_LABEL = By.xpath("//td[15]");
-    public static final By USER_REGISTRATION_DATE_LABEL = By.xpath("//td[16]");
-    public static final By FIRST_LOGIN_DATE_LABEL = By.xpath("//td[17]");
+    public static final By PROJECT_APPLICATION_DATE_LABEL = By.xpath("//th[15]");
+    public static final By USER_REGISTRATION_DATE_LABEL = By.xpath("//th[16]");
+    public static final By FIRST_LOGIN_DATE_LABEL = By.xpath("//th[17]");
     
     // ADDED BY DAFNA 
     

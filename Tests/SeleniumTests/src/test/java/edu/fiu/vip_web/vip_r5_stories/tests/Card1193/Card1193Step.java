@@ -29,7 +29,7 @@ import org.openqa.selenium.WebDriver;
 public class Card1193Step extends SeleniumTestStep {
 
     private String status, project;
-    private String semester = "Spring 2017";
+    private String semester = "Fall 2017";
 
     public Card1193Step(WebDriver driver, String pr, String stat) {
         super(driver);

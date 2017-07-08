@@ -27,7 +27,7 @@ public class FixedTestDataRepository implements TestDataRepository {
      * @return
      */
     public String getBaseUrl() {
-        return "http://vip-dev.cis.fiu.edu/#/";
+        return "http://vip-web-0.ignorelist.com/#/";
     }
 
     public String getDownloadFolder() {

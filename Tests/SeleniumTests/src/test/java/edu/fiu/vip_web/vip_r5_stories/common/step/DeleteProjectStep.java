@@ -10,7 +10,7 @@ import org.openqa.selenium.WebDriver;
  * @author Dafna
  */
 public class DeleteProjectStep extends SeleniumTestStep {
-    private String projectName;
+    private String projectName = "The invincibles";
 
     public DeleteProjectStep(WebDriver driver) {
         super(driver);

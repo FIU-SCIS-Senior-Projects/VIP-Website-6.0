@@ -24,6 +24,7 @@ public class RejectProjectProposalStep extends SeleniumTestStep {
     }
 
     private void findAndReject() throws InterruptedException {
+        waitForElement(By.xpath(String.format(ReviewProjectProposalPage.XPATH_REVIEW_PROJECT_PROPOSAL_DATE_FORMAT, 2)));
         int index = findTodaysIndexByFormat(ReviewProjectProposalPage.XPATH_REVIEW_PROJECT_PROPOSAL_DATE_FORMAT, 2);
         Assert.assertTrue("Proposal not found", index != -1);
         click(By.xpath(String.format(ReviewProjectProposalPage.XPATH_REJECT_PROPOSAL_BUTTON_FORMAT, index)));

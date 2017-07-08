@@ -35,11 +35,11 @@ public class Card1206Step extends SeleniumTestStep {
         waitForElement(AdminPanelPage.DOWNLOAD_EXCEL_BUTTON);
 
         Assert.assertTrue(getDriver().findElement(AdminPanelPage.PROJECT_APPLICATION_DATE_LABEL)
-                .getText().toLowerCase().contains("Project Application_Date".toLowerCase()));
+                .getText().toLowerCase().contains("Proj App Date".toLowerCase()));
         Assert.assertTrue(getDriver().findElement(AdminPanelPage.USER_REGISTRATION_DATE_LABEL)
-                .getText().toLowerCase().contains("User Registration_Date".toLowerCase()));
+                .getText().toLowerCase().contains("User Reg Date".toLowerCase()));
         Assert.assertTrue(getDriver().findElement(AdminPanelPage.FIRST_LOGIN_DATE_LABEL)
-                .getText().toLowerCase().contains("First Login_Date".toLowerCase()));
+                .getText().toLowerCase().contains("First Login Date".toLowerCase()));
 
         Function<WebElement, String> getValue = element -> element.getText();
 

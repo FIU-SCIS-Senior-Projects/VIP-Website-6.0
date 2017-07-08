@@ -24,7 +24,7 @@ public class ProposeProjectStep extends SeleniumTestStep {
     public void proposeProjectNoSubmit() throws InterruptedException {
         click(HomePage.PROPOSE_PROJECT);
         type(ProposeProjectPage.TEAM_TITLE_TEXTBOX, project);
-        select(ProposeProjectPage.SEMESTER_SELECT, ProposeProjectPage.SEMESTER_SECOND_OPTION);
+        select(ProposeProjectPage.SEMESTER_SELECT, "Fall 2017");
         click(ProposeProjectPage.TEAM_DESCRIPTION_BULLET_BUTTON);
         type(ProposeProjectPage.SKILLS_TEXTBOX, "absolutely none");
     }

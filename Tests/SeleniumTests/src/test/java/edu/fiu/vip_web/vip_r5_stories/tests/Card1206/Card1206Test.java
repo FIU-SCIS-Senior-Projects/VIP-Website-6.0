@@ -21,7 +21,10 @@ public class Card1206Test extends SeleniumTestBase {
     @Test
     public void card1206Test() throws Exception {
         executeSteps(Arrays.asList(
-                //todo: create and approve a project here so as to not fail if no project exists in the app
+                new AdminLoginStep(getDriver()),
+                new ProposeProjectStep(getDriver()),
+                new AcceptProjectProposalStep(getDriver()),
+                new LogoffStep(getDriver()),
                 new StudentLoginStep(getDriver()),//so that the first login date is populated
                 new ApplyForProjectStep(getDriver()),//so that project application date is populated
                 new LogoffStep(getDriver()),

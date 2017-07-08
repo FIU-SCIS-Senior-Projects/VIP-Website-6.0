@@ -21,6 +21,10 @@ public class Card1208Test extends SeleniumTestBase {
     @Test
     public void card1208Test() throws Exception {
         executeSteps(Arrays.asList(
+                new AdminLoginStep(getDriver()),
+                new ProposeProjectStep(getDriver()),
+                new AcceptProjectProposalStep(getDriver()),
+                new LogoffStep(getDriver()),
                 new StudentLoginStep(getDriver()),
                 new ApplyForProjectStep(getDriver()),
                 new LogoffStep(getDriver()),
@@ -32,8 +36,9 @@ public class Card1208Test extends SeleniumTestBase {
     @After
     public void teardown() throws Exception {
         try {
-            executeSteps(Arrays.asList(
+            executeStepsAll(Arrays.asList(
                     new RejectStudentApplicationStep(getDriver()),
+                    new DeleteProjectStep(getDriver()),
                     new LogoffStep(getDriver())
             ));
         } finally {

@@ -358,7 +358,7 @@
                         $scope.project.image = image;
 
                     else
-                        $scope.project.image = "http://www.woojr.com/wp-content/uploads/2009/04/" + $scope.project.title.toLowerCase()[0] + ".gif";
+                        $scope.project.image = "https://www.woojr.com/wp-content/uploads/2009/04/" + $scope.project.title.toLowerCase()[0] + ".gif";
 
                     if (!vm.editingMode) {
 

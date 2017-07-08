@@ -161,7 +161,7 @@
             }, function () {
                 profile.joined_project = false;
                 User.update({user: profile});
-                reviewStudentAppService.RemoveFromProject(vm.id, profile.email, {detailed: profile.firstName + " " + profile.lastName});
+                reviewStudentAppService.RemoveFromProject(vm.id, profile.email, profile.firstName + " " + profile.lastName);
                 $window.location.reload();
             });
         }

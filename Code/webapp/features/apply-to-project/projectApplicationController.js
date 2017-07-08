@@ -190,7 +190,7 @@
                     vm.google = data.google;
                     vm.profile = data;
                     vm.branch = null;
-
+                    vm.skillItem = data.skillItem;
                 }
                 else {
                     $scope.done = true;

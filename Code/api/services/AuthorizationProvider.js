@@ -97,7 +97,7 @@ module.exports = {
     },
     authorizeProjectOwner: function (projectIdPath, orAuthorize) {//path to the project id field in the req variable, example, params.id for req.params.id
         return function (req, res, next) {
-            module.exports.authorizeByUserType(userType.StaffFaculty)(req, res, function () {
+            module.exports.authorizeByUserType(userType.StaffFaculty, orAuthorize)(req, res, function () {
                 var projectId = getValueFromReqByPath(req, projectIdPath);
                 ownsProject(req, projectId, function () {
                     return next();

@@ -9,8 +9,8 @@
                 controller: function($attrs, $scope, $timeout) {
                     var vm = this;
                     vm.label = $attrs.label;
-                    // vm.showDropdown = true;
-                    $scope.skills = "";
+                    $scope.skills = $scope.skills ? $scope.skills : "";
+
                     vm.allowedSkills = function(skill) {
                         return skill.toLowerCase().startsWith(!$scope.skills ? "" : $scope.skills.split(',').pop().trim().toLowerCase())
                             && !(vm.currentSkills.map(function(skill) {

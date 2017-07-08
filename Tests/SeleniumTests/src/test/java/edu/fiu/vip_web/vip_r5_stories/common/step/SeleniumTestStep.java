@@ -189,6 +189,26 @@ public abstract class SeleniumTestStep {
         return dateFound;
     }
 
+    protected int findIndexByFormatAndValue(String format, int startingIndex, Function<WebElement, String> getValue, String searchValue) {
+        boolean found = false;
+        int i = startingIndex;
+        Calendar date = GregorianCalendar.getInstance();
+        By criteria = null;
+        do {
+            criteria = By.xpath(String.format(format, i));
+            if(isElementPresent(criteria)) {
+                String value = getValue.apply(getDriver().findElement(criteria));
+                if (value != null && value.trim().contains(searchValue.trim())) {
+                    found = true;
+                    break;
+                } else {
+                    i++;
+                }
+            }
+        } while(isElementPresent(criteria) && !found);
+        return found ? i : -1;
+    }
+
     protected int findTodaysIndexByFormat(String xpathFormat, int startingIndex) {
         boolean dateFound = false;
         int i = startingIndex;

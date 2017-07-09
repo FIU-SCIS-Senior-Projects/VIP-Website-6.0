@@ -53,6 +53,7 @@
             reviewPPS.loadProjects().then(function (data) {
                 vm.projects = data;
             });
+
         }
 
         // User Story #1207
@@ -62,9 +63,9 @@
             reviewPPS.AcceptProjects(projectid).then(function (data) {
                 $scope.result = "Project Approved";
                 var todo = {
-                    owner: "User",
+                    owner: rank,
                     owner_id: owner,
-                    todo: "Congratulations, " + owner_name + "! The project \"" + title + "\" has been approved by the PI. Link To Project: \n" + LocationService.vipWebUrls.projectDetailed + "/" + projectid,
+                    todo: "Dear proposer of project, the project titled: " + title + " has been approved by the PI. Link To Project: \n" + LocationService.vipWebUrls.projectDetailed + "/" + projectid,
                     type: "project",
                     link: "/#/to-do"
                 };
@@ -75,15 +76,23 @@
                 });
 
                 var subject = "Project Approved";
-                var text = "The project titled: \"" + title + "\"has been approved by the PI. Link To Project: <br/>" + LocationService.vipWebUrls.projectDetailed + "/" + projectid;
+                var text = "The project titled: " + title + " has been approved by the PI. Link To Project: <br/>" + LocationService.vipWebUrls.projectDetailed + "/" + projectid;
                 var email_msg =
                     {
                         recipient: email,
+<<<<<<< HEAD
+                        text: "The project titled: " + title + " has been approved by the PI. Link To Project: <br/>" + LocationService.vipWebUrls.projectDetailed + "/" + projectid,
+                        subject: "Project Approved",
+                        recipient2: "",
+                        text2: "",
+                        subject2: ""
+=======
                         text: text,
                         subject: subject,
                         recipient2: vm.adminEmail,
                         text2: text,
                         subject2: subject
+>>>>>>> story/card_1281
                     };
                 User.nodeEmail(email_msg);
 
@@ -124,9 +133,9 @@
             reviewPPS.RejectProjects(projectid).then(function (data) {
                 $scope.result = "Project Rejected";
                 var todo = {
-                    owner: "User",
+                    owner: rank,
                     owner_id: owner,
-                    todo: "Dear " + owner_name + ", the project titled \"" + title + "\" has been rejected. Please contact the PI for inqueries regarding the criteria for project approval.",
+                    todo: "Dear proposer of project, the project titled: " + title + " has been rejected by the PI. Please contact the PI for the specific reason why the project didn't meet the criteria for acceptance.",
                     type: "project",
                     link: "/#/to-do"
                 };
@@ -134,19 +143,24 @@
 
                 }, function (error) {
 
-                    console.log(error);
-
                 });
 
                 var subject = "Project Rejected";
                 var email_msg =
                     {
                         recipient: email,
-                        text: "The project titled \"" + title + "\" has been rejected.  Please contact the PI for inqueries regarding the criteria for project approval.",
+                        text: "The project titled: " + title + " has been rejected by the PI. Please contact the PI for the specific reason why the project didn't meet the criteria for acceptance.",
+<<<<<<< HEAD
+                        subject: "Project Rejected",
+                        recipient2: "",
+                        text2: "",
+                        subject2: ""
+=======
                         subject: subject,
                         recipient2: vm.adminEmail,
                         text2: "The project titled: " + title + " has been rejected.",
                         subject2: subject
+>>>>>>> story/card_1281
                     };
                 User.nodeEmail(email_msg);
 
@@ -297,7 +311,7 @@
         function logdelete_msg() {
             swal({
                     title: "Log Deleted",
-                    text: "This log has been successfully deleted.",
+                    text: "This log has been successfully deleted",
                     type: "info",
                     confirmButtonText: "Okay",
                     allowOutsideClick: true,

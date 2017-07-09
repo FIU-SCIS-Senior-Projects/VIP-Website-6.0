@@ -429,7 +429,7 @@
                                 var todo = {
                                     owner: profile.userType,
                                     owner_id: profile._id,
-                                    todo: profile.firstName + ", thank you for editing the project proposal titled " + $scope.project.title + ". Your changes are currently under review, and you will be notified as soon as a decision to approve/deny them has been made. If you have any question contact the PI.",
+                                    todo: profile.firstName + ", thank you for editing the project proposal titled " + $scope.project.title + ". Your changes are currently under review. You will be notified as soon as a decision to approve/deny them has been made. If you have any questions, please contact the PI.",
                                     type: "project",
                                     link: "/#/to-do"
                                 };

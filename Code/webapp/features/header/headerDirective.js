@@ -37,20 +37,22 @@
 									if(data.data[i].read) {
 										continue;
 									} else {
-										
-										if (data.data[i].owner == vm.user_type) { //Only count the todo tasks related to the account type.
-											if (!data.data[i].owner_id) {
-												vm.count++;
-											}
-											else {
-												if (data.data[i].owner_id) {
-													if (data.data[i].owner_id == id) { // Or Only count the todo tasks if it is the recipient of the todo. 
-														vm.count++;
-													}
-												}
-											}
-										}
-										
+
+										vm.count++;
+
+										// if (data.data[i].owner == vm.user_type) { //Only count the todo tasks related to the account type.
+										// 	if (!data.data[i].owner_id) {
+										// 		vm.count++;
+										// 	}
+										// 	else {
+										// 		if (data.data[i].owner_id) {
+										// 			if (data.data[i].owner_id == id) { // Or Only count the todo tasks if it is the recipient of the todo.
+										// 				vm.count++;
+										// 			}
+										// 		}
+										// 	}
+										// //}
+										//
 										
 									}
 								}
@@ -67,20 +69,21 @@
 										if(data.data[i].read) {
 											continue;
 										} else {
-											
-											if (data.data[i].owner == vm.user_type) { //Only count the todo tasks related to the account type.
-												if (!data.data[i].owner_id) {
-													vm.count++;
-												}
-												else {
-													if (data.data[i].owner_id) {
-														if (data.data[i].owner_id == id) { // Or Only count the todo tasks if it is the recipient of the todo. 
-															vm.count++;
-														}
-													}
-												}
-											}
-											
+											//
+											// if (data.data[i].owner == vm.user_type) { //Only count the todo tasks related to the account type.
+											// 	if (!data.data[i].owner_id) {
+											// 		vm.count++;
+											// 	}
+											// 	else {
+											// 		if (data.data[i].owner_id) {
+											// 			if (data.data[i].owner_id == id) { // Or Only count the todo tasks if it is the recipient of the todo.
+											// 				vm.count++;
+											// 			}
+											// 		}
+											// 	}
+											// }
+
+											vm.count++;
 											
 										}
 									}

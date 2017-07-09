@@ -265,7 +265,7 @@
                     console.log(vm.sProject.status);
                     swal({
                         title: "Dear Student!",
-                        text: "This Project is no longer active, please apply to an active project",
+                        text: "This project is inactive and not accepting any new applications. Please apply to an active project.",
                         type: "info",
                         confirmButtonText: "Okay",
                         showCancelButton: true,
@@ -289,7 +289,7 @@
                                 if (project.members_detailed[j] === (profile.firstName + " " + profile.lastName)) {
                                     swal({
                                         title: "Dear Student!",
-                                        text: "You have already applied to or joined the project '" + project.title + "'. Please leave that project before applying for any others",
+                                        text: "You have already applied to or joined the project '" + project.title + "'. Please leave that project before applying to any others",
                                         type: "info",
                                         confirmButtonText: "Okay",
                                         showCancelButton: true,
@@ -446,7 +446,7 @@
                                             text: "Thank you for applying to " + project.title + ", as either a faculty or mentor please register an account using the same email as soon as possible so people who are signed into the website can see your profile.<br/><br/>Project: " + project.title + "<br/>Status: Approved",
                                             subject: "Faculty/Mentor Application Successfull",
                                             recipient2: vm.adminEmail,
-                                            text2: profile.firstName + " " + profile.lastName + " has applied to project as a mentor or faculty you can remove this person off the project if he or she isn't authorized to join project.",
+                                            text2: profile.firstName + " " + profile.lastName + " has applied to " + project.title + " as a mentor or faculty. You may remove this person from the project if he or she is not authorized to join.",
                                             subject2: "Faculty/Mentor has joined " + project.title
                                         };
                                     User.nodeEmail(email_msg);
@@ -483,7 +483,7 @@
                                     var todo = {
                                         owner: profile.userType,
                                         owner_id: profile._id,
-                                        todo: profile.firstName + ", thank you for applying for the project titled " + project.title + ". You will have to be approved first so please check for future notifaction and emails regarding the status of joining the project.",
+                                        todo: profile.firstName + ", thank you for applying to \"" + project.title + "\". Please await notification while your application is being reviewed.",
                                         type: "personal",
                                         link: "#"
                                     };
@@ -507,7 +507,7 @@
                                     var email_msg =
                                         {
                                             recipient: profile.email,
-                                            text: "Thank you for applying to " + project.title + " you are currently pending and this is just a confirmation that you applied to the project please keep checking the VIP to-do or your email as the PI will approve or deny your request to join the project.<br/><br/>Project: " + project.title + "<br/>Status: Pending",
+                                            text: "Thank you for applying to \"" + project.title + "\"! Your application is currently pending and this is just a confirmation that you applied to the project please keep checking the VIP to-do or your email as the PI will approve or deny your request to join the project.<br/><br/>Project: " + project.title + "<br/>Status: Pending",
                                             subject: "Project Application Submission Pending",
                                             recipient2: vm.adminEmail,
                                             text2: profile.firstName + " " + profile.lastName + " has applied to project " + project.title + ". Please approve him/her by going to " + LocationService.vipWebUrls.reviewUser,
@@ -600,7 +600,7 @@
                                         text: "Thank you for applying to " + project.title + ", as either a faculty or mentor please register an account using the same email as soon as possible so people who are signed into the website can see your profile.<br/><br/>Project: " + project.title + "<br/>Status: Approved",
                                         subject: "Faculty/Mentor Application Successfull",
                                         recipient2: vm.adminEmail,
-                                        text2: vm.name + " has applied to project as a mentor or faculty you can remove this person off the project if he or she isn't authorized to join project.",
+                                        text2: vm.name + " has applied to \"" + project.title + "\"as a mentor or faculty. You may remove this person from the project if he or she is not authorized to join.",
                                         subject2: "Faculty/Mentor has joined " + project.title
                                     };
                                 User.nodeEmail(email_msg);
@@ -641,7 +641,7 @@
             function studentMissingFields() {
                 swal({
                         title: 'Almost There!',
-                        text: 'Please double check and make sure you have filled in all of the required information in the form.',
+                        text: 'Please double check and make sure you have filled all of the required information in the form.',
                         html: true,
                         timer: 10000,
                         showConfirmButton: true
@@ -678,7 +678,7 @@
             function success_msg() {
                 swal({
                         title: "You've submitted your application!",
-                        text: "Now please wait for approval by a Faculty member and you will be notified via email!",
+                        text: "Your application has been sent for faculty reviewal! You will be notified of updates via email.",
                         type: "success",
                         confirmButtonText: "Continue",
                         allowOutsideClick: true,
@@ -691,8 +691,8 @@
 
             function error_msg() {
                 swal({
-                        title: "Sorry",
-                        text: "You've already applied for this project, or have already joined.",
+                        title: "Oops!",
+                        text: "It seems that you have already joined or applied to this project.",
                         type: "warning",
                         confirmButtonText: "Ok",
                         allowOutsideClick: true,

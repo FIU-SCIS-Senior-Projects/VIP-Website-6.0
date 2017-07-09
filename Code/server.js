@@ -19,7 +19,7 @@ app.set("protocol", "http");
 app.set("baseApiUrl", app.get("protocol") + "://" + app.get("host") + ":" + config.externalPort);
 app.set("baseWebUrl", app.get("baseApiUrl") + "/#");
 
-require('./deployment/gulpfile')('./webapp/');//this will take care to generate the distrib js and css files.
+require('./deployment/gulpfile')(__dirname + '/webapp/');//this will take care to generate the distrib js and css files.
 require('./api/services/ExistingProjectsNotificationService').configureNotifications('0 0 3 * * *', app);//setup existing projects notifications as daily
 
 //connect to mongodb

@@ -285,8 +285,8 @@
                         for (i = 0; i < vm.projects.length; i++) {
                             project = vm.projects[i];
                             //console.log(project.title);
-                            for (j = 0; j < project.members_detailed.length; j++) {
-                                if (project.members_detailed[j] === (profile.firstName + " " + profile.lastName)) {
+                            for (j = 0; j < project.members.length; j++) {
+                                if (project.members[j].toLowerCase().trim() === profile.email.toLowerCase().trim()) {
                                     swal({
                                         title: "Dear Student!",
                                         text: "You have already applied to or joined the project '" + project.title + "'. Please leave that project before applying to any others",

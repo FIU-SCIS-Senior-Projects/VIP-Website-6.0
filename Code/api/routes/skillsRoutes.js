@@ -25,7 +25,13 @@ module.exports = function(app, express) {
                 var reqSkills = req.body.skills;
                 retrieveSkills(res, function(skills) {
                     var newSkills = reqSkills.filter(function(reqSkill) {
-                        return !skills.includes(reqSkill);
+                        var isNew = true;
+                        skills.forEach(function(skill) {
+                            if (skill === reqSkill) {
+                                isNew = false;
+                            }
+                        });
+                        return isNew;
                     });
                     skills = skills.concat(newSkills);
                     Values.update({ key: "skills" }, { value: skills }, { upsert: true }, function(err, raw) {

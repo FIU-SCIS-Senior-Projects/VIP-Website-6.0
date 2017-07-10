@@ -93,9 +93,9 @@ var http = require('http');
 var https = require('https');
 
 if (config.secure) {
-    var privateKey = fs.readFileSync('privkey.pem');
-    var certificate = fs.readFileSync('cert.pem');
-    var authority = fs.readFileSync('chain.pem');
+    var privateKey = fs.readFileSync(__dirname + '/privkey.pem');
+    var certificate = fs.readFileSync(__dirname + '/cert.pem');
+    var authority = fs.readFileSync(__dirname + '/chain.pem');
 
     https.createServer({
         key: privateKey,

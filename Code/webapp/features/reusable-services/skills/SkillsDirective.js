@@ -20,7 +20,7 @@
                     vm.hideDropdown = function() {
                         $timeout(function() {
                             vm.showDropdown = false;
-                        }, 200);
+                        }, 1000);
                     };
                     vm.addSkill = function(skill) {
                         if (vm.currentSkills.length > 0 &&

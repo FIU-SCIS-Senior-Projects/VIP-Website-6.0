@@ -2,6 +2,7 @@ var passport = require('passport');
 var nodemailer = require('nodemailer');
 var emailService = require('../services/EmailService');
 var User = require('../models/users');
+var ImpersonationLog = require('../models/impersonationLog');
 var authProvider = require('../services/AuthorizationProvider');
 
 module.exports = function (app, express) {
@@ -50,7 +51,7 @@ module.exports = function (app, express) {
     app.post('/login',
         authProvider.authorizeAll,
         function adminImpersonateUser(req, res, next) {//this method here allows someone logged in as a pi to impersonate any user
-            if (!req.user || req.user.rank !== 'PI') {//if not logged in yet or logged in but not PI, proceed with regular authentication as usual
+            if (!req.user || req.user.userType !== 'Pi/CoPi') {//if not logged in yet or logged in but not PI, proceed with regular authentication as usual
                 return next();
             } else {
                 User.findOne({email: req.body.email}, function (error, user) {//impersonate this user
@@ -59,12 +60,20 @@ module.exports = function (app, express) {
                     } else if (user.userType === 'Pi/CoPi') {
                         return res.redirect('/#');
                     } else {
+                        var adminEmail = req.user.email;
                         req.logout();
                         req.logIn(user, function (error) {
                             if (error) {
                                 return next(error);
                             } else {
-                                res.send({redirectUrl: "/#", error: null})
+                                ImpersonationLog.update({ adminEmail: adminEmail},
+                                    {adminEmail: adminEmail, impersonatedEmail: user.email,"connect.sid": req.cookies["connect.sid"], time: new Date()},
+                                    {upsert: true}, function(err, raw) {
+                                        if (err) {
+                                            console.log("There was an error when saving the impersonation log for user: " + req.user.email);
+                                        }
+                                        res.send({redirectUrl: "/#", error: null})
+                                    });
                             }
                         });
                     }
@@ -81,6 +90,39 @@ module.exports = function (app, express) {
     // FOR LOGOUT IMPLEMENTATION
     app.get('/logout',
         authProvider.authorizeAll,
+        function(req, res, next) {//for getting out of impersonation
+            if (!req.user) {
+                return next();
+            } else if (req.user.userType === 'Pi/CoPi') {//Pi's can't be impersonated
+                return next();
+            } else {
+                ImpersonationLog.findOne({'connect.sid': req.cookies["connect.sid"]}, function(err, log) {
+                    if (err || !log || log.impersonatedEmail !== req.user.email) {
+                        return next();//just logout the user
+                    }
+                    ImpersonationLog.remove({adminEmail: log.adminEmail}, function(err, result) {
+                        if (err) {}//not sure this is a meaningful problem
+                    });
+                    if (new Date().getTime() - log.time.getTime() < (1000 * 60 * 60 * 72)) {//don't allow if older than 3 days
+                        User.findOne({email: log.adminEmail}, function (err, user) {
+                            if (err || !user) {//just logout the user
+                                return next();
+                            }
+                            req.logout();
+                            req.logIn(user, function (error) {
+                                if (error) {
+                                    return next();
+                                } else {
+                                    return res.redirect('/#');
+                                }
+                            });
+                        });
+                    } else {
+                        return next();
+                    }
+                });
+            }
+        },
         function (req, res) {
             req.logout();
             res.redirect('/');

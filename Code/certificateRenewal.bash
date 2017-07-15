@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+SERVERJS_LOCATION="/var/www/VIP-FINAL/Code"
+VIP_WEB_DOMAIN="vip-dev.cis.fiu.edu"#note this needs to be changed depending on the server on which this is run
+
 /var/www/certbot-auto renew | grep 'No renewals were attempted.'
 if [ $? -ne 0 ]; then
     cp "/etc/letsencrypt/live/${VIP_WEB_DOMAIN}/privkey.pem" "${SERVERJS_LOCATION}/"

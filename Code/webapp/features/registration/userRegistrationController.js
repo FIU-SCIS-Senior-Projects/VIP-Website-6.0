@@ -295,7 +295,7 @@
                         vm.userData.subject = "Welcome to FIU VIP Project!";
 
                         // send email to PI for approval
-                        vm.userData.recipient2 = vm.adminEmail; // NEED TO PUT MAIN PI EMAIL HERE FOR NOW
+                        vm.userData.recipient2 = vm.adminEmail;
 
                         // User Story #1140
                         vm.userData.text2 = vm.userData.firstName + " " + vm.userData.lastName + " is attempting to register, please accept or reject using the following link:<br/><br/> " + LocationService.vipWebUrls.verifyUser;
@@ -351,12 +351,6 @@
                 var uemail_len = uemail.length;
                 if (uemail_len == 0) {
                     alert("Email should not be empty.");
-                    return false;
-                }
-                var uemail_source = uemail.substring(uemail_len - 8, uemail_len);
-                // if its not a co/copi and it snot an fiu email.. alert !
-                if (uemail_source.toLowerCase() != "@fiu.edu" && userType != "Pi/CoPi") {
-                    alert("Email should be an @fiu.edu account.")
                     return false;
                 }
                 return true;

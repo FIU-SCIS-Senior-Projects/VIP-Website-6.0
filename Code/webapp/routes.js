@@ -86,6 +86,7 @@ angular.module('routes', ['ui.router'])
                 controller: 'VIPProjectsDetailedCtrl',
                 controllerAs: 'vm',
                 /*params: { id: null }*/
+                /*params: { id: null }*/
             })
             
             .state('registration', {
@@ -105,6 +106,11 @@ angular.module('routes', ['ui.router'])
             .state('verification', {
                 url: '/emailVerified',
                 templateUrl: 'features/emailVerification/email-verification.html',
+            })
+
+            .state('notificationsDisabled', {
+                url: '/notificationsDisabled',
+                templateUrl: 'features/notificationsDisabled/disableNotifications.html'
             })
             
             // sensitive page:
@@ -380,18 +386,9 @@ angular.module('routes', ['ui.router'])
                         // now, check if there are any profile requested made by the user_id
                         reviewProfileService.getReg($stateParams.user_id).then(function(data)
                         {
-                            vm.profile = data;
-                            
-                            //alert("Requ user name = " + vm.profile.email);
-                            //alert("Requ user = " + vm.profile.requested_userType);
-                            //alert("Requ rank = " + vm.profile.requested_rank);
-                            
                             // no usertype or rank updates, so no changes to be made
                             if (vm.profile.requested_rank == null && vm.profile.requested_userType == null)
                             {
-                                //$window.location.href = "/";
-                                //alert("user has no pending profile changes!");
-                                
                                 // TODO: Redirect to a page that says that this user has no pending profile request changes to be approved/denied
                                 $location.path("/").replace();
                                 $window.location.href = "/#/";

@@ -1,11 +1,13 @@
-var mongoose	= require('mongoose');
 var Log	    = require('../models/log');
+var authProvider = require('../services/AuthorizationProvider');
 
 module.exports = function(app, express) {
     var apiRouter = express.Router();
 
     apiRouter.route('/log')
-        .get(function (req, res) {
+        .get(
+            authProvider.authorizeByUserType([authProvider.userType.PiCoPi, authProvider.userType.StaffFaculty]),
+            function (req, res) {
             Log.find({}, function(err, log) {
                 if(err) {
                     res.send('There was an error processing');
@@ -14,13 +16,12 @@ module.exports = function(app, express) {
                 }
             });
         })
-        .post(function (req, res) {
-			////console.log("POST /LOG");
-			////console.log(req.body);
+        .post(
+            authProvider.authorizeAuthenticatedUsers,
+            function (req, res) {
             Log.create(req.body, function( err) {
                 if(err) {
-					////console.log("Error:");
-					////console.log(err);
+					console.log(err);
                     return res.send('something went wrong');
                 } else {
                     res.send('Log added');
@@ -28,8 +29,10 @@ module.exports = function(app, express) {
             });
         });
 
-    apiRouter.route('/log/:id')
-        .post(function (req, res) {
+    apiRouter.route('/log/:id')//this method is never used so i'm not sure who should be able to use it
+        .post(
+            authProvider.authorizeByUserType([authProvider.userType.PiCoPi, authProvider.userType.StaffFaculty]),
+            function (req, res) {
             Log.findOne({_id:req.params.id}, function(err, log) {
                 if(err) {
                     res.send('There was an error processing');
@@ -40,7 +43,9 @@ module.exports = function(app, express) {
                 }
             });
         })
-		.delete(function (req, res) {
+		.delete(
+            authProvider.authorizeByUserType([authProvider.userType.PiCoPi, authProvider.userType.StaffFaculty]),
+		    function (req, res) {
             Log.remove({_id: req.params.id}, function(err, log){
             if(err)
                 res.send(err);
@@ -49,7 +54,9 @@ module.exports = function(app, express) {
         });
 		
 	apiRouter.route('/log/:type')
-        .get(function (req, res) {
+        .get(
+            authProvider.authorizeByUserType([authProvider.userType.PiCoPi, authProvider.userType.StaffFaculty]),
+            function (req, res) {
             Log.find({type: req.params.type}, function(err, log) {
                 if(err) {
                     res.send('There was an error processing');
@@ -60,4 +67,4 @@ module.exports = function(app, express) {
         });
 
     return apiRouter;
-}
+};

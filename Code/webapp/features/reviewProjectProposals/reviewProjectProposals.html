@@ -16,7 +16,7 @@
 			<td>
             <div class="text-center">
             	<!-- User Story 1207-->
-                <button style= "width: 50px;" class="btn btn-success btn-block" ng-click="vm.AcceptProject(project._id,project.owner, project.owner_name, project.title,project.owner_email,project.owner_rank, project.description, project.image, project.term, project.firstSemester, project.maxStudents, project.proposedDate)">
+                <button style= "width: 50px;" class="btn btn-success btn-block" ng-click="vm.AcceptProject(project._id,project.owner, project.owner_name, project.title,project.owner_email,project.owner_rank, project.description, project.image, project.term, project.firstSemester, project.maxStudents, project.proposedDate, project.status)">
                     <i></i> Yes
                 </button>
                 </div>
@@ -24,7 +24,7 @@
 			<td>
             <div class="text-center">
             	<!-- User Story 1207-->
-                <button style= "width: 50px;" class="btn btn-danger btn-block" ng-click="vm.RejectProject(project._id,project.owner, project.owner_name, project.title,project.owner_email,project.owner_rank, project.description, project.image, project.term, project.firstSemester, project.maxStudents, project.proposedDate)">
+                <button style= "width: 50px;" class="btn btn-danger btn-block" ng-click="vm.RejectProject(project._id,project.owner, project.owner_name, project.title,project.owner_email,project.owner_rank, project.description, project.image, project.term, project.firstSemester, project.maxStudents, project.proposedDate, project.status)">
                     <i></i> No
                 </button>
 			</td>
@@ -60,14 +60,14 @@
 			<td><input type="text" class="form-control projects" value={{project.firstSemester}}/{{project.maxStudents}} readonly></input></td>
 			<td>
             <div class="text-center">
-                <button style= "width: 50px;" class="btn btn-success btn-block" ng-click="vm.AcceptProject(project._id,project.owner, project.owner_name, project.title,project.owner_email,project.owner_rank, project.description, project.image, project.term, project.firstSemester, project.maxStudents)">
+                <button style= "width: 50px;" class="btn btn-success btn-block" ng-click="vm.AcceptProject(project._id,project.owner, project.owner_name, project.title,project.owner_email,project.owner_rank, project.description, project.image, project.term, project.firstSemester, project.maxStudents, project.status)">
                     <i></i> Yes
                 </button>
                 </div>
 			</td>
 			<td>
             <div class="text-center">
-                <button style= "width: 50px;" class="btn btn-danger btn-block" ng-click="vm.RejectProject(project._id,project.owner, project.owner_name, project.title,project.owner_email,project.owner_rank, project.description, project.image, project.term, project.firstSemester, project.maxStudents)">
+                <button style= "width: 50px;" class="btn btn-danger btn-block" ng-click="vm.RejectProject(project._id,project.owner, project.owner_name, project.title,project.owner_email,project.owner_rank, project.description, project.image, project.term, project.firstSemester, project.maxStudents, project.status)">
                     <i></i> No
                 </button>
 			</td>

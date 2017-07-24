@@ -51,8 +51,8 @@
                     tempProj = vm.projects;
                     tempProj.sort(function(a, b)
                     {
-                        if (b.title > a.title) return -1;
-                        if (b.title < a.title) return 1;
+                        if (b.title.toLowerCase() > a.title.toLowerCase()) return -1;
+                        if (b.title.toLowerCase() < a.title.toLowerCase()) return 1;
                         return 0;
                     })
                     
@@ -65,8 +65,8 @@
                     tempProj = vm.projects;
                     tempProj.sort(function(a, b)
                     {
-                        if (a.title > b.title) return -1;
-                        if (a.title < b.title) return 1;
+                        if (a.title.toLowerCase() > b.title.toLowerCase()) return -1;
+                        if (a.title.toLowerCase() < b.title.toLowerCase()) return 1;
                         return 0;
                     })
                     
@@ -204,7 +204,7 @@
                     projects.push(proj);
                 });    
                 vm.temProj.clear();
-            })
+            });
             
             vm.projects = [];
             angular.copy(projects, vm.projects);
@@ -213,4 +213,3 @@
         }
     }
 })();
-

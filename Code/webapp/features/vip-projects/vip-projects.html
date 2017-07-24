@@ -19,12 +19,12 @@
     <table class="table filters-table" style="max-width:50%; border: none;">
     <tr>
     <td>
-     <label type="hidden" ng-model="userproject">Filter Projects By:
+     <label type="hidden" ng-model="userproject">Sort order:
     <select class="form-control" ng-model="selectedFilter" ng-options="projects as projects.name for projects in vm.filters" ng-change="applyFilter()"></select></label>
    
     </td>
     <td>
-    <label>Search: <input class="form-control" ng-model="search"></label>
+    <label>Filter: <input class="form-control" ng-model="search"></label>
     </td>
     </tr>
     </table>
@@ -34,7 +34,7 @@
 <br><br>
 <center ng-hide="vm.done">
 <img ng-hide="vm.done" width="30%" height="30%" src="img/loading.gif"/></center>
-<div class="col-md-6 project-info" ng-if="vm.done"   ng-repeat="project in vm.filteredprojects |filter:search">
+<div class="col-md-6 project-info" ng-if="vm.done"   ng-repeat="project in vm.filteredprojects |filter:search | filter:project.status = '!pending'  | filter:project.status = '!Disabled'">
 <!--end-->
 <div>
 <img ng-src="{{project.image}}" alt="{{project.title}}" class="proj-image">

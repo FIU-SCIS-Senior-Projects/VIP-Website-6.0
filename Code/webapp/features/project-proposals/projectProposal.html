@@ -118,11 +118,9 @@
     <label>Maximum number of students per semester:</label>
     <input type="number" min="0" class="form-control" placeholder="" ng-model="project.maxStudents"/>
     </div>
-    <!-- User Story #1144 -->
+
     <div class="form-group">
-    <!-- User Story #1175 -->
-    <label>*Required Skills and Knowledge:</label>
-    <input type="text" class="form-control" placeholder="" ng-model="project.reqskillItem" required/>
+    <skills label="*Required Skills and Knowledge:" skills="project.reqskillItem"></skills>
     </div>
 
     <!-- User Story #1207 -->
